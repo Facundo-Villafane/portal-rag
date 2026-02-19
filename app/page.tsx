@@ -1,7 +1,6 @@
 import { Shield, BookOpen, Zap, Network, GraduationCap } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { HomeHeader } from './home-header'
-import { HomeChatForm } from './home-chat-form'
 import { HomeRipple } from './home-ripple'
 
 async function getAuthState(): Promise<{ isLoggedIn: boolean; dashboardUrl: string }> {
@@ -68,8 +67,6 @@ export default async function Home() {
                             Conectá el conocimiento de tus materias con modelos de lenguaje avanzados.
                             Respondés dudas de alumnos 24/7, basándote exclusivamente en tu material académico.
                         </p>
-
-                        <HomeChatForm />
 
                         <div className="pt-4 flex justify-center gap-6 text-sm text-slate-500">
                             <span className="flex items-center gap-1.5"><Shield className="w-4 h-4 text-slate-600" /> Acceso seguro</span>
