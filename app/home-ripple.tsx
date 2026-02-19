@@ -7,7 +7,7 @@ const BayerDitherBg = dynamic(() => import('@/components/bayer-dither-bg'), { ss
 export function HomeRipple() {
     return (
         <BayerDitherBg
-            color="#2563EB"
+            color="#3B82F6"
             pixelSize={4}
             shapeType="circle"
         />
