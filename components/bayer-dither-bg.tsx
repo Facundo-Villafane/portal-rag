@@ -9,7 +9,7 @@ void main() {
 }
 `
 
-const fragmentSrc = /* glsl */`#version 300 es
+const fragmentSrc = /* glsl */`
 precision highp float;
 
 uniform vec3  uColor;
