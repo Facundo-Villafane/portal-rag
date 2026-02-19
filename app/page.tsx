@@ -2,9 +2,7 @@ import { Shield, BookOpen, Zap, Network, GraduationCap } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { HomeHeader } from './home-header'
 import { HomeChatForm } from './home-chat-form'
-import dynamic from 'next/dynamic'
-
-const RippleGrid = dynamic(() => import('@/components/ripple-grid'), { ssr: false })
+import { HomeRipple } from './home-ripple'
 
 async function getAuthState(): Promise<{ isLoggedIn: boolean; dashboardUrl: string }> {
     try {
@@ -46,22 +44,7 @@ export default async function Home() {
             <main className="flex-1">
                 {/* Hero con RippleGrid de fondo */}
                 <div className="relative">
-                    {/* RippleGrid — fondo absoluto, cubre toda la sección hero */}
-                    <div className="absolute inset-0 pointer-events-none">
-                        <RippleGrid
-                            enableRainbow={false}
-                            gridColor="#22d3ee"
-                            rippleIntensity={0.04}
-                            gridSize={10}
-                            gridThickness={18}
-                            fadeDistance={1.6}
-                            vignetteStrength={2.5}
-                            glowIntensity={0.08}
-                            opacity={0.35}
-                            mouseInteraction={true}
-                            mouseInteractionRadius={1.2}
-                        />
-                    </div>
+                    <HomeRipple />
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-36">
                     <div className="text-center max-w-3xl mx-auto space-y-8">
 
