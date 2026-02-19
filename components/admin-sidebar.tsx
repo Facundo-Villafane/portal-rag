@@ -92,10 +92,10 @@ export function AdminSidebar({
                 {!collapsed && (
                     <div className='overflow-hidden'>
                         <p className='font-bold text-sm leading-tight truncate'>
-                            {isOrgMode && organizationName ? organizationName : 'UniAI Portal'}
+                            {isOrgMode && organizationName ? organizationName : 'Codisea Nexus'}
                         </p>
                         <p className='text-xs text-slate-400 truncate'>
-                            {isOrgMode ? 'Portal Académico' : 'Knowledge Manager'}
+                            {isOrgMode ? 'Portal Académico' : 'AI Knowledge Hub'}
                         </p>
                     </div>
                 )}

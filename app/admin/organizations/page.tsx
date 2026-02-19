@@ -32,7 +32,7 @@ export default async function OrganizationsPage() {
                 <PageHeader
                     title="Universidades"
                     description="Gestion de clientes del sistema. Solo visible para Super Admin."
-                    breadcrumbs={[{ label: 'Plataforma' }, { label: 'Universidades' }]}
+                    breadcrumbs={[{ label: 'Codisea Nexus' }, { label: 'Universidades' }]}
                     action={
                         <Link
                             href="/admin/organizations/new"
