@@ -1,5 +1,5 @@
 import { createServiceClient } from '@/lib/supabase/server'
-import { ChatInterface } from '@/components/chat-interface'
+import { EmbedLayout } from './embed-layout'
 
 interface PageProps {
     params: Promise<{ materia_id: string }>
@@ -32,8 +32,8 @@ export default async function EmbedPage({ params }: PageProps) {
     const carrera = materia?.carrera as { nombre?: string } | null
 
     return (
-        <div className="h-screen w-full overflow-hidden flex flex-col">
-            <ChatInterface
+        <div className="h-screen w-full overflow-hidden">
+            <EmbedLayout
                 materiaId={materia_id}
                 materiaNombre={materia?.nombre}
                 botNombre={materia?.config_bot?.nombre_bot}

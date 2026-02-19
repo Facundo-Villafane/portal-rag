@@ -1,49 +1,45 @@
 /**
- * Embeddings via Groq API (nomic-embed-text-v1.5, 768 dims)
- * Replaces local fastembed (too large for Vercel serverless, ~200MB+)
+ * Embeddings via Hugging Face Inference API
+ * Model: sentence-transformers/all-MiniLM-L6-v2 (384 dims)
+ * Free tier — no key required, or set HF_TOKEN for higher rate limits.
  */
 
-const GROQ_EMBEDDINGS_URL = 'https://api.groq.com/openai/v1/embeddings'
-const EMBEDDING_MODEL = 'nomic-embed-text-v1.5'
+const HF_MODEL = 'sentence-transformers/all-MiniLM-L6-v2'
+const HF_URL   = `https://router.huggingface.co/hf-inference/models/${HF_MODEL}/pipeline/feature-extraction`
 
-async function callGroqEmbeddings(inputs: string[]): Promise<number[][]> {
-    const apiKey = process.env.GROQ_API_KEY
-    if (!apiKey) throw new Error('GROQ_API_KEY not set')
+async function callHFEmbeddings(inputs: string[]): Promise<number[][]> {
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+    if (process.env.HF_TOKEN) headers['Authorization'] = `Bearer ${process.env.HF_TOKEN}`
 
-    const res = await fetch(GROQ_EMBEDDINGS_URL, {
+    const res = await fetch(HF_URL, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`,
-        },
-        body: JSON.stringify({ model: EMBEDDING_MODEL, input: inputs }),
+        headers,
+        body: JSON.stringify({ inputs }),
     })
 
     if (!res.ok) {
         const err = await res.text()
-        throw new Error(`Groq embeddings error ${res.status}: ${err}`)
+        throw new Error(`HF embeddings error ${res.status}: ${err}`)
     }
 
-    const json = await res.json()
-    // Sort by index to maintain input order
-    return (json.data as { index: number; embedding: number[] }[])
-        .sort((a, b) => a.index - b.index)
-        .map(d => d.embedding)
+    // HF returns number[][] directly
+    const json = await res.json() as number[][]
+    return json
 }
 
 export async function generateEmbedding(text: string): Promise<number[]> {
-    const results = await callGroqEmbeddings([text])
+    const results = await callHFEmbeddings([text])
     return results[0]
 }
 
 export async function generateEmbeddings(texts: string[]): Promise<number[][]> {
-    // Groq allows up to 96 inputs per request
-    const BATCH_SIZE = 96
+    // HF Inference allows batches; keep reasonable size to avoid timeouts
+    const BATCH_SIZE = 32
     const all: number[][] = []
 
     for (let i = 0; i < texts.length; i += BATCH_SIZE) {
         const batch = texts.slice(i, i + BATCH_SIZE)
-        const embeddings = await callGroqEmbeddings(batch)
+        const embeddings = await callHFEmbeddings(batch)
         all.push(...embeddings)
     }
 
