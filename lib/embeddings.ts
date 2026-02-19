@@ -1,42 +1,51 @@
-import { FlagEmbedding, EmbeddingModel } from 'fastembed'
+/**
+ * Embeddings via Groq API (nomic-embed-text-v1.5, 768 dims)
+ * Replaces local fastembed (too large for Vercel serverless, ~200MB+)
+ */
 
-// Singleton instance to avoid reloading the model on every call
-let embeddingModel: FlagEmbedding | null = null
+const GROQ_EMBEDDINGS_URL = 'https://api.groq.com/openai/v1/embeddings'
+const EMBEDDING_MODEL = 'nomic-embed-text-v1.5'
 
-async function getModel() {
-    if (!embeddingModel) {
-        console.log('Initializing FastEmbed model...')
-        // Init with default model: BAAI/bge-small-en-v1.5
-        // Lightweight and good performance
-        embeddingModel = await FlagEmbedding.init({
-            model: EmbeddingModel.BGESmallENV15
-        })
+async function callGroqEmbeddings(inputs: string[]): Promise<number[][]> {
+    const apiKey = process.env.GROQ_API_KEY
+    if (!apiKey) throw new Error('GROQ_API_KEY not set')
+
+    const res = await fetch(GROQ_EMBEDDINGS_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({ model: EMBEDDING_MODEL, input: inputs }),
+    })
+
+    if (!res.ok) {
+        const err = await res.text()
+        throw new Error(`Groq embeddings error ${res.status}: ${err}`)
     }
-    return embeddingModel
+
+    const json = await res.json()
+    // Sort by index to maintain input order
+    return (json.data as { index: number; embedding: number[] }[])
+        .sort((a, b) => a.index - b.index)
+        .map(d => d.embedding)
 }
 
 export async function generateEmbedding(text: string): Promise<number[]> {
-    const model = await getModel()
-    const embeddings = model.embed([text]) // Async Generator
-    for await (const batch of embeddings) {
-        // fastembed returns Float32Array rows — convert to plain number[] for JSON serialization
-        return Array.from(batch[0])
-    }
-    throw new Error('Failed to generate embedding')
+    const results = await callGroqEmbeddings([text])
+    return results[0]
 }
 
 export async function generateEmbeddings(texts: string[]): Promise<number[][]> {
-    const model = await getModel()
-    const result: number[][] = []
+    // Groq allows up to 96 inputs per request
+    const BATCH_SIZE = 96
+    const all: number[][] = []
 
-    const embeddingsGenerator = model.embed(texts)
-
-    for await (const batch of embeddingsGenerator) {
-        // fastembed returns Float32Array rows — convert each to plain number[]
-        for (const row of batch) {
-            result.push(Array.from(row))
-        }
+    for (let i = 0; i < texts.length; i += BATCH_SIZE) {
+        const batch = texts.slice(i, i + BATCH_SIZE)
+        const embeddings = await callGroqEmbeddings(batch)
+        all.push(...embeddings)
     }
 
-    return result
+    return all
 }
