@@ -74,7 +74,7 @@ export default function LoginPage() {
                                     type="email"
                                     autoComplete="email"
                                     required
-                                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all [&:-webkit-autofill]:[-webkit-box-shadow:0_0_0_1000px_#1e293b_inset] [&:-webkit-autofill]:[-webkit-text-fill-color:#fff]"
                                     placeholder="usuario@universidad.edu"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
@@ -90,7 +90,7 @@ export default function LoginPage() {
                                     type="password"
                                     autoComplete="current-password"
                                     required
-                                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all [&:-webkit-autofill]:[-webkit-box-shadow:0_0_0_1000px_#1e293b_inset] [&:-webkit-autofill]:[-webkit-text-fill-color:#fff]"
                                     placeholder="••••••••"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
