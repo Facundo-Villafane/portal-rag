@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { Send, Bot, User, Loader2, Copy, Check, Trash2 } from 'lucide-react'
+import { Send, Bot, User, Loader2, Copy, Check, Trash2, Download } from 'lucide-react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import ReactMarkdown from 'react-markdown'
@@ -128,6 +128,27 @@ export function EmbedLayout({
         try { sessionStorage.removeItem(SESSION_KEY(materiaId)) } catch { /* ignore */ }
     }, [materiaId])
 
+    const handleExport = useCallback(() => {
+        const lines = [
+            `Conversación con ${displayName}`,
+            `Exportado el ${new Date().toLocaleString('es-AR')}`,
+            '─'.repeat(40),
+            '',
+            ...messages.map(m => {
+                const who = m.role === 'user' ? 'Vos' : displayName
+                const time = m.timestamp ? ` [${formatTime(m.timestamp)}]` : ''
+                return `${who}${time}:\n${m.content}\n`
+            }),
+        ]
+        const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' })
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `chat-${displayName.replace(/\s+/g, '-').toLowerCase()}.txt`
+        a.click()
+        URL.revokeObjectURL(url)
+    }, [messages, displayName])
+
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault()
@@ -193,13 +214,22 @@ export function EmbedLayout({
                     </div>
                 </div>
                 {messages.length > 0 && (
-                    <button
-                        onClick={handleClearChat}
-                        title="Borrar conversación"
-                        className="p-1.5 text-slate-300 hover:text-red-400 hover:bg-red-50 rounded-lg transition-colors flex-shrink-0"
-                    >
-                        <Trash2 className="w-3.5 h-3.5" />
-                    </button>
+                    <div className="flex items-center gap-1">
+                        <button
+                            onClick={handleExport}
+                            title="Exportar conversación"
+                            className="p-1.5 text-slate-300 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors flex-shrink-0"
+                        >
+                            <Download className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                            onClick={handleClearChat}
+                            title="Borrar conversación"
+                            className="p-1.5 text-slate-300 hover:text-red-400 hover:bg-red-50 rounded-lg transition-colors flex-shrink-0"
+                        >
+                            <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                    </div>
                 )}
             </div>
 
