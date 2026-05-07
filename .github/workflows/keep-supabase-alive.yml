@@ -19,7 +19,8 @@ jobs:
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
             -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
           echo "Response status: $STATUS"
-          if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 300 ]; then
+          # 2xx = success; 401 = unauthorized but server is alive (keeps free tier active)
+          if { [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 300 ]; } || [ "$STATUS" -eq 401 ]; then
             echo "Supabase is alive!"
           else
             echo "Unexpected status code: $STATUS"
