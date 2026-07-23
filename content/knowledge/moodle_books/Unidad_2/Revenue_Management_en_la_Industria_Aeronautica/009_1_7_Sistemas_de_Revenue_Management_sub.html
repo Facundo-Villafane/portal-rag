@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<title>1.7. Sistemas de Revenue Management</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+    figure { margin: 1.25rem 0; }
+    figure img, p img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    figcaption { color: #555; font-size: .92rem; text-align: center; margin-top: .35rem; }
+  </style>
+</head>
+<body>
+<h1>1.7. Sistemas de Revenue Management</h1>
+<p>Los  sistemas  de  Revenue  Management  deben  ejecutar  de  manera  general  las
+siguientes tareas:</p>
+<ul>
+<li>Almacenamiento  de  la  información:  Recolectar  y  almacenar  información
+relevante  histórica  tales  como  precios,  demanda,  temporalidad.  Se  define
+como día de lectura (reading day) como el día t antes de la salida del vuelo en
+que se captura y se almacena la información (cuando opera el vuelo es t =0)</li>
+<li>Estimación  y  pronóstico:  Estimar  los  parámetros  de  los  modelos  de
+demanda,  pronosticar  la  demanda  basada  en  estos  parámetros,  pronosticar</li>
+otros datos relevantes tales como personas que no llegan a hacer el uso de su
+reservación, índices de cancelaciones, todo esto basado en datos históricos.
+Se  define  día  de  procesamiento  (processing  day)  como  el  día  t  antes  de  la
+salida del vuelo, en que se procesan la estimación y pronósticos.
+</ul>
+<ul>
+<li>Optimización: Encontrar el conjunto óptimo de asignación por clase para ser</li>
+aplicados hasta la próxima re-optimización.
+</ul>
+<p><ul>
+<li>Envío:  Se  manda  la  información  al  sistema  de  reservaciones  con  el  fin  de</li>
+manejar el inventario de acuerdo a los parámetros definidos.</ul></p>
+<p><p>Los cuatro procesos antes mencionados son cíclicos, es decir, el día de lectura y de
+procesamiento son más frecuentes cuando la fecha de servicio está cerca, ya que de
+manera regular la demanda incrementa cuando el vuelo está más cercano.</p>
+</p>
+</body>
+</html>

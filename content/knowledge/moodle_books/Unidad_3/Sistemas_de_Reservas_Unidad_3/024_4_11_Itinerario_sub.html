@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>4.11. Itinerario</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+    figure { margin: 1.25rem 0; }
+    figure img, p img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    figcaption { color: #555; font-size: .92rem; text-align: center; margin-top: .35rem; }
+  </style>
+</head>
+<body>
+<h1>4.11. Itinerario</h1>
+<p style="line-height: 1.55; text-align: justify;">
+  Son las ciudades incluidas en el tiquete: origen, destino y las ciudades intermedias
+  entre ambos. Las ciudades intermedias pueden ser: paradas &#40;<em>stopovers</em>, en inglés&#41;
+  o puntos de conexión.
+</p>
+
+<ul style="line-height: 1.55; margin-top: 10px;">
+  <li style="margin-bottom: 14px;">
+    <strong>Parada o Stopover:</strong> Punto donde el pasajero corta su viaje en un punto
+    intermedio entre origen y destino.
+
+    <p style="margin: 4px 0 0 38px;">
+      Ejemplo:
+    </p>
+
+    <table style="border-collapse: collapse; margin-left: 100px; margin-top: 2px; font-size: 14px;">
+      <tbody>
+        <tr>
+          <td style="padding: 1px 8px; text-align: center;"></td>
+          <td style="padding: 1px 8px;">BOG</td>
+          <td style="padding: 1px 8px;"></td>
+        </tr>
+        <tr>
+          <td style="padding: 1px 8px; text-align: center; color: #005f78; font-weight: bold;">O</td>
+          <td style="padding: 1px 8px;">LIM</td>
+          <td style="padding: 1px 8px; color: #005f78; font-weight: bold;">
+            O= <span style="color: #000; font-weight: normal;">LIM es el punto de parada o stopover</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 1px 8px; text-align: center;"></td>
+          <td style="padding: 1px 8px;">BUE</td>
+          <td style="padding: 1px 8px;"></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+
+  <li style="margin-bottom: 14px;">
+    <strong>Punto de Conexión o No-Stopover:</strong> Ciudad que no es un punto de parada
+    y que se utiliza como punto de Trasbordo o Transfer dentro del itinerario.
+
+    <p style="margin: 4px 0 0 38px;">
+      Ejemplo:
+    </p>
+
+    <table style="border-collapse: collapse; margin-left: 92px; margin-top: 2px; font-size: 14px;">
+      <tbody>
+        <tr>
+          <td style="padding: 1px 8px; text-align: center;"></td>
+          <td style="padding: 1px 8px;">EZE</td>
+          <td style="padding: 1px 28px;"></td>
+        </tr>
+        <tr>
+          <td style="padding: 1px 8px; text-align: center; color: #005f78; font-weight: bold;">X</td>
+          <td style="padding: 1px 8px;">BOG</td>
+          <td style="padding: 1px 28px;" rowspan="4">
+            Los puntos de conexión son identificados<br>
+            con el símbolo <strong>X</strong>, los stopovers con una <strong style="color: #005f78;">O</strong>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 1px 8px; text-align: center; color: #005f78; font-weight: bold;">O</td>
+          <td style="padding: 1px 8px;">MIA</td>
+        </tr>
+        <tr>
+          <td style="padding: 1px 8px; text-align: center; color: #005f78; font-weight: bold;">X</td>
+          <td style="padding: 1px 8px;">BOG</td>
+        </tr>
+        <tr>
+          <td style="padding: 1px 8px; text-align: center;"></td>
+          <td style="padding: 1px 8px;">EZE</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+
+  <li style="margin-bottom: 14px;">
+    <strong>Sector Surface:</strong> Es un tramo entre dos puntos de un itinerario que se
+    realiza por un medio no aéreo. El tramo surface ocurre cuando la ciudad de arribo
+    anterior no es idéntica a la ciudad de salida del siguiente segmento del itinerario.
+    Por ejemplo, el último punto de parada es Buenos Aires &#40;BUE&#41; y la ciudad de salida
+    del siguiente segmento es Montevideo &#40;MVD&#41;: entre ambas ciudades hay una brecha
+    o gap, en inglés.
+
+    <table style="border-collapse: collapse; margin-left: 62px; margin-top: 4px; font-size: 14px;">
+      <tbody>
+        <tr>
+          <td style="padding: 1px 8px;">MAD</td>
+          <td style="padding: 1px 18px;"></td>
+          <td style="padding: 1px 8px;"></td>
+        </tr>
+        <tr>
+          <td style="padding: 1px 8px;">BUE</td>
+          <td style="padding: 1px 18px;"></td>
+          <td style="padding: 1px 8px;"></td>
+        </tr>
+        <tr>
+          <td style="padding: 1px 8px;"><strong>ARNK</strong></td>
+          <td style="padding: 1px 18px; color: #005f78;">&#8592;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;</td>
+          <td style="padding: 1px 8px;">Tramo surface</td>
+        </tr>
+        <tr>
+          <td style="padding: 1px 8px;">MDV</td>
+          <td style="padding: 1px 18px;"></td>
+          <td style="padding: 1px 8px;"></td>
+        </tr>
+        <tr>
+          <td style="padding: 1px 8px;">MAD</td>
+          <td style="padding: 1px 18px;"></td>
+          <td style="padding: 1px 8px;"></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+
+  <li style="margin-bottom: 14px;">
+    <strong>Ruta Internacional:</strong> El origen y el punto de parada están en países diferentes.
+    <p style="margin: 4px 0 0 38px;">
+      Ejemplo:<br>
+      <span style="display: inline-block; margin-left: 38px;">Asunción &#40;ASU&#41; / Madrid &#40;MAD&#41;.</span>
+    </p>
+  </li>
+
+  <li style="margin-bottom: 14px;">
+    Ruta Doméstica: El origen y el punto de parada están dentro de un mismo país.
+    <p style="margin: 4px 0 0 38px;">
+      Ejemplos:<br>
+      <span style="display: inline-block; margin-left: 38px;">Mendoza &#40;MDZ&#41; / Córdoba &#40;COR&#41;</span>
+    </p>
+  </li>
+</ul>
+</body>
+</html>

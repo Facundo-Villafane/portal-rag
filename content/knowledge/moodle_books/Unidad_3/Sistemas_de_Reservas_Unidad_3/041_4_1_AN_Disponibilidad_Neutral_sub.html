@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>4.1. AN – Disponibilidad Neutral</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+    figure { margin: 1.25rem 0; }
+    figure img, p img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    figcaption { color: #555; font-size: .92rem; text-align: center; margin-top: .35rem; }
+  </style>
+</head>
+<body>
+<h1>4.1. AN – Disponibilidad Neutral</h1>
+<p style="line-height: 1.55; text-align: justify;">
+  Se le dice disponibilidad neutral al comando <strong>AN</strong> por su traducción del inglés,
+  Availability Neutral, esta es una buena forma de relacionar los comandos para facilitar
+  su aprendizaje. <span style="color: #005f78; font-style: italic;">&#40;Por ejemplo, DNA podría interpretarse como Display Name Airline,
+  porque muestra, ‘Display’, el nombre, ‘Name’, de la aerolínea, ‘Airline’.&#41;</span>
+</p>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 8px;">
+  <thead>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Comando
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Lo que muestra
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        ANBUEMAD
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Disponibilidad entre 2 ciudades, si no pongo fecha es para hoy.
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        AN20JULNYCMAD
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Disponibilidad entre 2 ciudades para una fecha determinada
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        AN08MAYEZEMAD/AUX
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Disponibilidad entre 2 ciudades con una aerolínea
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        AN12DECEZENYC/XMIA
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Disponibilidad entre 2 ciudades pasando por Miami
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        AN12DECEZENYC-XMIA
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Disponibilidad entre 2 ciudades sin pasar por Miami
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        AN12DECEZENYC/CL
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Elijo la clase &#40;L en este caso&#41;
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        AN12DECEZENYC/KY
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Elijo la cabina &#40;Y economy o turista en este caso&#41;
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        AN15AUGBUEMIA*30SEP
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Disponibilidad para ir y volver. Si solo pongo fecha de regreso se entiende que
+        es desde la misma ciudad
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        AN10MAYBUEBRC*
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Ida y vuelta para el mismo día &#40;10 de mayo&#41;
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        AN13MAYBUEMIA*02APRCUNBUE
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Vuelos multidestino
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="line-height: 1.55; text-align: justify;">
+  El comando <strong>AN</strong> permite consultar la disponibilidad de vuelos y lugares
+  en clases disponibles para una fecha particular, especificando un lugar de partida
+  y otro de destino.
+</p>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 24px;">
+  Ejemplo:
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Supongamos que necesitamos unos tickets de ida y vuelta, desde el Cairo hasta Dubái,
+  saliendo el 3 de Junio y regresando el 7 de Junio.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Antes de colocar el comando para el primer segmento &#40;trayecto, vuelo o como quieran
+  decirle&#41; para El Cairo &ndash; Dubái el 3 de Junio debemos saber los códigos de
+  aeropuerto de estos dos lugares, ya que los debemos colocar en el comando.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  En caso de no saberlos podemos usar el comando <strong>DAN</strong>:
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25;">
+&gt; DAN CAIRO
+
+DAN CAIRO
+A:APT B:BUS C:CITY G:GRD H:HELI O:OFF-PT R:RAIL S:ASSOC TOWN
+CAI*C  CAIRO                                          /EG
+<span style="background-color: #ffff00;">   A  CAI - CAIRO INTL                 -  0K          /EG</span>
+   A  CCE - CAPITAL INTERNATIONAL      - 17K          /EG
+CIR C  CAIRO                                          /USIL
+   A  CIR - CAIRO                      -  0K          /USIL
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Entonces el comando <strong>DAN CAIRO</strong> muestra los aeropuertos disponibles en la
+  ciudad de El Cairo. Resaltado puede verse el aeropuerto internacional de El Cairo
+  <strong>CAI</strong>.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Hacemos lo mismo con Dubái:
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25;">
+&gt; DAN DUBAI
+
+DANDUBAI
+A:APT B:BUS C:CITY G:GRD H:HELI O:OFF-PT R:RAIL S:ASSOC TOWN
+DXB*C  DUBAI                                          /AE
+   A  DWC - AL MAKTOUM INTL           - 40K           /AE
+   A  DCG - DUBAI CREEK SPB           -  1K           /AE
+<span style="background-color: #ffff00;">   A  DXB - DUBAI INTL                -  0K           /AE</span>
+   A  ZJF - JEBEL ALI FREE ZONE       - 33K           /AE
+   A  DJH - JEBEL ALI SPB             - 41K           /AE
+   A  NHD - MINHAD AB                 - 45K           /AE
+   B  XEU - HYATT RGNCY EY BUS STN    - 22K           /AE
+   B  ZXZ - JUMEIRAH BEACH BUS ST     - 22K           /AE
+Q3D G  DUBAI INDUSTRIAL CITY                          /AE
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Resulta que esta vez la lista es tan larga que uno no sabría cual elegir. Hay varias
+  maneras de resolverlo:
+</p>
+<ol style="line-height: 1.55; text-align: justify;">
+  <li style="margin-bottom: 6px;">
+    Solo las líneas que comienzan por <strong>A</strong> corresponden a aeropuertos.
+    Las que comienzan con <strong>B</strong> son estaciones de Bus y las que comienzan
+    con <strong>G</strong> no corresponden a ningún aeropuerto.
+  </li>
+
+  <li style="margin-bottom: 6px;">
+    Cómo lo que estamos buscando es un vuelo internacional seguramente la llegada será
+    a un aeropuerto internacional <strong>&#40;DUBAI INTL&#41;</strong>.
+  </li>
+
+  <li style="margin-bottom: 6px;">
+    Otra referencia que puede usarse es la cercanía con la ciudad &#40;Nótese que el
+    aeropuerto <strong>DUBAI INTL</strong> está a <strong>0K</strong> de la ciudad&#41;,
+    aunque una ciudad grande puede tener varios aeropuertos internacionales.
+  </li>
+
+  <li style="margin-bottom: 6px;">
+    Y la última, que es un secreto que nadie quiere admitir, es buscar en Google.
+    Sí, pueden entrar a Google Flights en
+    <a href="https://www.google.com/flights/" target="_blank">https://www.google.com/flights/</a>
+    podrán consultar el mismo vuelo que están intentando encontrar, copiar el código
+    de los aeropuertos, ver más o menos que aerolíneas vuelan y hasta los precios.
+    Luego pueden buscar con confianza en Amadeus.
+  </li>
+</ol>
+
+<p style="line-height: 1.55; text-align: justify; margin-top: 22px;">
+  Teniendo claro que los códigos del Cairo y Dubái respectivamente son
+  <strong>CAI</strong> y <strong>DXB</strong>, procedamos a utilizar el comando
+  <strong>AN</strong> para encontrar la disponibilidad de este vuelo el
+  <strong>3 de Junio</strong>.
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">
+&gt; <strong>AN</strong>03JUNCAIDXB
+
+AN03JUNCAIDXB
+** AMADEUS AVAILABILITY - AN ** DXB DUBAI.AE               <span style="color: #ff6600; font-weight: bold;">30 MO 03JUN 0000</span>
+1  <span style="color: #ff0080; font-weight: bold;">EK 926</span> F2 A2 J4 C4 I4 O7 Y7  <strong>CAI</strong> 2 <strong>DXB</strong> 3  0125  0710  <span style="color: #ff0080; font-weight: bold;">E0/77W</span>        <span style="color: #008000; font-weight: bold;">3:45</span>
+          E7 R7 W7 M7 B7 U7 K7 H7 Q7 L7 T7 V7 X7
+
+2MS:SQ6043 Z4 C4 J4 D4 Y4 B4 M4 /CAI 3 DXB 1  0525  1055  E0/738  TR   3:30
+3MS:SQ6034 Z4 C4 J4 D4 Y4 B4 M4 /CAI 3 DXB 1  0930  1500  E0/333  TR   3:30
+           H4 W4 Q4 N4 V4 L4
+
+4  EK 928 F2 A2 J4 C4 I4 O7 Y7  CAI 2 DXB 3  1205  1735  E0/77W        3:30
+          E7 R7 W7 M7 B7 U7 K7 H7 Q7 L7 T7 V7 X7
+
+5  EK 924 F2 A2 J4 C4 I4 O7 Y7  CAI 2 DXB 3  1840  <span style="color: #008000; font-weight: bold;">0025+1</span>E0/77W        3:45
+          E7 R7 W7 M7 B7 U7 K7 H7 Q7 L7 T7 V7 X7
+
+6MS:SQ6032 Z4 C4 J4 D4 Y4 B4 M4 /CAI 3 DXB 1  2230  0400+1E0/333  TR   3:30
+           H4 W4 Q4 N4 V4 L4
+
+7  GF 070 J7 C7 D4 I1 Y7 H7 M7 /CAI 2 BAH     1310  1715  E0/321
+          L7 B7 K7 X7 Q7 V7 E7 O7 N7 S7 W7
+   GF 510 J7 C7 D7 I5 Y7 H7 M7 /BAH    DXB 1  1805  2015  E0/320       5:05
+          L7 B7 K7 X7 Q7 V7 E7 O7 N7 S7 W7
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Lo que ven arriba es un despliegue de disponibilidad, puede parecer algo confuso y
+  caótico, pero vamos a ver cada parte en detalle para que puedan entender mejor:
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  <span style="color: #ff6600; font-weight: bold;">30 MO 03JUN 0000</span>
+  Indica el número de días que faltan para el vuelo, el día de la semana y la fecha
+  en que sale.
+</p>
+<p style="line-height: 1.55; text-align: justify;">
+  La <strong>línea en negrita</strong> es la primera línea de disponibilidad. Es decir,
+  uno de los vuelos que hay disponibles para ese día.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  <span style="color: #ff0080; font-weight: bold;">EK 926</span> corresponde al código
+  de la aerolínea y el número del vuelo, en este caso el vuelo
+  <strong>EK 926 de Emirates</strong>.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Luego continúan las clases
+  <span style="color: #000080; font-weight: bold;">F2 A2 J4 ... T7 V7 X7</span>.
+  Cada par de letra y número determinan la clase y el número de asientos disponibles
+  para dicha clase. Esto es importante porque es uno de los factores que definen el
+  precio final del vuelo y van, de izquierda a derecha, desde las más caras
+  &#40;clase ejecutiva&#41; hasta las más baratas. En este caso la más cara es la
+  <span style="color: #000080; font-weight: bold;">F2</span> &#40;2 asientos disponibles&#41;
+  y la más económica es la
+  <span style="color: #000080; font-weight: bold;">X7</span> &#40;7 asientos disponibles&#41;.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  <span style="color: #0066cc; font-weight: bold;">CAI 2 DXB 3</span> indica los códigos
+  de aeropuertos de origen y destino. Los números son las terminales de cada aeropuerto.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  <span style="color: #663399; font-weight: bold;">0125 0710</span> indica las horas de
+  salida y llegada. Todo son horas locales.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  <span style="color: #008000; font-weight: bold;">3:45</span> indica el tiempo de vuelo
+  &#40;desde que despega hasta que aterriza&#41;.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  <span style="color: #ff0080; font-weight: bold;">E0/77W</span> indica respectivamente
+  el número de escalas del vuelo, cero en este caso, y el tipo de avión que vuela
+  &#40;Boeing 777-300ER&#41;.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Finalmente, si se fijan en la línea <strong>5</strong>, verán un
+  <span style="color: #33cc00; font-weight: bold;">0025+1</span> en la hora de llegada.
+  Eso señala que el vuelo llega a la 12:25 de la media noche, pero un día después.
+  También nótese que todas las fechas son en formato de 24 horas.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Adicionalmente, existen una serie de argumentos opcionales que uno puede agregar
+  para la búsqueda de disponibilidad. Un ejemplo de esto es filtrar los resultados
+  para que muestre solo una aerolínea específica agregando <strong>/A EK</strong>
+  al final &#40;mostrar solo Emirates&#41;, como se muestra a continuación:
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">
+&gt; <strong>AN</strong>03JUNCAIDXB/AEK
+
+AN03JUNCAIDXB/AEK
+** AMADEUS AVAILABILITY - AN ** DXB DUBAI.AE                    30 MO 03JUN 0000
+1  <span style="color: #ff0080; font-weight: bold;">EK 926</span>  F2 A2 J4 C4 I4 O7 Y7  CAI 2 DXB 3   0125    0710   E0/77W        3:45
+           E7 R7 W7 M7 B7 U7 K7 H7 Q7 L7 T7 V7 X7
+
+2  EK 928  F2 A2 J4 C4 I4 O7 Y7  CAI 2 DXB 3   1205    1735   E0/77W        3:30
+           E7 R7 W7 M7 B7 U7 K7 H7 Q7 L7 T7 V7 X7
+
+3  EK 924  F2 A2 J4 C4 I4 O7 Y7  CAI 2 DXB 3   1840    0025+1E0/77W         3:45
+           E7 R7 W7 M7 B7 U7 K7 H7 Q7 L7 T7 V7 X7
+</pre>
+</body>
+</html>

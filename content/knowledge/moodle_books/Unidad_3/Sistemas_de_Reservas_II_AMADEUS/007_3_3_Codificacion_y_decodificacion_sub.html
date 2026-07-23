@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>3.3. Codificación y decodificación</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+  </style>
+</head>
+<body>
+<h1>3.3. Codificación y decodificación</h1>
+<p>Unos  de  los  primeros  comandos  que  debemos  aprender  son  los  de  codificar  y
+decodificar (encoding and decoding), este es el proceso de convertir los códigos que</p>
+<p>utiliza Amadeus para representar las ubicaciones, compañías, equipos, etc., en los
+nombres  completos  o  viceversa.  Por  ejemplo,  uno  de  los  aeropuertos  de  París</p>
+<p>(Francia) se llama el Charles de Gaulle y su código en Amadeus es CDG (IATA).</p>
+<p>9</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe
+U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<p>Amadeus permite codificar y decodificar:</p>
+<ul>
+<li>
+<p>Códigos de Aerolíneas.</p>
+</li>
+<li>
+<p>Códigos de aeropuertos y ciudades.</p>
+</li>
+<li>
+<p>Códigos de estados y provincias.</p>
+</li>
+<li>
+<p>Códigos de Países.</p>
+</li>
+<li>
+<p>Códigos de tipos de Aviones.</p>
+</li>
+<li>
+<p>Hoteles y compañías de alquiler de vehículos.</p>
+</li>
+</ul>
+<h3>3.3.1. Ciudades y aeropuertos</h3>
+<p>Codificación Comando DAN</p>
+<p>Los aeropuertos están identificados con códigos de 3 letras. Para obtener el código
+a partir del nombre de la ciudad se puede utilizar el comando DAN. A continuación,</p>
+<p>puede verse cómo se usa y cuál es la respuesta.</p>
+<p>DAN + Nombre de la Ciudad</p>
+<p>La siguiente tabla explica la respuesta:</p>
+<p>Componente
+BUE</p>
+<p>C</p>
+<p>Explicación</p>
+<p>Código de la ciudad</p>
+<p>Indicador de “Ciudad”</p>
+<p>BUENOS AIRES</p>
+<p>Nombre de la ciudad</p>
+<p>/ARBA</p>
+<p>A</p>
+<p>AEP</p>
+<p>Código ISO del país, en este caso AR de Argentina, BA de
+Buenos Aires</p>
+<p>Indicador de “Aeropuerto”</p>
+<p>Código del Aeropuerto</p>
+<p>J. NEWBERY</p>
+<p>Nombre del aeropuerto</p>
+<p>6K</p>
+<p>10</p>
+<p>Distancia de la ciudad</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe
+U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<p>Decodificación Comando DAC</p>
+<p>El  proceso  inverso,  en  el  que  se  consulta  una  ciudad  o  aeropuerto  a  partir  de  su
+código. Para eso puede usarse el comando DAC:</p>
+<p>DAC + Código de ciudad o aeropuerto</p>
+<p>De  la  respuesta  se  pude  leer  que  NEW  YORK  es  Nueva  York  en  Inglés,  que</p>
+<p>USNY:NEW YORK se refiere a US United States y NY New York y luego el título
+AIRPORT-HELIPORT seguido por los código de los aeropuertos. En caso de dudas:
+C es ciudad, A es aeropuerto, H es helipuerto, P es puerto y R es para estaciones
+de Tren (Rail station). Muy similar al funcionamiento del comando DAN.</p>
+<h3>3.3.2. Países y provincias</h3>
+<p>Comando DC</p>
+<p>El  comando  DC  permite  decodificar  países,  por  ejemplo,  DC  ISRAEL  o  DC  IL
+permiten consultar el país de Israel:</p>
+<p>11</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe
+U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<p>DC + Nombre de país o código de país</p>
+<p>DC ISRAEL
+IL   ISRAEL/MIDDLE EAST           TC2</p>
+<p>ILS  ISRAELI SHEKEL               LOCAL
+USD  US DOLLAR                    INTL PUBLISHED</p>
+<p>ISR  ISRAEL CITIZEN</p>
+<p>IL se refiere al código del país, MIDDLE EAST es la ubicación del país (continente</p>
+<p>o subcontinente, en este caso el medio oriente), TC2 se refiere al aérea IATA en el
+que se encuentra, ILS se refiere al código de la moneda local (Shekel Israelí). ISR</p>
+<p>se refiere al código de la ciudadanía (Israelí).</p>
+<p>De manera similar, se pueden consultar estados o provincias, utilizando el comando
+DNS. Esto aplica para los países con estados como USA o Canadá.</p>
+<h3>3.3.3. Aerolíneas</h3>
+<p>Comando DNA</p>
+<p>También  puede  hacerse  con  aerolíneas  y  esta  es  bien  importante.  El  comando  a
+utilizar es DNA:</p>
+<p>DNA + Nombre o código de la aerolínea</p>
+<p>En  este  caso  muestra  las  coincidencias  de  las  aerolíneas  que  se  llaman  LATAM.</p>
+<p>Revisando el resultado, LA es el código de la aerolínea. También se puede buscar
+el nombre de la aerolínea con el código, ingresando DNA LA.</p>
+<p>12</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe
+U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<h3>3.3.4. Aviones (Equipos)</h3>
+<p>Comando DNE</p>
+<p>También se pueden codificar los tipos de Avión con el código DNE:</p>
+<p>DNE + Nombre o código de equipo</p>
+<blockquote>
+<p>DNE 738</p>
+</blockquote>
+<p>DNE 738
+738 N BOEING 737-800                 JET  123-186
+Resumen</p>
+<p>Ítem</p>
+<p>Codificación</p>
+<p>Decodificación</p>
+<p>Ciudades y aeropuertos</p>
+<p>Países</p>
+<p>DAN LONDON
+DAN NEWYORK</p>
+<p>DC ARGENTINA</p>
+<p>DAC NYC
+DAC JFK</p>
+<p>DC AR</p>
+<p>Estados (US, CA, AR, BR, AU)  DNS FLORIDA</p>
+<p>DNS USNY</p>
+<p>Aerolíneas</p>
+<p>Equipos</p>
+<p>Alquileres de autos</p>
+<p>Hoteles</p>
+<p>13</p>
+<p>DNA LATAM</p>
+<p>DNE AIRBUS</p>
+<p>DNC ALAMO</p>
+<p>DNH MARRIOTT</p>
+<p>DNA LA</p>
+<p>DNE 320</p>
+<p>DNC AL</p>
+<p>DNH EM</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe
+U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+</body>
+</html>

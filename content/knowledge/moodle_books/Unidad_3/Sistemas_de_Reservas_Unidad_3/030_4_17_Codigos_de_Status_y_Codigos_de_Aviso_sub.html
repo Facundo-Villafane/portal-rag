@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>4.17. Códigos de Status y Códigos de Aviso</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+    figure { margin: 1.25rem 0; }
+    figure img, p img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    figcaption { color: #555; font-size: .92rem; text-align: center; margin-top: .35rem; }
+  </style>
+</head>
+<body>
+<h1>4.17. Códigos de Status y Códigos de Aviso</h1>
+<p>Son  códigos  usados  en  la  industria  del  viaje  para  solicitar  reservas  de  lugares  y
+servicios  especiales,  y  para  enviar  mensajes  de  confirmación,  lista  de  espera  o
+rechazo.</p>
+<h3>4.17.1. Código de Status</h3>
+<p style="line-height: 1.55; text-align: justify;">
+  Una vez que se finaliza un PNR los segmentos de vuelo quedan automáticamente
+  convertidos en uno de los siguientes códigos de status o estado:
+</p>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 42px;">
+  <thead>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 6px 8px; text-align: center;">
+        Código
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 6px 8px; text-align: center;">
+        Significado
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 12px 8px; text-align: center; vertical-align: middle;">
+        HK
+      </td>
+      <td style="border: 1px solid #007399; padding: 12px 8px; text-align: left; vertical-align: middle;">
+        Reserva confirmada.
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 12px 8px; text-align: center; vertical-align: middle;">
+        HL
+      </td>
+      <td style="border: 1px solid #007399; padding: 12px 8px; text-align: left; vertical-align: middle; line-height: 1.45;">
+        Reserva en lista de espera.<br>
+        La línea aérea tiene la potestad de confirmar o no el lugar en la<br>
+        lista de espera.
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 12px 8px; text-align: center; vertical-align: middle;">
+        HN
+      </td>
+      <td style="border: 1px solid #007399; padding: 12px 8px; text-align: left; vertical-align: middle; line-height: 1.45;">
+        Reserva solicitada.<br>
+        La línea aérea tiene la potestad de confirmar o no el lugar<br>
+        solicitado.
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h3>4.17.2. Códigos de Aviso</h3>
+<p style="line-height: 1.55; text-align: justify;">
+  Son códigos enviados por las líneas aéreas en respuesta a la reserva de un vuelo o
+  de una SSR efectuada por un agente de viajes.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Los códigos de aviso se clasifican en cuatro grupos:
+</p>
+
+<ul style="line-height: 1.55; margin-top: 8px;">
+  <li>Códigos con respuesta negativa</li>
+  <li>Códigos de confirmación</li>
+  <li>Códigos de lista de espera</li>
+  <li>Códigos de cambio de programación</li>
+</ul>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 12px;">
+  <tbody>
+    <tr>
+      <th colspan="2" style="border: 1px solid #007399; padding: 3px 8px; text-align: center; color: #005f78;">
+        Códigos con respuesta negativa
+      </th>
+    </tr>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: center; width: 17%;">
+        Código
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: center;">
+        Significado
+      </th>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 5px 8px; text-align: center;">NO</td>
+      <td style="border: 1px solid #007399; padding: 5px 8px;">La línea aérea no ha tomado acción del pedido.</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 5px 8px; text-align: center;">UC</td>
+      <td style="border: 1px solid #007399; padding: 5px 8px;">
+        Imposible de confirmar, no se ha puesto en lista de espera. La lista de espera está cerrada.
+      </td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 5px 8px; text-align: center;">UN</td>
+      <td style="border: 1px solid #007399; padding: 5px 8px;">
+        Imposible de confirmar, el vuelo o la clase no opera, o el servicio especial solicitado &#40;SSR&#41;
+        no es provisto por la aerolínea.
+      </td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 5px 8px; text-align: center;">HX</td>
+      <td style="border: 1px solid #007399; padding: 5px 8px;">La reserva fue cancelada por la línea aérea.</td>
+    </tr>
+
+    <tr>
+      <th colspan="2" style="border: 1px solid #007399; padding: 3px 8px; text-align: center; color: #005f78;">
+        Códigos de confirmación
+      </th>
+    </tr>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: center;">
+        Código
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: center;">
+        Significado
+      </th>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 5px 8px; text-align: center;">KK</td>
+      <td style="border: 1px solid #007399; padding: 5px 8px;">
+        Confirmado.<br>
+        La reserva estaba solicitada &#40;HN&#41;.
+      </td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 5px 8px; text-align: center;">KL</td>
+      <td style="border: 1px solid #007399; padding: 5px 8px;">
+        Confirmado.<br>
+        La reserva estaba en lista de espera &#40;HL&#41;.
+      </td>
+    </tr>
+
+    <tr>
+      <th colspan="2" style="border: 1px solid #007399; padding: 3px 8px; text-align: center; color: #005f78;">
+        Códigos de lista de espera
+      </th>
+    </tr>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: center;">
+        Código
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: center;">
+        Significado
+      </th>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 5px 8px; text-align: center;">UU</td>
+      <td style="border: 1px solid #007399; padding: 5px 8px;">
+        Lista de espera.<br>
+        La reserva estaba solicitada &#40;HN&#41;.
+      </td>
+    </tr>
+
+    <tr>
+      <th colspan="2" style="border: 1px solid #007399; padding: 3px 8px; text-align: center; color: #005f78;">
+        Códigos de cambio de programación
+      </th>
+    </tr>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: center;">
+        Código
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: center;">
+        Significado
+      </th>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 5px 8px; text-align: center;">TK</td>
+      <td style="border: 1px solid #007399; padding: 5px 8px;">Confirmado con nuevo horario.</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 5px 8px; text-align: center;">TL</td>
+      <td style="border: 1px solid #007399; padding: 5px 8px;">Lista de espera con nuevo horario.</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 5px 8px; text-align: center;">TN</td>
+      <td style="border: 1px solid #007399; padding: 5px 8px;">Solicitado con nuevo horario.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="line-height: 1.55; text-align: justify; margin-top: 26px;">
+  Una vez que se reciben Códigos de Aviso estos son
+  <strong>automáticamente convertidos</strong> a un Código de Status o son enviados al
+  histórico del PNR:
+</p>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 10px;">
+  <thead>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 6px 8px; text-align: center;">
+        Código de aviso
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 6px 8px; text-align: center;">
+        Se convierte en
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">KK &nbsp;&nbsp; &#40;Confirmado&#41;</td>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">HK &nbsp;&nbsp; &#40;Confirmado&#41;</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">UU &nbsp;&nbsp; &#40;Lista de espera&#41;</td>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">HL &nbsp;&nbsp; &#40;Lista de espera&#41;</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">KL &nbsp;&nbsp; &#40;Confirmado de la lista de espera&#41;</td>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">HK &nbsp;&nbsp; &#40;Confirmado&#41;</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">NO &nbsp;&nbsp; &#40;No se tomó acción&#41;</td>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">Pasa al histórico</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">UC &nbsp;&nbsp; &#40;Imposible confirmar&#41;</td>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">Pasa al histórico</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">HX &nbsp;&nbsp; &#40;Cancelado&#41;</td>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">Pasa al histórico</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">UN &nbsp;&nbsp; &#40;El vuelo o clase no opera&#41;</td>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">Pasa al histórico</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">TK &nbsp;&nbsp; &#40;Cambio de programación&#41;</td>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">HK &nbsp;&nbsp; &#40;Confirmado&#41;</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">TL &nbsp;&nbsp; &#40;Cambio de programación&#41;</td>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">HL &nbsp;&nbsp; &#40;Lista de espera&#41;</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">TN &nbsp;&nbsp; &#40;Cambio de programación&#41;</td>
+      <td style="border: 1px solid #007399; padding: 6px 8px;">HN &nbsp;&nbsp; &#40;Solicitado&#41;</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="line-height: 1.55; text-align: justify; margin-top: 26px;">
+  A continuación, ejemplos de algunas secuencias posibles de los códigos de Status y de Aviso:
+</p>
+
+<ol style="line-height: 1.45;">
+  <li style="margin-bottom: 8px;">
+    <strong>HN &#8594; KK &#8594; HK</strong><br>
+    La reserva estaba solicitada &#40;HN&#41;. Posteriormente la aerolínea confirma el pedido
+    &#40;KK&#41;. Una vez que se recibe la notificación y se cierra el PNR, el vuelo queda con
+    status HK.
+  </li>
+
+  <li style="margin-bottom: 8px;">
+    <strong>HN &#8594; UU &#8594; HL</strong><br>
+    La reserva estaba solicitada &#40;HN&#41;, la línea aérea avisa que pone el pedido en lista
+    de espera &#40;UU&#41;. Una vez que se recibe la notificación y se cierra el PNR, el vuelo
+    queda con el código de status HL.
+  </li>
+
+  <li style="margin-bottom: 8px;">
+    <strong>HN &#8594; UU &#8594; HL &#8594; KL &#8594; HK</strong><br>
+    El último estado era HL &#40;lista de espera&#41;. La línea aérea confirma la reserva con
+    el código KL. Finalmente la reserva queda con status HK.
+  </li>
+
+  <li style="margin-bottom: 8px;">
+    <strong>HN &#8594; UC</strong><br>
+    Reserva solicitada &#40;HN&#41;. La aerolínea informa que es imposible confirmar los lugares
+    en la clase/fecha solicitados. El segmento de vuelo pasará a histórico del PNR.
+  </li>
+</ol>
+
+<p style="line-height: 1.55; text-align: justify; margin-top: 24px;">
+  Resumen general:
+</p>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 8px;">
+  <thead>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 4px 8px; text-align: center;">
+        Acción
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 4px 8px; text-align: center;">
+        Estado
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 4px 8px; text-align: center;">
+        Aviso
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 6px 8px; text-align: center; vertical-align: middle;">
+        DK<br>
+        LK<br>
+        Solicitud confirmada
+      </td>
+      <td style="border: 1px solid #007399; padding: 6px 8px; text-align: center; vertical-align: middle;">
+        HK<br>
+        Confirmado
+      </td>
+      <td style="border: 1px solid #007399; padding: 6px 8px; text-align: center; vertical-align: middle;">
+        TK= Cambio Operacional<br>
+        <span style="display: block; border-top: 1px solid #007399; margin-top: 4px; padding-top: 4px;">
+          <strong>HX= Cancelado</strong>
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 18px;">
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 6px 8px; text-align: center; vertical-align: middle; width: 33%;">
+        DW<br>
+        LL<br>
+        Lista de Espera
+      </td>
+      <td style="border: 1px solid #007399; padding: 6px 8px; text-align: center; vertical-align: middle; width: 33%;">
+        HL<br>
+        Lista de Espera
+      </td>
+      <td style="border: 1px solid #007399; padding: 6px 8px; text-align: center; vertical-align: middle;">
+        KL= Confirmación de Lista de Espera<br>
+        <span style="display: block; border-top: 1px solid #007399; margin-top: 4px; padding-top: 4px;">
+          <strong>UC / UN / UU / US / NO<br>Negado</strong>
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 18px;">
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 6px 8px; text-align: center; vertical-align: middle; width: 33%;">
+        SS<br>
+        NN<br>
+        Solicitud de Servicio
+      </td>
+      <td style="border: 1px solid #007399; padding: 6px 8px; text-align: center; vertical-align: middle; width: 33%;">
+        HN<br>
+        Servicio Solicitado
+      </td>
+      <td style="border: 1px solid #007399; padding: 6px 8px; text-align: center; vertical-align: middle;">
+        KK= Servicio Confirmado<br>
+        <span style="display: block; border-top: 1px solid #007399; margin-top: 4px; padding-top: 4px;">
+          <strong>UC / UN / UU / US / NO<br>Negado</strong>
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 18px;">
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 8px; text-align: center;">
+        <strong>HX / UC / UN / UU / US / NO = Segmentos improductivos<br>
+        se deben eliminar del PNR</strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 18px;">
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 8px; text-align: center;">
+        <strong>TK / KL / KK = Estos estados deben pasar a estado HK</strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

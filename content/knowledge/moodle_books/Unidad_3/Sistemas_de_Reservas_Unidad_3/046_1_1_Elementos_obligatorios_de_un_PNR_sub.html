@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>1.1. Elementos obligatorios de un PNR</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+    figure { margin: 1.25rem 0; }
+    figure img, p img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    figcaption { color: #555; font-size: .92rem; text-align: center; margin-top: .35rem; }
+  </style>
+</head>
+<body>
+<h1>1.1. Elementos obligatorios de un PNR</h1>
+<ol>
+<li>Itinerario</li>
+<li>Nombres</li>
+<li>Contacto del pax</li>
+<li>Tiempo límite de la reserva</li>
+<li>Referencia</li>
+<li>Cierre del PNR</li>
+</ol>
+<p>Ahora vamos a desglosar uno por uno los elementos obligatorios de un PNR y como
+cargarlos en el sistema Amadeus.</p>
+<h3>1.1.1. Itinerario</h3>
+<p>Desde  el  primer  contacto  con  el  pax  ya  sea  en  una  agencia  de  viajes  o  desde  la
+oficina  de  ventas  de  una  aerolínea,  el  pasajero  viene  con  la  necesidad  de
+transportarse de un lugar a otro en una fecha específica, nosotros como agentes de
+viajes  o  responsables  de  la  venta  debemos  buscar  la  disponibilidad  de  ese  vuelo
+para  esa  fecha  y  ofrecerle  al  pasajero  las  diferentes  opciones.  Por  ello  vamos  a
+suponer una situación en la que el pasajero nos brinda el lugar al que quiere viajar y
+la fecha en la que desea hacerlo.</p>
+<p>Ejemplo Practico 1:</p>
+<figure>
+  <img src="assets/image8_amadeus.png" alt="Caso Práctico 1">
+  <figcaption>Caso Práctico 1</figcaption>
+</figure>
+<p>Tenemos al Sr. Muñoz Diego que desea volar desde Córdoba a Madrid, debe estar
+en su destino el dia 19/11/24 y regresar 7 días después (25/11/24) y prefiere viajar
+en Clase Business o superior.</p>
+<p>Lo primero que debemos hacer es buscar en sistema si hay un vuelo para esa fecha
+hacia  ese  destino,  para  este  tipo  de  vuelos  se  recomienda  buscarlos  para  un  dia
+antes ya que el tiempo de vuelo suele ser de unas 12hrs. Para ello vamos a usar el
+comando de búsqueda de disponibilidad neutral AN. Recuerden que si no sabemos
+los  códigos  de  las  ciudades  podemos  codificarlos  con  el  comando  DAN
+(DANCORDOBA y DANMADRID)</p>
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">
+&gt;<strong>AN</strong>18NOVCORMAD
+
+AN18NOVCORMAD
+
+** AMADEUS AVAILABILITY - AN ** MAD MADRID.ES                 183 MO 18NOV 0000
+1   UX 122 J5 C3 W4 O4 I4 U7 E7   COR     MAD 3  1305  0505+1E0/787       12:00
+           R7 Y7 B7 K7 H7 Q7 L7 T7 V7 X7
+
+2   LA 491 W7 O7 Y7 B7 K7 H7 Q7   COR     SCL 1  1052  1224  E0/321
+           L7 T7 V7 X7
+    IB6832 J2 C2 W4 O4 I3 U7 E7   SCL 1   MAD 3  1310  0540+1E0/350       14:48
+           R7 Y9 B7 K7 H7 Q7 L7 T7 V7 X7
+
+3   AR1545 J2 Y7 B7 K7 H7 Q7 R7   COR     EZE C  1950  2110  E0/E90
+           L7 T7 V7 X7
+    AR1132 J2 C2 Y4 B4 K4 H7 Q7   EZE A   MAD 3  2350  1605+1E0/332       16:15
+           L7 T7 V7 X7 Z7
+</pre>
+<p style="line-height: 1.55; text-align: justify;">
+  Viendo el despliegue de disponibilidad, el vuelo que mejor se adapta a los
+  requerimientos del cliente es del <strong>segmento 1, UX122</strong>, ya que debe estar
+  el día 19 al medio día, y este vuelo llega a destino a las 5:05hs y dispone de clase
+  Business.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Lo siguiente que vamos a hacer es seleccionar un lugar en <strong>clase J</strong> del
+  <strong>segmento 1</strong>.
+</p>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 18px;">
+  Selección de lugares
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  También se le llama <strong>Transacción de Venta Corta:</strong>
+</p>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 18px;">
+  Comando SS
+</p>
+
+<p style="background-color: #eef0ff; color: #000080; padding: 4px 8px; margin: 8px 0 12px 42px;">
+  <strong>SS</strong> + cantidad de asientos a seleccionar + Clase + N de segmento
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">
+AN18NOVCORMAD
+** AMADEUS AVAILABILITY - AN ** MAD MADRID.ES                 183 MO 18NOV 0000
+1   UX 122 J5 C3 W4 O4 I4 U7 E7   COR     MAD 3  1305  0505+1E0/787       12:00
+           R7 Y7 B7 K7 H7 Q7 L7 T7 V7 X7
+
+2   LA 491 W7 O7 Y7 B7 K7 H7 Q7   COR     SCL 1  1052  1224  E0/321
+           L7 T7 V7 X7
+    IB6832 J2 C2 W4 O4 I3 U7 E7   SCL 1   MAD 3  1310  0540+1E0/350       14:48
+           R7 Y9 B7 K7 H7 Q7 L7 T7 V7 X7
+
+3   AR1545 J2 Y7 B7 K7 H7 Q7 R7   COR     EZE C  1950  2110  E0/E90
+           L7 T7 V7 X7
+
+    AR1132 J2 C2 Y4 B4 K4 H7 Q7   EZE A   MAD 3  2350  1605+1E0/332       16:15
+           L7 T7 V7 X7 Z7
+
+<span style="background-color: #ffff00; color: #000080; font-weight: bold;">&gt;SS1J1</span>
+</pre>
+
+<table style="border-collapse: collapse; width: 55%; font-size: 14px; margin-top: 18px;">
+  <thead>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Comando
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Descripción
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        SS
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Transacción &#40;Select Seats&#41;
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        1
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        1 lugar
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        J
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Clase J
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        1
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Segmento 1
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="line-height: 1.55; text-align: justify; margin-top: 18px;">
+  Una vez seleccionados los lugares que queremos ocupar en el vuelo se nos va a crear
+  un archivo de reserva, que va a contener en primer momento solo los datos del itinerario
+  elegido:
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">
+&gt;SS1J1
+RP/UTN5168476/
+  1  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E   787
+*TNR*
+&gt;
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Veamos que significa cada uno de estos elementos:
+</p>
+<table style="border-collapse: collapse; width: 68%; font-size: 14px; margin-top: 8px;">
+  <thead>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Elemento
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Lo que significa
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">UX 122</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">Numero de vuelo</td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">J</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">Clase</td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">18NOV</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">Fecha de salida del vuelo</td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">1</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">Dia de la semana</td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">CORMAD</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">Origen/Destino</td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">DK1</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">Código de status</td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">1305 0505</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">Hora de salida/ Hora de llegada</td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">19NOV</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">Fecha de llegada del vuelo a destino</td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">E</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">E-Ticket</td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">787</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">Modelo del avión/equipo</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="line-height: 1.55; text-align: justify; margin-top: 28px;">
+  Ahora debemos buscar el vuelo de regreso, nuevamente hacemos todo el proceso desde
+  la búsqueda de disponibilidad con el comando <strong>AN</strong> y la selección de lugares
+  con el comando <strong>SS</strong>.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Nuestro archivo quedaría así:
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Segmento 1: UX122 salida 18NOV
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Segmento 2: UX121 arribo 25NOV
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">
+RP/UTN5168476/
+  1  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E   787
+  2  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E   787
+*TNR*
+&gt;
+</pre>
+<h3>1.1.2. Nominación de lugares</h3>
+<p style="line-height: 1.55; text-align: justify;">
+  Ya teniendo el archivo de reserva creado con su itinerario debemos agregar uno de
+  los elementos mas importantes, el nombre y apellido de la persona que va a hacer
+  uso de ese vuelo, es importante aclarar que este elemento
+  <strong>no puede ser modificado ni borrado</strong>, si cometemos un error al colocar
+  el nombre del pasajero tendremos que crear un archivo de reserva nuevo.
+</p>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 18px;">
+  Comando NM
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Para agregar el nombre del pasajero a la reserva vamos a usar el comando
+  <strong>NM</strong>, que por sus siglas en ingles se puede asociar a
+  <strong><em>NaMe</em></strong> &#40;<em>Nombre</em>&#41;.
+</p>
+
+<p style="line-height: 1.55; text-align: justify; margin-top: 28px;">
+  Este comando tiene varias opciones dependiendo si el pasajero es un
+  <strong>ADT</strong> &#40;adulto&#41;, un <strong>CHD</strong> &#40;child, niño&#41; o un
+  <strong>INF</strong> &#40;infant, bebé&#41;, pero todas inician de la misma forma:
+</p>
+
+<p style="background-color: #eef0ff; color: #000080; padding: 4px 8px; margin: 8px 0 12px 0;">
+  <strong>NM</strong> + número de lugares a asignar + Apellido/s + / + Nombre/s + tratamiento
+</p>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 18px;">
+  Ejemplos:
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  <span style="color: #000080;">NM1GARCIA/JUAN MR</span>
+  &nbsp; Nomino un lugar<br>
+
+  <span style="color: #000080;">NM2PETROS/SARA MRS/FERNANDA MRS</span>
+  &nbsp; Nomino 2 lugares con el mismo apellido<br>
+
+  <span style="color: #000080;">NM1IBARRA/MARCOS&#40;CHD/24JUL17&#41;</span>
+  &nbsp; Nominación de CHILD<br>
+
+  <span style="color: #000080;">NM1PETROS/SARA MRS &#40;INF/LUCIA/21JAN22&#41;</span>
+  &nbsp; Nomino 1 adulto e infante con mismo apellido<br>
+
+  <span style="color: #000080;">NM1CAMPOS/MARIA MRS &#40;INFGARCIA/IVAN/08APR22&#41;</span>
+  &nbsp; Nomino 1 adulto e infante con diferente apellido
+</p>
+
+<p style="line-height: 1.55; text-align: justify; margin-top: 28px;">
+  Entonces entendido el comando <strong>NM</strong>, vamos a agregar el nombre de nuestro
+  pasajero de ejemplo a la reserva.
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">
+RP/UTN5168476/
+  1  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E   787
+  2  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E   787
+*TNR*
+
+<span style="background-color: #ffff00; color: #000080; font-weight: bold;">&gt;NM1MUNOZ/DIEGO MANUEL MR</span>
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Una vez ingresado el comando nuestro archivo se verá así:
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">
+&gt;<strong>NM</strong>1MUNOZ/DIEGO MANUEL MR
+RP/UTN5168476/
+  1.MUNOZ/DIEGO MR
+  2  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E   787
+  3  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E   787
+*TNR*
+&gt;
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  El nombre de los pasajeros siempre va a tener prioridad por lo que el orden de los
+  elementos cambia, ahora esta en el segmento 1. En caso de que haya mas de un pasajero
+  los nombres de ordenaran por apellido alfabéticamente de manera automática.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Algunas consideraciones finales con respecto a la nominación de lugares:
+</p>
+
+<ul style="line-height: 1.55; margin-top: 8px;">
+  <li>
+    Todas las nominaciones llevan MR / MRS / MSS / INF / CHD
+  </li>
+  <li>
+    INF o INFOA: bebés hasta 2 años no cumplidos. El infante se carga junto al adulto
+    que lo lleva ya que no paga asiento
+  </li>
+  <li>
+    CHD niños de 2 a 12 años no cumplidos
+  </li>
+  <li>
+    Los nombres se cargan completos
+  </li>
+  <li>
+    Los nombres NO son modificables
+  </li>
+  <li>
+    La letra Ñ es reemplazada por N
+  </li>
+  <li>
+    La fecha de nacimiento es obligatoria tanto para INF como CHD
+  </li>
+</ul>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Mas adelante en este documento vamos a ver mas ejemplos en donde aplicar todas las
+  opciones de este comando.
+</p>
+<h3>1.1.3. Contacto</h3>
+<p style="line-height: 1.55; text-align: justify;">
+  Es el medio mediante el cual nos pondremos en contacto con el pasajero ya sea
+  para enviarles una copia del itinerario, para facturación, informarle sobre cambios
+  en su reserva, etc.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Tenemos dos elementos obligatorios al asignar el contacto al pasajero, un
+  <strong>número de teléfono</strong> y una <strong>dirección de email</strong>.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Para ingresar el <strong>número de teléfono</strong> usaremos el comando
+  <strong>AP</strong>.
+</p>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 18px;">
+  Comando AP
+</p>
+
+<p style="background-color: #eef0ff; color: #000080; padding: 4px 8px; margin: 8px 0 12px 0;">
+  <strong>AP</strong> + código de ciudad + número de teléfono + - + tipo de teléfono + /P + n°pax
+</p>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold;">
+  Ejemplo:
+</p>
+
+<p style="background-color: #eef0ff; color: #000080; padding: 4px 8px; margin: 8px 0 12px 0; font-weight: bold;">
+  AP BUE 1134477511-M/P1
+</p>
+
+<table style="border-collapse: collapse; width: 74%; font-size: 14px; margin-top: 8px;">
+  <thead>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Elemento
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Lo que significa
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        BUE
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        Código de ciudad
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold; line-height: 1.55;">
+        -M &#40;móvil&#41;<br>
+        -H &#40;home&#41;<br>
+        -B &#40;business&#41;<br>
+        -O &#40;office&#41;
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold; text-align: center; vertical-align: middle;">
+        Tipo de teléfono
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        /P1
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        Indico a que pax corresponde ese AP
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="line-height: 1.55; text-align: justify; margin-top: 28px;">
+  Para ingresar una dirección de <strong>correo electrónico</strong> usaremos el comando
+  <strong>APE-</strong>
+</p>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 18px;">
+  Comando APE-
+</p>
+
+<p style="background-color: #eef0ff; color: #000080; padding: 4px 8px; margin: 8px 0 12px 0;">
+  <strong>APE-</strong> + correo electrónico + /P + n°pax
+</p>
+
+<p style="line-height: 1.55; color: #000080;">
+  Ejemplo:
+</p>
+
+<p style="background-color: #eef0ff; color: #000080; padding: 4px 8px; margin: 8px 0 12px 0; font-weight: bold;">
+  APE-BRIOS@GMAIL.COM/P1
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Ahora vamos a introducir los datos de contacto en nuestro archivo de reserva.
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">
+RP/UTN5168476/
+  1.MUNOZ/DIEGO MR
+  2  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E   787
+  3  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E   787
+
+*TNR*
+
+<span style="background-color: #ffff00; color: #000080; font-weight: bold;">&gt;AP COR 3514589982-B/P1</span>
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  En este caso de ejemplo como tenemos un solo pasajero en la reserva no es necesario
+  agregar el identificador <strong>/P1</strong>, porque se entiende que el teléfono
+  corresponde a ese único pax.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Luego de agregar el teléfono de contacto agregaremos el email
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">
+RP/UTN5168476/
+  1.MUNOZ/DIEGO MR
+  2  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E   787
+  3  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E   787
+  4  AP COR 3514589982-B/P1
+
+*TNR*
+
+<span style="background-color: #ffff00; color: #000080; font-weight: bold;">&gt;APE-DMUNOZ@WAGNER.COM/P1</span>
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Entonces nuestro archivo de reserva con los datos de contacto agregados quedaría así:
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">
+RP/UTN5168476/
+  1.MUNOZ/DIEGO MR
+  2  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E   787
+  3  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E   787
+  4  AP COR 3514589982-B/P1
+  5  APE DMUNOZ@WAGNER.COM/P1
+*TNR*
+</pre>
+<h3>1.1.4. Tiempo límite de reserva</h3>
+<p style="line-height: 1.55; text-align: justify;">
+  Este elemento indica el tiempo límite de emisión de la reserva. Este elemento crea
+  un recordatorio para la oficina que debe emitir el ticket o cancelarlo en determinada
+  fecha, ya que estamos utilizando un lugar en el inventario de vuelo de la aerolínea,
+  si un ticket no se emite o se cancela en determinado tiempo corremos el riesgo de
+  que la aerolínea nos multe.
+</p>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 18px;">
+  Comando TK
+</p>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 8px;">
+  <thead>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Comando
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Descripción
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 5px 8px; font-weight: bold; vertical-align: top;">
+        TKOK
+      </td>
+      <td style="border: 1px solid #007399; padding: 5px 8px; vertical-align: top;">
+        Reservo y emito en el acto. Lo usan mayoristas.
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 5px 8px; vertical-align: top;">
+        <strong>TKTL15NOV/1600</strong><br>
+        <span style="font-style: italic; color: #555;">TL es por Time Limit</span>
+      </td>
+      <td style="border: 1px solid #007399; padding: 5px 8px; text-align: justify; vertical-align: top;">
+        Fecha y hora de vencimiento de la reserva. Este formato genera un mensaje que
+        cuando la reserva esté por vencer o se produzca un cambio &#40;hora, cancelación,
+        etc&#41;, Amadeus emite un mensaje que cae por COLAS o QUEUES. Genera una
+        notificación.
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 5px 8px; font-weight: bold; vertical-align: top;">
+        TKXL16NOV/1600.
+      </td>
+      <td style="border: 1px solid #007399; padding: 5px 8px; text-align: justify; vertical-align: top;">
+        Fecha y hora de cancelación de la reserva. Pasado ese tiempo, la reserva se
+        cancela automáticamente sin avisar.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="line-height: 1.55; text-align: justify; margin-top: 28px;">
+  Vamos a agregar un tiempo límite a nuestra reserva:
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">
+RP/UTN5168476/
+  1.MUNOZ/DIEGO MR
+  2  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E     787
+  3  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E     787
+  4 AP COR 3514589982-B/P1
+  5 APE DMUNOZ@WAGNER.COM/P1
+*TNR*
+
+<span style="background-color: #ffff00; color: #000080; font-weight: bold;">&gt;TKTL24MAY/1600</span>
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Suponiendo que a la reserva la realizamos el día <strong>22MAY</strong> le agregamos
+  como tiempo límite de emisión el día <strong>24MAY</strong> a las <strong>16:00hs</strong>.
+</p>
+
+<table style="border-collapse: separate; border-spacing: 0; width: 100%; font-size: 14px; margin-top: 8px; border: 1px solid #007399; border-radius: 8px;">
+  <tbody>
+    <tr>
+      <td style="padding: 12px 14px; text-align: center; color: #005f78; font-weight: bold;">
+        ¿Cómo sabemos que fecha límite colocar?
+      </td>
+    </tr>
+
+    <tr>
+      <td style="padding: 8px 14px; line-height: 1.55; text-align: justify;">
+        Las aerolíneas emiten manuales de buenas y malas prácticas para agencias de viajes
+        en donde especifican que se debe y que no se debe hacer, entre ellas están los
+        tiempos límites de emisión.
+      </td>
+    </tr>
+
+    <tr>
+      <td style="padding: 8px 14px; line-height: 1.55; text-align: justify;">
+        Les dejo una página en donde pueden consultar todas las condiciones en la que una
+        aerolínea puede generar un ADM &#40;<em>Agent Debit Memo</em>&#41; que es básicamente
+        una multa por incumplimiento de políticas.
+      </td>
+    </tr>
+
+    <tr>
+      <td style="padding: 8px 14px 14px 14px; line-height: 1.55;">
+        <a href="https://somosaero.ar/news/malaspracticas/" target="_blank" style="color: #0000cc;">
+          https://somosaero.ar/news/malaspracticas/
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p style="line-height: 1.55; text-align: justify;">
+  Colocado el TK nuestra reserva queda así:
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">
+RP/UTN5168476/
+  1.MUNOZ/DIEGO MR
+  2  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E     787
+  3  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E     787
+  4 AP COR 3514589982-B/P1
+  5 APE DMUNOZ@WAGNER.COM/P1
+  6 TK TL24MAY/1600/UTN5168476
+*TNR*
+</pre>
+<h3>1.1.5. Referencia / Recibido</h3>
+<p style="line-height: 1.55; text-align: justify;">
+  Una vez cargados los datos debemos firmar el archivo, es decir, colocar el nombre
+  del agente que esta trabajando con esta reserva. Este dato es obligatorio ya sea
+  para cobros de comisiones por ventas y también es una medida de seguridad, ya que
+  si varias personas trabajan en la misma oficina se puede identificar quien realizó
+  los cambios en determinadas reservas. Si bien desde opciones del sistema se puede
+  identificar por nombre de usuario quien realiza estos cambios, pero estas firmas de
+  referencia quedan guardadas en el historial del PNR.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Para firmar el archivo se usa:
+</p>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 18px;">
+  Comando RF
+</p>
+
+<p style="background-color: #eef0ff; color: #000080; padding: 4px 8px; margin: 8px 0 12px 0;">
+  <strong>RF</strong> + nombre del agente que toma la reserva
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;"><span style="background-color: #ffff00; color: #000080; font-weight: bold;">&gt;RFFACUNDOV</span>
+
+RP/UTN5168476/
+RF/FACUNDOV
+  1.MUNOZ/DIEGO MR
+  2  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E     787
+  3  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E     787
+  4 AP COR 3514589982-B/P1
+  5 APE DMUNOZ@WAGNER.COM/P1
+  6 TK TL24MAY/1600/UTN5168476
+*TNR*
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Cada cambio o modificación que se haga en la reserva debe estar firmado, si el
+  pasajero quiere modificar su número de teléfono o dirección de email, lo hacemos y
+  para que los cambios se guarden debemos firmar con comando <strong>RF</strong>.
+</p>
+
+<h3>1.1.6. Cierre del PNR</h3>
+<p style="line-height: 1.55; text-align: justify;">
+  Una vez firmados los cambios tenemos que hacer un ultimo paso, generar el
+  <strong>Record Locator</strong>.
+</p>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 18px;">
+  Comando ET / ER
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  <strong>ET:</strong> cierra el PNR y genera el RL &#40;record locator&#41;, localizador único
+  por reserva de 6 dígitos alfanuméricos
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  <strong>ER:</strong> cierra el PNR y lo reabre.
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">
+RP/UTN5168476/
+RF/FACUNDOV
+  1.MUNOZ/DIEGO MR
+  2  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E     787
+  3  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E     787
+  4 AP COR 3514589982-B/P1
+  5 APE DMUNOZ@WAGNER.COM/P1
+  6 TK TL24MAY/1600/UTN5168476
+*TNR*
+
+<span style="background-color: #ffff00; color: #000080; font-weight: bold;">&gt;ET</span>
+
+FIN DE TRANSACCION COMPLETADO - <span style="background-color: #ffff00; color: #000080; font-weight: bold;">2VM6B6</span>
+*TNR*
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Acá solo use el comando <strong>ET</strong> para mostrarles como se genera el RL, pero
+  normalmente se usa el comando de esta forma <strong style="color: #000080;">ET,ER</strong>
+  que lo que va a hacer es cerrar el PNR, generar el RL y me va a volver a abrir la
+  reservas con los datos actualizados. De la forma en la que lo use, solo me cierra
+  el PNR y para volver a abrirlo debo usar otro comando:
+</p>
+
+</body>
+</html>

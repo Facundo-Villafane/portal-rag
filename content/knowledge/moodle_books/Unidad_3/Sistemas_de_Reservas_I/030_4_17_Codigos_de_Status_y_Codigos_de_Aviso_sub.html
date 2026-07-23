@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>4.17. Códigos de Status y Códigos de Aviso</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+  </style>
+</head>
+<body>
+<h1>4.17. Códigos de Status y Códigos de Aviso</h1>
+<p>Son  códigos  usados  en  la  industria  del  viaje  para  solicitar  reservas  de  lugares  y
+servicios  especiales,  y  para  enviar  mensajes  de  confirmación,  lista  de  espera  o
+rechazo.</p>
+<h3>4.17.1. Código de Status</h3>
+<p>Una vez que se finaliza un PNR los segmentos de vuelo quedan automáticamente
+convertidos en uno de los siguientes códigos de status o estado:</p>
+<p>Código</p>
+<p>Significado</p>
+<p>HK</p>
+<p>Reserva confirmada.</p>
+<p>HL</p>
+<p>HN</p>
+<p>Reserva en lista de espera.
+La línea aérea tiene la potestad de confirmar o no el lugar en la
+lista de espera.</p>
+<p>Reserva solicitada.
+La línea aérea tiene la potestad de confirmar o no el lugar
+solicitado.</p>
+<p>23</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe</p>
+<p>U4. Tecnologías y Sistemas en Billetaje y Reservas.</p>
+<h3>4.17.2. Códigos de Aviso</h3>
+<p>Son códigos enviados por las líneas aéreas en respuesta a la reserva de un vuelo o
+de una SSR efectuada por un agente de viajes.</p>
+<p>Los códigos de aviso se clasifican en cuatro grupos:</p>
+<ul>
+<li>Códigos con respuesta negativa</li>
+<li>Códigos de confirmación</li>
+<li>Códigos de lista de espera</li>
+<li>Códigos de cambio de programación</li>
+</ul>
+<p>Código</p>
+<p>Significado</p>
+<p>Códigos con respuesta negativa</p>
+<p>La línea aérea no ha tomado acción del pedido.</p>
+<p>Imposible de confirmar, no se ha puesto en lista de espera. La lista de
+espera está cerrada.
+Imposible de confirmar, el vuelo o la clase no opera, o el servicio especial
+solicitado (SSR) no es provisto por la aerolínea.</p>
+<p>La reserva fue cancelada por la línea aérea.</p>
+<p>Códigos de confirmación</p>
+<p>Significado</p>
+<p>Confirmado.
+La reserva estaba solicitada (HN).</p>
+<p>Confirmado.
+La reserva estaba en lista de espera (HL).</p>
+<p>Códigos de lista de espera</p>
+<p>Significado</p>
+<p>Lista de espera.
+La reserva estaba solicitada (HN).</p>
+<p>Códigos de cambio de programación</p>
+<p>Significado</p>
+<p>Confirmado con nuevo horario.</p>
+<p>Lista de espera con nuevo horario.</p>
+<p>Solicitado con nuevo horario.</p>
+<p>NO</p>
+<p>UC</p>
+<p>UN</p>
+<p>HX</p>
+<p>Código</p>
+<p>KK</p>
+<p>KL</p>
+<p>Código</p>
+<p>UU</p>
+<p>Código</p>
+<p>TK</p>
+<p>TL</p>
+<p>TN</p>
+<p>24</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe</p>
+<p>U4. Tecnologías y Sistemas en Billetaje y Reservas.</p>
+<p>Una vez que se reciben Códigos de Aviso estos son automáticamente convertidos a
+un Código de Status o son enviados al histórico del PNR:</p>
+<p>Código de aviso</p>
+<p>Se convierte en</p>
+<p>KK</p>
+<p>(Confirmado)</p>
+<p>HK</p>
+<p>(Confirmado)</p>
+<p>UU</p>
+<p>(Lista de espera)</p>
+<p>HL</p>
+<p>(Lista de espera)</p>
+<p>KL</p>
+<p>(Confirmado de la lista de espera)</p>
+<p>HK</p>
+<p>(Confirmado)</p>
+<p>NO</p>
+<p>(No se tomó acción)</p>
+<p>Pasa a al histórico</p>
+<p>UC</p>
+<p>(Imposible confirmar)</p>
+<p>Pasa a al histórico</p>
+<p>HX</p>
+<p>(Cancelado)</p>
+<p>Pasa a al histórico</p>
+<p>UN</p>
+<p>(El vuelo o clase no opera)</p>
+<p>Pasa a al histórico</p>
+<p>TK</p>
+<p>(Cambio de programación)</p>
+<p>HK</p>
+<p>(Confirmado)</p>
+<p>TL</p>
+<p>(Cambio de programación)</p>
+<p>HL</p>
+<p>(Lista de espera)</p>
+<p>TN</p>
+<p>(Cambio de programación)</p>
+<p>HN</p>
+<p>(Solicitado)</p>
+<p>A continuación, ejemplos de algunas secuencias posibles de los códigos de Status y
+de Aviso:</p>
+<ol>
+<li>HN  KK  HK</li>
+</ol>
+<p>La reserva estaba solicitada (HN). Posteriormente la aerolínea confirma el
+pedido (KK). Una vez que se recibe la notificación y se cierra el PNR, el vuelo
+queda con status HK.</p>
+<ol start="2">
+<li>HN  UU  HL</li>
+</ol>
+<p>La reserva estaba solicitada (HN), la línea aérea avisa que pone el pedido en
+lista de espera (UU). Una vez que se recibe la notificación y se cierra el PNR,
+el vuelo queda con el código de status HL.
+KL</p>
+<p>HK</p>
+<ol start="3">
+<li>HN  UU  HL</li>
+</ol>
+<p>El último estado era HL (lista de espera). La línea aérea confirma la reserva
+con el código KL. Finalmente la reserva queda con status HK.</p>
+<ol start="4">
+<li>HN  UC</li>
+</ol>
+<p>Reserva solicitada (HN). La aerolínea informa que es imposible confirmar los
+lugares en la clase/fecha solicitados. El segmento de vuelo pasará la historia
+del PNR</p>
+<p>25</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe</p>
+<p>U4. Tecnologías y Sistemas en Billetaje y Reservas.</p>
+<p>Resumen general:</p>
+<p>Acción
+DK</p>
+<p>LK
+Solicitud confirmada</p>
+<p>Estado</p>
+<p>HK</p>
+<p>Confirmado</p>
+<p>Aviso
+TK= Cambio Operacional</p>
+<p>HX= Cancelado</p>
+<p>DW</p>
+<p>LL
+Lista de Espera</p>
+<p>HL</p>
+<p>Lista de Espera</p>
+<p>SS</p>
+<p>NN</p>
+<p>HN</p>
+<p>Solicitud de Servicio  Servicio Solicitado</p>
+<p>KL= Confirmación de Lista de Espera</p>
+<p>UC / UN / UU / US / NO
+Negado</p>
+<p>KK= Servicio Confirmado</p>
+<p>UC / UN / UU / US / NO
+Negado</p>
+<p>HX / UC / UN / UU / US / NO = Segmentos improductivos
+se deben eliminar del PNR</p>
+<p>TK / KL / KK = Estos estados deben pasar a estado HK</p>
+</body>
+</html>

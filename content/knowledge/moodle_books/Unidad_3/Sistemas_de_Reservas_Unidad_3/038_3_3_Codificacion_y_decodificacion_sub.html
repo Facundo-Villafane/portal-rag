@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>3.3. Codificación y decodificación</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+    figure { margin: 1.25rem 0; }
+    figure img, p img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    figcaption { color: #555; font-size: .92rem; text-align: center; margin-top: .35rem; }
+  </style>
+</head>
+<body>
+<h1>3.3. Codificación y decodificación</h1>
+<p>Unos  de  los  primeros  comandos  que  debemos  aprender  son  los  de  codificar  y
+decodificar (encoding and decoding), este es el proceso de convertir los códigos que utiliza Amadeus para representar las ubicaciones, compañías, equipos, etc., en los
+nombres  completos  o  viceversa.  Por  ejemplo,  uno  de  los  aeropuertos  de  París (Francia) se llama el Charles de Gaulle y su código en Amadeus es CDG (IATA).</p>
+<p>Amadeus permite codificar y decodificar:</p>
+<ul>
+<li>
+<p>Códigos de Aerolíneas.</p>
+</li>
+<li>
+<p>Códigos de aeropuertos y ciudades.</p>
+</li>
+<li>
+<p>Códigos de estados y provincias.</p>
+</li>
+<li>
+<p>Códigos de Países.</p>
+</li>
+<li>
+<p>Códigos de tipos de Aviones.</p>
+</li>
+<li>
+<p>Hoteles y compañías de alquiler de vehículos.</p>
+</li>
+</ul>
+<h3>3.3.1. Ciudades y aeropuertos</h3>
+<p>Codificación Comando DAN</p>
+<p>Los aeropuertos están identificados con códigos de 3 letras. Para obtener el código
+a partir del nombre de la ciudad se puede utilizar el comando DAN. A continuación,</p>
+<p>puede verse cómo se usa y cuál es la respuesta.</p>
+<p style="background-color: #eef0ff; color: #000080; padding: 4px 8px; margin: 8px 0 12px 0;">
+  <strong>DAN</strong> + Nombre de la Ciudad
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre-wrap; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25;">
+&gt; DAN BUENOS AIRES
+
+DAN BUENOS AIRES
+A:APT B:BUS C:CITY G:GRD H:HELI O:OFF-PT R:RAIL S:ASSOC TOWN
+BUE C  BUENOS AIRES                                      /ARBA
+    A  AEP - J. NEWBERY                  -  6K            /ARBA
+    A  EZE - MINISTRO PISTARINI          -  27K           /ARBA
+    B  BBE - FLUVIAL BUS STATION         -  0K            /ARBA
+BAI C  BUENOS AIRES                                      /CR
+    A  BAI - BUENOS AIRES                -  0K            /CR
+*TRN*
+■
+
+&gt;
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  La siguiente tabla explica la respuesta:
+</p>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 8px;">
+  <thead>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Componente
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Explicación
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 3px 7px; font-weight: bold;">
+        BUE
+      </td>
+      <td style="border: 1px solid #007399; padding: 3px 7px;">
+        Código de la ciudad
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 3px 7px; font-weight: bold;">
+        C
+      </td>
+      <td style="border: 1px solid #007399; padding: 3px 7px;">
+        Indicador de “Ciudad”
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 3px 7px; font-weight: bold;">
+        BUENOS AIRES
+      </td>
+      <td style="border: 1px solid #007399; padding: 3px 7px;">
+        Nombre de la ciudad
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 3px 7px; font-weight: bold;">
+        /ARBA
+      </td>
+      <td style="border: 1px solid #007399; padding: 3px 7px;">
+        Código ISO del país, en este caso AR de Argentina, BA de Buenos Aires
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 3px 7px; font-weight: bold;">
+        A
+      </td>
+      <td style="border: 1px solid #007399; padding: 3px 7px;">
+        Indicador de “Aeropuerto”
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 3px 7px; font-weight: bold;">
+        AEP
+      </td>
+      <td style="border: 1px solid #007399; padding: 3px 7px;">
+        Código del Aeropuerto
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 3px 7px; font-weight: bold;">
+        J. NEWBERY
+      </td>
+      <td style="border: 1px solid #007399; padding: 3px 7px;">
+        Nombre del aeropuerto
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 3px 7px; font-weight: bold;">
+        6K
+      </td>
+      <td style="border: 1px solid #007399; padding: 3px 7px;">
+        Distancia de la ciudad
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p>Decodificación Comando DAC</p>
+<p>El  proceso  inverso,  en  el  que  se  consulta  una  ciudad  o  aeropuerto  a  partir  de  su
+código. Para eso puede usarse el comando DAC:</p>
+<p style="background-color: #eef0ff; color: #000080; padding: 4px 8px; margin: 8px 0 12px 0;">
+  <strong>DAC</strong> + Código de ciudad o aeropuerto
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre-wrap; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25;">
+&gt; DACNYC
+
+DACNYC
+A:APT B:BUS C:CITY G:GRD H:HELI O:OFF-PT R:RAIL S:ASSOC TOWN
+CITY :
+ NYC C  NEW YORK                         /USNY:NEW YORK
+AIRPORT-HELIPORT :
+ JFK A  JOHN F KENNEDY INTL              /USNY  - 20K
+ LGA A  LAGUARDIA                        /USNY  - 12K
+ EWR A  NEWARK LIBERTY INTL              /USNJ  - 14K
+ NYS A  SKYPORTS SPB                     /USNY  -  3K
+ SWF A  STEWART INTERNATIONAL            /USNY  - 86K
+ JRB H  DOWN MANH HPT                    /USNY  -  1K
+ TSS H  EAST 34TH HPT                    /USNY  -  4K
+ JRA H  WEST 30TH HPT                    /USNY  -  4K
+RAIL-BUS STATION :
+ XNY P  39TH STREET FERRY                /USNY  -  3K
+ NBP P  BATTERY PK CITY FERRY            /USNY  -  1K
+ NES P  EAST 34TH ST FERRY               /USNY  -  4K
+ NWS P  PIER 11 WALL ST FERRY            /USNY  -  1K
+ ZRP R  NEWARK NJ PENN RAIL ST           /USNJ  - 12K
+ ZYP R  PENN RAILWAY STATION             /USNY  - 14K
+*TRN*
+■
+
+&gt;
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  De la respuesta se pude leer que <strong>NEW YORK</strong> es Nueva York en Inglés, que
+  <strong>USNY:NEW YORK</strong> se refiere a <strong>US</strong> United States y
+  <strong>NY</strong> New York y luego el título <strong>AIRPORT-HELIPORT</strong> seguido
+  por los código de los aeropuertos. En caso de dudas:
+  <strong>C</strong> es ciudad, <strong>A</strong> es aeropuerto, <strong>H</strong> es
+  helipuerto, <strong>P</strong> es puerto y <strong>R</strong> es para estaciones de Tren
+  &#40;Rail station&#41;. Muy similar al funcionamiento del comando <strong>DAN</strong>.
+</p>
+<h3>3.3.2. Países y provincias</h3>
+<p>Comando DC</p>
+<p>El  comando  DC  permite  decodificar  países,  por  ejemplo,  DC  ISRAEL  o  DC  IL
+permiten consultar el país de Israel:</p>
+<p style="background-color: #eef0ff; color: #000080; padding: 4px 8px; margin: 8px 0 12px 0;">
+  <strong>DC</strong> + Nombre de país o código de país
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre-wrap; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25;">
+DC ISRAEL
+IL   ISRAEL/MIDDLE EAST                 TC2
+
+
+ILS  ISRAELI SHEKEL                     LOCAL
+USD  US DOLLAR                          INTL PUBLISHED
+
+
+ISR  ISRAEL CITIZEN
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  <strong>IL</strong> se refiere al código del país, <strong>MIDDLE EAST</strong> es la
+  ubicación del país &#40;continente o subcontinente, en este caso el medio oriente&#41;,
+  <strong>TC2</strong> se refiere al área IATA en el que se encuentra,
+  <strong>ILS</strong> se refiere al código de la moneda local &#40;Shekel Israelí&#41;.
+  <strong>ISR</strong> se refiere al código de la ciudadanía &#40;Israelí&#41;.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  De manera similar, se pueden consultar estados o provincias, utilizando el comando
+  <strong>DNS</strong>. Esto aplica para los países con estados como USA o Canadá.
+</p>
+<h3>3.3.3. Aerolíneas</h3>
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 18px;">
+  Comando DNA
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  También puede hacerse con aerolíneas y esta es bien importante. El comando a utilizar es
+  <strong>DNA</strong>:
+</p>
+
+<p style="background-color: #eef0ff; color: #000080; padding: 4px 8px; margin: 8px 0 12px 0;">
+  <strong>DNA</strong> + Nombre o código de la aerolínea
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre-wrap; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25;">
+&gt; DNA LATAM
+
+DNA LATAM
+4M   LATAM AIRLINES ARGENTINA
+JJ   LATAM AIRLINES BRASIL
+LU   LATAM AIRLINES CHILE
+4C   LATAM AIRLINES COLOMBIA
+XL   LATAM AIRLINES ECUADOR
+LA   LATAM AIRLINES GROUP
+PZ   LATAM AIRLINES PARAGUAY
+LP   LATAM AIRLINES PERU
+*TRN*
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  En este caso muestra las coincidencias de las aerolíneas que se llaman LATAM.
+  Revisando el resultado, <strong>LA</strong> es el código de la aerolínea.
+  También se puede buscar el nombre de la aerolínea con el código, ingresando
+  <strong>DNA LA</strong>.
+</p>
+<h3>3.3.4. Aviones (Equipos)</h3>
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 18px;">
+  Comando DNE
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  También se pueden codificar los tipos de Avión con el código <strong>DNE</strong>:
+</p>
+
+<p style="background-color: #eef0ff; color: #000080; padding: 4px 8px; margin: 8px 0 12px 0;">
+  <strong>DNE</strong> + Nombre o código de equipo
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre-wrap; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25;">
+&gt; DNE AIRBUS
+
+DNE AIRBUS
+221 N AIRBUS A220-100                         JET   116-135
+223 N AIRBUS A220-300                         JET   141-160
+220 N AIRBUS A220 PASSENGER                   JET     0-0
+AB6 W AIRBUS A300-600                         JET   207-317
+ABY W AIRBUS A300-600 FREIGHTER               JET     0-0
+ABB W AIRBUS A300-600ST BELUGA                JET     0-0
+AB4 W AIRBUS A300B2/B4                        JET   211-317
+ABX W AIRBUS A300B4/C4/F4 FREIGHTER           JET     0-0
+312 W AIRBUS A310-200                         JET   169-246
+31X N AIRBUS A310-200 FREIGHTER               JET     1-10
+313 W AIRBUS A310-300                         JET   167-222
+31Y N AIRBUS A310-300 FREIGHTER               JET     1-10
+318 W AIRBUS A318                             JET   107-117
+31A N AIRBUS A318 &#40;SHARKLETS&#41;                 JET   107-117
+319 W AIRBUS A319                             JET   112-134
+31B N AIRBUS A319 &#40;SHARKLETS&#41;                 JET   112-134
+31N W AIRBUS A319NEO                          JET   140-160
+320 N AIRBUS A320                             JET   123-180
+32A N AIRBUS A320 &#40;SHARKLETS&#41;                 JET   123-180
+32F N AIRBUS A320 FREIGHTER                   JET     0-0
+32N N AIRBUS A320NEO                          JET   165-194
+*TRN*
+&gt;
+</pre>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre-wrap; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; margin-top: 18px;">
+&gt; DNE 738
+
+DNE 738
+738 N BOEING 737-800                          JET   123-186
+</pre>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 8px;">
+  Resumen
+</p>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 8px;">
+  <thead>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: center;">
+        Ítem
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: center;">
+        Codificación
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: center;">
+        Decodificación
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        Ciudades y aeropuertos
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px; text-align: center;">
+        <strong>DAN</strong> LONDON<br>
+        <strong>DAN</strong> NEWYORK
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px; text-align: center;">
+        <strong>DAC</strong> NYC<br>
+        <strong>DAC</strong> JFK
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        Países
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px; text-align: center;">
+        <strong>DC</strong> ARGENTINA
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px; text-align: center;">
+        <strong>DC</strong> AR
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        Estados &#40;US, CA, AR, BR, AU&#41;
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px; text-align: center;">
+        <strong>DNS</strong> FLORIDA
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px; text-align: center;">
+        <strong>DNS</strong> USNY
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        Aerolíneas
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px; text-align: center;">
+        <strong>DNA</strong> LATAM
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px; text-align: center;">
+        <strong>DNA</strong> LA
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        Equipos
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px; text-align: center;">
+        <strong>DNE</strong> AIRBUS
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px; text-align: center;">
+        <strong>DNE</strong> 320
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        Alquileres de autos
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px; text-align: center;">
+        <strong>DNC</strong> ALAMO
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px; text-align: center;">
+        <strong>DNC</strong> AL
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        Hoteles
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px; text-align: center;">
+        <strong>DNH</strong> MARRIOTT
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px; text-align: center;">
+        <strong>DNH</strong> EM
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+</body>
+</html>

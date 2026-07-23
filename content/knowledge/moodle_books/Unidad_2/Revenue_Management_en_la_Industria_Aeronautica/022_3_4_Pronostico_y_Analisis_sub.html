@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<title>3.4. Pronóstico y Análisis</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+    figure { margin: 1.25rem 0; }
+    figure img, p img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    figcaption { color: #555; font-size: .92rem; text-align: center; margin-top: .35rem; }
+  </style>
+</head>
+<body>
+<h1>3.4. Pronóstico y Análisis</h1>
+<p>Es  necesario  pronosticar  la  demanda,  analizar  su  evolución  en  el  tiempo,  revisar
+porcentajes  de  cancelación  y  respuestas  a  promociones  para  la  toma  correcta  de
+decisiones. Ninguno de los puntos hablados anteriormente en este capítulo, es decir,
+manejo  del inventario,  sobreventa  y  generación  de  otros
+ingresos  podrían
+potencializarse si no se hicieran pronósticos y análisis.</p>
+<p>Uno de los retos para el pronóstico y análisis es el mantenimiento y uso adecuado de
+las bases de datos, ya que se debe tener una cantidad inmensa de registros los cuales
+deben ser archivados, actualizados y agregados en pequeñas ventanas de tiempo.</p>
+<p>Los  sistemas  de  administración  del  inventario  están  automatizados,  optimizan
+mediante métodos de series de tiempo los cuales usan datos históricos para generar
+proyecciones. Se usan métodos estandarizados, no complicados ni matemáticamente
+sofisticados, ya que deben estar enfocados en la rapidez, esto se debe a lo robusto
+que puede ser el problema ya que grandes volúmenes de información deben de ser
+tomados  de  diferentes  fuentes  en  tiempo  real.  Para  contextualizar  el  problema
+suponga una aerolínea con 240 operaciones diarias (aerolínea mediana), cada uno
+con 12 clases tarifarias, con operaciones publicadas los próximos 12 meses, esto se
+traduce en que diariamente se deben hacer cerca de un millón de pronósticos para la
+demanda por clase, eso sin tomar en cuenta los pronósticos de cancelaciones y no
+show.</p>
+<p>El  ingreso  es  también  una  parte  importante  de  los  modelos  de  optimización,  de
+manera regular estos valores cambian en tiempo con incertidumbre, así que las tarifas
+a las que serán vendidos en el futuro deben ser pronosticadas cíclicamente. Predecir
+el ingreso puede ser un reto mayor ya que los precios pueden cambiar de una manera
+muy rápida si el competidor obliga a un cambio en el mercado.</p>
+<p>El pronóstico lo realizan los sistemas de administración de inventario, así como dentro
+de las aerolíneas hay áreas enfocadas en los pronósticos y cálculo de métricas para
+analizar  los  datos,  así  las  decisiones  diarias  de  los  empleados  de  Revenue
+Management se generan con fundamentos.</p>
+<h3>3.4.1. Métodos de pronósticos</h3>
+<p>El  pronóstico  no  puede  existir  sin  las  bases  de  datos,  para  el  primer  paso  es
+indispensable identificar las fuentes de datos disponibles y enfocarlas de acuerdo a
+lo que se busca analizar.</p>
+<p>Cuando  existen  nuevas  características  es  difícil  hacer  un  buen  pronóstico,  a
+continuación se mencionan algunos ejemplos, así como sus complicaciones:</p>
+<ul>
+<li>Cuando hay una nueva ruta, no hay datos históricos para hacer pronósticos</li>
+<li>Cuando  entra  un  nuevo  competidor,  o  dentro  de  los  competidores  hay
+incrementos de capacidad, es decir, habrá una mayor oferta de asientos para
+la misma demanda de clientes</li>
+<li>Cuando hay guerras tarifarias</li>
+</ul>
+<p>Los sistemas de administración del inventario no pueden detectar eventos externos,
+en  este  caso  es  común  que  los  empleados  de  Revenue  Management  monitoreen,
+hagan ajustes y aproximaciones para un pronóstico apropiado.</p>
+<h4>3.4.1.1. Métodos cualitativos</h4>
+<p>Hay decisiones que son tomadas bajo ideas subjetivas, pero se fundamentan en el
+conocimiento de la industria, entre las cuales se mencionan las siguientes. (Doganis,
+2012)</p>
+<h5>3.4.1.1.1. Sentido Común</h5>
+<p>De  la  mayoría  de  técnicas  usadas,  el  juicio  es  de  las  más  ampliamente  usadas
+normalmente para modificar o adaptar otros pronósticos matemáticos. Esta decisión
+se basa en el juicio de una persona que puede o no ser un pronosticador, pero tiene
+algún conocimiento especial de la ruta o mercado en cuestión. De hecho, antes de
+dar conclusiones de un pronóstico, se pueden tener intervenciones de los empleados
+para  el  manejo  de  las  predicciones.  Su  conocimiento  incluye  la  comprensión  de  la
+demanda, así como cuestiones económicas que afecten la demanda futura. A pesar
+de  que  sean  analizados  factores  que  afectan  la  demanda,  su  aproximación  no  es
+científica; estos pronósticos pueden ser muy inadecuados. Las ventajas que presenta
+este  pronóstico  es  que  puede  ser  muy  rápido  por  ya que  no  requiere  el  trabajo  de
+datos  en  algunos  casos  ya  que  los  empleados  pueden  estar  al  tanto  de  factores
+externos  que  afecten  la  demanda  en  la  ruta,  es  decir  datos  que  no  pueden  ser
+captados por los modelos.</p>
+<h5>3.4.1.1.2. Estudio de mercado</h5>
+<p>Las aerolíneas utilizan diversas técnicas para analizar las características del pasajero,
+estas técnicas incluyen encuestas del comportamiento de los pasajeros, incluso de
+pasajeros que no se transportan por avión, esto se hace para encontrar tendencias y
+saber las características y necesidades de los pasajeros, así como para saber cómo
+varía la demanda entre los diferentes sectores. Los estudios de mercado son útiles
+cuando no hay datos o son insuficientes para generar un pronóstico matemático.</p>
+<h5>3.4.1.1.3. Técnicas Delphi</h5>
+<p>La aproximación Delphi se basa en generar un pronóstico consensuado de acuerdo
+al punto de vista de individuos expertos en el tema, estos pueden anticipar tendencias
+futuras,  es  decir  un  grupo  de  expertos  dan  el  pronóstico.  Este  pronóstico  es  más
+adecuado para ver un punto más global y no sólo enfocado en una ruta.</p>
+<h4>3.4.1.2. Métodos cuantitativos</h4>
+<p>Este método de pronóstico es el más usado, esencialmente se hace una proyección
+al futuro de acuerdo a los datos históricos, los factores que afectaron el tráfico aéreo
+en el pasado serán los mismos factores que determinarán el tráfico aéreo en el futuro.
+Existe una relación entre la demanda que será la variable dependiente y el tiempo
+que será la variable independiente, es necesario tener información precisa y detallada
+para la ruta en cuestión, de otro modo no se podrán usar series de tiempo.</p>
+<p>Muchas  de  las  técnicas  usadas  de  pronóstico  mencionadas  a  continuación  son
+métodos  conocidos  para  analizar  tendencias  y  generar  proyecciones,  por  lo  que  a
+continuación  se  describen  sus  características  y  sus  ventajas,  no  se  definirán  a
+profundidad.</p>
+<h5>3.4.1.2.1. Promedio aritmético</h5>
+<p>Da el promedio de cada una de las reservaciones previas de los históricos, la mayor
+desventaja de este modelo es que no incorpora series de tiempo y no reacciona de
+manera rápida a las tendencias. Si es que hubiera un incremento o una baja en la
+demanda deberá pasar algún tiempo para que el modelo lo refleje.</p>
+<h5>3.4.1.2.2. Modelo del promedio móvil</h5>
+<p>Es el método más sencillo de incorporar series de tiempo, la predicción en un tiempo
+t será igual al promedio de las previas observaciones tomadas en t, donde t representa
+una ventana de tiempo, la ventaja de este modelo es que se les dará más peso a las
+observaciones  recientes  así  se  adapta  de  manera  rápida  a  las  tendencias  si  la
+muestra fuera pequeña, otra ventaja para este modelo es la flexibilidad para ajustar
+las  ventanas  de  tiempo.  Una  de  las  desventajas  de  este  modelo  es  que  resta
+importancia a observaciones menos recientes que pueden proporcionar información
+útil.</p>
+<h5>3.4.1.2.3. Modelo de suavización exponencial simple</h5>
+<p>En este modelo se toma en cuenta los datos históricos mientras se les da de manera
+exponencial  menos  peso  a  los  históricos  que  están  más  alejados  en  el  pasado,  el coeficiente de suavización 𝛼 funcionará de manera similar al del promedio móvil. Entre mayor sea el coeficiente 𝛼, el modelo será más sensible a cambios recientes. Una de
+las desventajas de este modelo es que de igual manera podría restar información útil
+
+restando importancia a las observaciones recientes.</p>
+<h5>3.4.1.2.4. Modelo de suavización exponencial doble</h5>
+<p>Se  podrá  realizar  una  predicción  más  precisa  cuando  se  toma  en  cuenta  tanto  el
+promedio aritmético de las reservaciones, así como su tendencia. Se asignarán pesos 𝛼 y 𝛽
+como  coeficientes  de  los  datos  y  de  las  tendencias,  respectivamente,  así 𝛼 determinará  la  velocidad  con  la  que  reaccionará  el  modelo  ante  cambios  en  las
+reservaciones para vuelos individuales y 𝛽 determinará la velocidad a la que el modelo
+cambiará ante las tendencias de las reservaciones entre los vuelos. Al igual que en
+los  casos  anteriores,  se  presenta  la  desventaja  de  que  los  coeficientes  son  un
+parámetro definido por un usuario o son calculados mediante los datos históricos que
+hayan producido menor error.</p>
+<h5>3.4.1.2.5. Modelo ARIMA</h5>
+<p>Este modelo integra dos sistemas de predicción, el sistema autorregresivo asume que
+las reservaciones más actuales son resultado de reservaciones previas con un error,
+también  se  asume  que  las  reservaciones  son  el  resultado  de  la  suma  de  las
+reservaciones de semanas previas con un incremento de manera aleatoria. Una de
+las desventajas es que este modelo puede realizar un sobreajuste cuando incorpora
+las partes autorregresivas y de promedio móvil, haciendo menos preciso el pronóstico,
+además se debe de contar con una base  de datos con información suficiente pare
+tener precisión.</p>
+<h5>3.4.1.2.6. Modelo de recolección aditivo</h5>
+<p>Este modelo incorpora dos vectores de datos, el tiempo y las reservaciones finales,
+sin  embargo,  las  aerolíneas  tienen  acceso  a  más  vectores  como  lo  son  las
+reservaciones  de  acuerdo  a  los  días  a  la  salida.  Tomando  en  cuenta  este  dato
+adicional el modelo recolecta el número de reservaciones nuevas entre la salida del
+vuelo y un número determinado de días a la salida, este modelo define el pronóstico
+de recolección como el promedio de las observaciones recolectadas de cada vuelo
+en cada histórico definido. Este modelo reacciona a tiempo real en las observaciones
+para  los  vuelos  que  ya  salieron  de  este  modo  usa  información  reciente  más  que
+cualquier  otro  modelo  de  los  que  se  ha  hablado.  Una  de  las  desventajas  de  este
+modelo es que a todos los vuelos se les da el mismo peso, así se omitirán cambios
+de la relación entre las reservaciones finales actuales y el número de reservaciones
+a ciertos días a la salida.</p>
+<p>Muchas  veces  es  necesario  utilizar  varios  métodos  de  series  de  tiempo  definiendo
+cuál es el más adecuado al calcular cuál entre ellos fue el que menor error tuvo en los
+vuelos que ya han salido.</p>
+<h3>3.4.2. Análisis</h3>
+<p>Para  que  un  empleado  de  Revenue  Management  pueda  tomar  las  decisiones
+acertadas, además de tener conocimiento general del comportamiento de cada ruta debe  analizar  continuamente  métricas  para  poder  orientarse  a  mejorar  resultados,
+estas  métricas  se  obtendrán  de  los  datos  almacenados  de  los  históricos  de  cada
+vuelo.</p>
+<p>El análisis de datos es el proceso de convertir datos en información útil la cual ayudará
+a examinar resultados pasados, para comprender la situación actual, así como para
+generar proyecciones, todo esto con la finalidad de maximizar el ingreso.</p>
+<p>Como se mencionó anteriormente uno de los retos para análisis es el mantenimiento
+y uso adecuado de las bases de datos, al existir miles de datos se debe construir las
+bases cuidadosamente, el nivel de detalle puede ser tan preciso como se desee, entre
+las principales características se puede definir mercado, ruta, origen, destino, número
+de vuelo, horario, reservación por clase, día de vuelo, mes de vuelo, año vuelo, día
+de venta, mes de venta, año de venta, por mencionar algunas de las características
+más  importantes.  En  ocasiones  es  necesario  hacer  revisiones  minuciosas  para
+detectar  oportunidades  o  problemas  particulares  y  así  definir  estrategias  para
+maximizar el ingreso.</p>
+<p>Entre  los  datos  más  importantes  que  se  deben  analizar  continuamente  están  los
+siguientes:</p>
+<ul>
+<li>
+<p>Factor  de  Ocupación:  Métrica  que  indica  el  porcentaje  de  utilización  de  la
+capacidad del avión, no siempre un factor de ocupación alta indica éxito, todo
+dependerá  de  la  estrategia  de  la  compañía,  así  como  de  la  adecuada
+asignación de inventario, es fácil tener vuelos llenos, pero es esencial cubrir el
+costo de la operación.</p>
+</li>
+<li>
+<p>Tarifa reservada: Promedio de la tarifa base ofertada.</p>
+</li>
+<li>Ingreso Reservado: Producto de la tarifa base y los clientes reservados.</li>
+</ul>
+<ul>
+<li>
+<p>ASM,  ASK:  (available  seat  miles/  kilometers,  asientos  disponibles  por  milla/
+kilómetros)  número  de  asientos  disponibles  multiplicado  por  la  distancia
+volada.</p>
+</li>
+<li>
+<p>CAMS, CASK: (Cost per ASM/ASK) Costo promedio de volar un asiento de
+avión  una  milla,  esta  medida  permite  comparar  la  eficiencia  en  costos  entre
+aerolíneas, se calcula dividiendo costos operacionales entre ASM/ASK.</p>
+</li>
+<li>
+<p>RASM: (Revenue per ASM) Ingreso por asiento, esta medida ayuda a calcular
+la eficiencia de la aerolínea para generar ingresos por milla, al ser unitaria es
+más fácil comparar la eficiencia de una ruta contra otra ya que se pondera la
+distancia, se calcula dividiendo el ingreso de las tarifas entre ASM/ASK.</p>
+</li>
+<li>
+<p>Metas: Deben de existir objetivos claros y bien definidos para cada ruta, estas
+metas se definirán de acuerdo a la estrategia de cada aerolínea.</p></li>
+</ul>
+<ul>
+<li>
+<p>Precios  de  competidores:  Revisar  a  la  competencia  es  fundamental  en  la
+toma de decisiones, si un competidor hiciera un cambio agresivo en sus precios
+será necesario tomar acciones para que no caigan los factores de ocupación.</p>
+</li>
+<li>
+<p>Cambios  de  horario  y  capacidad  propios  y  de  la  competencia:  Es
+necesario vigilar incrementos o decrementos ya que esto hará que la demanda
+tenga variaciones en el tiempo.</p>
+</li>
+<li>
+<p>Curvas de maduración: Ayudan a analizar tendencias para definir si existen comportamientos anormales.</p>
+</li>
+</ul>
+<ul>
+<li>Distribución y reservaciones por clase: Es importante revisar como es que
+está optimizando el sistema ya que de esta distribución y venta dependerá la
+maximización de los ingresos.</li>
+</ul>
+<p>Revisar continuamente los datos ayuda a tomar decisiones acertadas con sustentos
+numéricos. Los datos se pueden comparar contra históricos, pronósticos y metas que
+serán  las  tendencias  que  se  esperan  cumplir,  de  este  modo  se  pueden  detectar
+anormalidades a tiempo para tomar las acciones necesarias, entre las que pueden
+ser  publicar  más  capacidad,  hacer  cancelaciones,  colocar  promociones,  encarecer
+tarifas entre otras.</p>
+</body>
+</html>

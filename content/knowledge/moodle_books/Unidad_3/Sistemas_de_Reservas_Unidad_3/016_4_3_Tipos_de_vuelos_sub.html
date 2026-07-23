@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>4.3. Tipos de vuelos</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+    figure { margin: 1.25rem 0; }
+    figure img, p img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    figcaption { color: #555; font-size: .92rem; text-align: center; margin-top: .35rem; }
+  </style>
+</head>
+<body>
+<h1>4.3. Tipos de vuelos</h1>
+<p style="line-height: 1.55; text-align: justify;">
+  Para la clasificación de un vuelo se tienen en cuenta tres parámetros:
+  <strong>1&#41;</strong> si tiene o no paradas &#40;<em>stops</em>&#41;;
+  <strong>2&#41;</strong> si cambia o no de número de vuelo;
+  <strong>3&#41;</strong> si cambia o no de equipo o aeronave.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Según su forma de operación entre origen y destino los vuelos se clasifican en cuatro
+  categorías: <strong>Sin Paradas o Non Stop</strong>, <strong>Directo</strong>,
+  <strong>Con Cambio de Equipo en Ruta</strong>, y <strong>En Conexión</strong>.
+</p>
+
+<ul style="line-height: 1.55; margin-top: 10px;">
+  <li style="margin-bottom: 4px;">
+    <strong>Vuelo sin Paradas o Non- Stop:</strong> no tiene paradas, no cambia de número
+    de vuelo ni de aeronave.
+  </li>
+
+  <li style="margin-bottom: 4px;">
+    <strong>Vuelo Directo:</strong> tiene una o más paradas, no cambia de número de vuelo
+    ni de aeronave.
+  </li>
+
+  <li style="margin-bottom: 4px;">
+    <strong>Vuelo con Cambio de Equipo en Ruta:</strong> tiene una o más paradas, no cambia
+    de número de vuelo, pero cambia de aeronave.
+  </li>
+
+  <li style="margin-bottom: 4px;">
+    <strong>Vuelo en Conexión:</strong> tiene parada o paradas intermedias, cambia de número
+    de vuelo y puede o no cambiar de aeronave. Cuando la conexión es con la misma aerolínea
+    se llama conexión on line; cuando es con diferentes aerolíneas se llama conexión inter-line.
+  </li>
+</ul>
+
+<p style="line-height: 1.55; text-align: justify;">
+  La siguiente tabla muestra cómo funcionan los tipos de vuelo:
+</p>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 8px;">
+  <thead>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: center;">
+        Tipo de Vuelo
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: center;">
+        Parada
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: center;">
+        Cambia N° de<br>Vuelo
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: center;">
+        Cambio de<br>Equipo
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 3px 6px; text-align: left;">Non Stop</td>
+      <td style="border: 1px solid #007399; padding: 3px 6px; text-align: center;">NO</td>
+      <td style="border: 1px solid #007399; padding: 3px 6px; text-align: center;">NO</td>
+      <td style="border: 1px solid #007399; padding: 3px 6px; text-align: center;">NO</td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 3px 6px; text-align: left;">Directo</td>
+      <td style="border: 1px solid #007399; padding: 3px 6px; text-align: center;">SI</td>
+      <td style="border: 1px solid #007399; padding: 3px 6px; text-align: center;">NO</td>
+      <td style="border: 1px solid #007399; padding: 3px 6px; text-align: center;">NO</td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 3px 6px; text-align: left;">Con cambio de<br>equipo en Ruta</td>
+      <td style="border: 1px solid #007399; padding: 3px 6px; text-align: center;">SI</td>
+      <td style="border: 1px solid #007399; padding: 3px 6px; text-align: center;">NO</td>
+      <td style="border: 1px solid #007399; padding: 3px 6px; text-align: center;">SI</td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 3px 6px; text-align: left;">En Conexión</td>
+      <td style="border: 1px solid #007399; padding: 3px 6px; text-align: center;">SI</td>
+      <td style="border: 1px solid #007399; padding: 3px 6px; text-align: center;">SI</td>
+      <td style="border: 1px solid #007399; padding: 3px 6px; text-align: center;">SI/NO</td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

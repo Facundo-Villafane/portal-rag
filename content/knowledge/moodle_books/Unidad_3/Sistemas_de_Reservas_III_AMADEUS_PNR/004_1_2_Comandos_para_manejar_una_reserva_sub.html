@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>1.2. Comandos para manejar una reserva</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+  </style>
+</head>
+<body>
+<h1>1.2. Comandos para manejar una reserva</h1>
+<p>Comando RT</p>
+<p>RT + record locator</p>
+<blockquote>
+<p>RT2VM6B6
+---RLR---
+RP/UTN5168476/FACUNDOV             FF/WE  22MAY/2100Z 2VM6B6
+1.MUNOZ/DIEGO MR
+2  UX 122 J 18NOV 1 CORMAD HK1 1305 0505 19NOV E  UX/JMMWK
+3  UX 121 J 24NOV 7 MADCOR HK1 2345 0840 25NOV E  UX/JMMWK
+4 AP COR 3514589982-B/P1
+5 APE DMUNOZ@WAGNER.COM/P1
+6 TK TL24MAY/1600/UTN5168476
+<em>TRN</em></p>
+</blockquote>
+<p>12</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe</p>
+<p>U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<p>En este nuevo despliegue tendremos algunos elementos nuevos, como la fecha y
+hora  en  la  que  se  generó  el  RL,  el  record  locator,  y  al  final  de  los  segmentos  de
+itinerario tendremos el Código de Reserva de propio de la aerolínea. Que no es el
+mismo  que  el  RL  que  genera  Amadeus  para  identificar  el  archivo  de  reserva.
+Observen también que el código de status de la reserva cambió, paso de un DK1 a
+un HK1.</p>
+<p>El comando RT tiene mas opciones y usos que solo buscar record locators.</p>
+<p>Comando
+RT/M
+RT/MUNOZ
+RT/MUNOZ/DIEGO
+RT2VM6B6</p>
+<p>Descripción
+Busca todos los apellidos que inician con M</p>
+<p>Busca las reservas que coincidan con este apellido</p>
+<p>Busca las reservas que coincidan con el apellido y nombre</p>
+<p>Busca la reserva por Record Locator</p>
+<p>Comando IG</p>
+<p>Con este comando podremos ignorar los cambios realizados, si estamos trabajando
+con una reserva y no la finalizamos ni generamos un RL, si colocamos IG la reserva
+se  borrará.  También  la  podemos  usar  cuando  reabrimos  un  PNR,  lo  vemos  y  no
+modificamos.</p>
+<p>Modificar un elemento</p>
+<p>N°elemento/cambio</p>
+<p>Si por ejemplo al momento de vender lugares por error vendimos menos lugares de
+los pasajeros que van a viajar:</p>
+<p>RP/UTN5168476/
+1.FLORES/ABEL MR  2.FLORES/INGRID MRS  3.FLORES/JOAQUIN(CHD/08JUN16)
+4  AR1498 Y 28MAY 2 AEPMDZ DK1 1500 1655 28MAY E  E90</p>
+<p>Para modificar la cantidad de lugares ingresamos:</p>
+<blockquote>
+<p>4/3</p>
+</blockquote>
+<p>RP/UTN5168476/
+1.FLORES/ABEL MR  2.FLORES/INGRID MRS  3.FLORES/JOAQUIN(CHD/08JUN16)
+4  AR1498 Y 28MAY 2 AEPMDZ DK3 1500 1655 28MAY E  E90</p>
+<p>Donde  4  es  el  numero  del  segmento  a  modificar  y  3  es  el  numero  de  espacios  a
+reservar.</p>
+<p>También podemos modificar números de contacto o correos:</p>
+<p>13</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe</p>
+<p>U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<p>RP/UTN5168476/
+1.FLORES/ABEL MR  2.FLORES/INGRID MRS  3.FLORES/JOAQUIN(CHD/08JUN16)
+4  AR1498 Y 28MAY 2 AEPMDZ DK3 1500 1655 28MAY E  E90
+5 AP BUE 1199999999-M/P1
+6 AP BUE 1154896325-M/P2</p>
+<blockquote>
+<p>5/BUE 1135877344-O/P1</p>
+</blockquote>
+<p>RP/UTN5168476/
+1.FLORES/ABEL MR  2.FLORES/INGRID MRS  3.FLORES/JOAQUIN(CHD/08JUN16)
+4  AR1498 Y 28MAY 2 AEPMDZ DK3 1500 1655 28MAY E  E90
+5 AP BUE 1135877344-O/P1
+6 AP BUE 1154896325-M/P2</p>
+<p>También podemos agregar un INF a un pax:</p>
+<blockquote>
+<p>2/(INF/DIEGO/20JAN22)</p>
+</blockquote>
+<p>RP/UTN5168476/
+1.FLORES/ABEL MR  2.FLORES/INGRID MRS(INF/DIEGO/20JAN22)
+3.FLORES/JOAQUIN(CHD/08JUN16)
+4  AR1498 Y 28MAY 2 AEPMDZ DK3 1500 1655 28MAY E  E90
+5 AP BUE 1135877344-O/P1
+6 AP BUE 1154896325-M/P2</p>
+<p>Cambio de clases y fechas:</p>
+<p>Comando SB</p>
+<p>SBG4
+SBG
+SB14AUG3</p>
+<p>Cambio a clase G el segmento 4
+Cambio a clase G todo el itinerario
+Cambia la fecha del segmento 3 al 14/08</p>
+<p>Cancelación de elementos</p>
+<p>Descripción
+Cancelo el elemento 3</p>
+<p>Cancelo los elementos 3 y 6</p>
+<p>Cancelo los elementos del 3 al 6</p>
+<p>Comando XE</p>
+<p>Comando
+XE3
+XE3,6
+XE3-6</p>
+<p>14</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe</p>
+<p>U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<p>También podemos cancelar un PNR completo cuando ya tenemos el RL. Para eso
+usamos el comando: XI firmamos con comando RF y guardamos la transacción.</p>
+</body>
+</html>

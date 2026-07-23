@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>4.3. TN – Tabla de Frecuencias</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+    figure { margin: 1.25rem 0; }
+    figure img, p img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    figcaption { color: #555; font-size: .92rem; text-align: center; margin-top: .35rem; }
+  </style>
+</head>
+<body>
+<h1>4.3. TN – Tabla de Frecuencias</h1>
+<p>Se  le  dice  tabla  de  frecuencias  al  comando  TN  por  su  descripción  en  inglés,
+Timetable  Neutral,  este  comando  solo  muestra  los  días  de  operación  de  vuelos
+publicados en el sistema, no muestra la disponibilidad de espacios.</p>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 8px;">
+  <thead>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Comando
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Lo que muestra
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        TNBUEMAD
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Despliega frecuencias de vuelos entre 2 ciudades, si no pongo fecha muestra vuelos de los próximos 7 días.
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        TN20JULNYCMAD
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Despliega frecuencias de vuelos entre 2 ciudades para los próximos 7 días a la fecha solicitada.
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        TN08MAYEZEMAD/AUX
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Despliega frecuencias de vuelos entre 2 ciudades con una aerolínea
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 28px;">
+  Ejemplo:
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">
+&gt; <strong>TN</strong>12MAYBUESCL
+
+<strong>TN</strong>12MAYBUESCL
+** AMADEUS TIMETABLE - TN ** SCL SANTIAGO.CL                 <strong>12MAY24  19MAY24</strong>
+1   <span style="color: #00a6d6; font-weight: bold;">LA 472</span>  <span style="color: #7a2bbd; font-weight: bold;">247</span>  <span style="color: #ff0080; font-weight: bold;">EZE A SCL 2</span>  <span style="color: #ff6600; font-weight: bold;">0510   0637</span>    <span style="color: #0000ff; font-weight: bold;">0</span>   <span style="color: #ff6600; font-weight: bold;">07APR24  31MAY24</span>   <span style="color: #8a8a00; font-weight: bold;">320</span>  <span style="color: #008000; font-weight: bold;">2:27</span>
+2   KL 701  D    EZE A SCL 2  0710   0820    0   07APR24  07SEP24   789  2:10
+3   LA 420  D    AEP   SCL 2  1235   1356    0   07APR24  31MAY24   320  2:21
+4   LA 452  <span style="color: #7a2bbd; font-weight: bold;">X45</span>  EZE A SCL 2  1320   1447    0   07APR24  30MAY24   320  2:27
+5   LA 450  D    EZE A SCL 2  1450   1617    0   07APR24  31MAY24   320  2:27
+6   LA 476  D    EZE A SCL 2  1827   1954    0   07APR24  31MAY24   320  2:27
+7   LA 424  4    AEP   SCL 2  1955   2117    0   11APR24  30MAY24   320  2:22
+8   LA 424  2    AEP   SCL 2  2000   2122    0   09APR24  28MAY24   320  2:22
+9   LA 424  7    AEP   SCL 2  2015   2137    0   07APR24  26MAY24   320  2:22
+10  LA 656  1356 EZE A SCL 2  2028   2155    0   08APR24  31MAY24   320  2:27
+11  LX 093  3    EZE A GRU 2  1330   1610    0   CONNECT   GRU      77W
+    LA 753  3    GRU 2 SCL 2  1720   2045    0   10APR24  15MAY24   320  8:15
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Lo que se muestra con el comando <strong>TN</strong> es una tabla de frecuencias de vuelo,
+  sirve para saber qué días y a qué hora opera determinado vuelo a determinado destino.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  <span style="color: #00a6d6; font-weight: bold;">LA 472</span> compañía y número de vuelo.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Días de la semana que opera:<br>
+  <span style="color: #7a2bbd; font-weight: bold;">247</span> martes, jueves y domingo.<br>
+  <span style="color: #7a2bbd; font-weight: bold;">D</span> diario.<br>
+  <span style="color: #7a2bbd; font-weight: bold;">X45</span> diario excepto jueves y viernes.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  <span style="color: #ff0080; font-weight: bold;">EZE A SCL 2</span> terminal de origen y destino,
+  <span style="color: #ff6600; font-weight: bold;">0510</span>
+  <span style="color: #ff6600; font-weight: bold;">0637</span> hora de salida y llegada
+  &#40;siempre en hora local&#41;,
+  <span style="color: #0000ff; font-weight: bold;">0</span> este número indica la cantidad de escalas.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  <span style="color: #ff6600; font-weight: bold;">07APR24</span>
+  <span style="color: #ff6600; font-weight: bold;">31MAY24</span>
+  periodo en el que el vuelo estará operativo.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  <span style="color: #8a8a00; font-weight: bold;">320</span> modelo de avión/equipo usado y
+  <span style="color: #008000; font-weight: bold;">2:27</span> la duración del vuelo.
+</p>
+</body>
+</html>

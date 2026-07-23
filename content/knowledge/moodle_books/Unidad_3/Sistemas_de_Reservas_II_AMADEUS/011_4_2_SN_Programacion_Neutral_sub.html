@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>4.2. SN - Programación Neutral</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+  </style>
+</head>
+<body>
+<h1>4.2. SN - Programación Neutral</h1>
+<p>Se  le  dice  programación  neutral  al  comando  SN  por  su  descripción  en  inglés,</p>
+<p>Schedule Neutral, a diferencia del comando AN, esta muestra todas las clases por
+mas que no haya lugar y/o estén cerradas o canceladas.</p>
+<p>Comando</p>
+<p>SNBUEMAD</p>
+<p>SN20JULNYCMAD</p>
+<p>SN08MAYEZEMAD/AUX</p>
+<p>SN12DECEZENYC/XMIA</p>
+<p>Lo que muestra</p>
+<p>Despliega vuelos entre 2 ciudades, si no pongo fecha</p>
+<p>es para hoy.</p>
+<p>Despliega  vuelos  entre  2  ciudades  para  una  fecha</p>
+<p>determinada</p>
+<p>Despliega vuelos entre 2 ciudades con una aerolínea</p>
+<p>Despliega vuelos entre 2 ciudades pasando por Miami</p>
+<p>SN12DECEZENYC/-XMIA</p>
+<p>Despliega vuelos entre 2 ciudades sin pasar por Miami</p>
+<p>SN12DECEZENYC/CL</p>
+<p>Despliega vuelos por la clase (L en este caso)</p>
+<p>SN12DECEZENYC/KY</p>
+<p>SN15AUGBUEMIA*30SEP</p>
+<p>Despliega  vuelos  por  cabina  (Y  economy  o  turista  en
+este caso)</p>
+<p>Despliega vuelos para ir y volver. Si solo pongo fecha</p>
+<p>de regreso se entiende que es desde la misma ciudad</p>
+<p>SN10MAYBUEBRC*</p>
+<p>Ida y vuelta para el mismo día (10 de mayo)</p>
+<p>SN13MAYBUEMIA*02APRCUNBUE</p>
+<p>Vuelos multidestino</p>
+<blockquote>
+<p>SN15AUGCAIDXB/AEK</p>
+</blockquote>
+<p>SN15AUGCAIDXB/AEK
+** AMADEUS SCHEDULES - SN ** DXB DUBAI.AE                    101 TH 15AUG 0000
+1   EK 926  FL A2 J0 C2 I4 O7 Y7  CAI 2 DXB 3  0125    0710  E0/77W      3:45
+E7 R7 W7 M7 B2 U2 K2 H1 QC LC TC VC XC
+2   EK 928  FL AP J2 C2 I2 O7 Y7  CAI 2 DXB 3  1205    1735  E0/77W      3:30
+E7 R7 W7 M7 B7 U7 KC HC QC LC TC VC XC
+3   EK 924  FL AL J2 C4 IC OC Y7  CAI 2 DXB 3  1840    0025+1E0/77W      3:45
+EC RC W2 M5 B7 U7 K7 HC QC LC TC VC XC</p>
+<p>Los status L indican que hay lista de espera para esa clase, y los status C ó S que</p>
+<p>aparecen al lado de las clases indican que las mismas están cerradas y que no se
+permite la lista de espera.</p>
+</body>
+</html>

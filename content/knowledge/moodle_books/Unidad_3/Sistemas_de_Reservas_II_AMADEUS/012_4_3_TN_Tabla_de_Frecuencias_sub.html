@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>4.3. TN – Tabla de Frecuencias</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+  </style>
+</head>
+<body>
+<h1>4.3. TN – Tabla de Frecuencias</h1>
+<p>Se  le  dice  tabla  de  frecuencias  al  comando  TN  por  su  descripción  en  inglés,
+Timetable  Neutral,  este  comando  solo  muestra  los  días  de  operación  de  vuelos
+publicados en el sistema, no muestra la disponibilidad de espacios.</p>
+<p>20</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe
+U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<p>Lo que muestra</p>
+<p>Despliega frecuencias de vuelos entre 2 ciudades, si no
+pongo fecha muestra vuelos de los próximos 7 dias.</p>
+<p>Despliega frecuencias de vuelos entre 2 ciudades para</p>
+<p>los próximos 7 días a la fecha solicitada.</p>
+<p>Despliega frecuencias de vuelos entre 2 ciudades con</p>
+<p>una aerolínea</p>
+<p>Comando</p>
+<p>TNBUEMAD</p>
+<p>TN20JULNYCMAD</p>
+<p>TN08MAYEZEMAD/AUX</p>
+<p>Ejemplo:</p>
+<blockquote>
+<p>TN12MAYBUESCL</p>
+</blockquote>
+<p>TN12MAYBUESCL
+** AMADEUS TIMETABLE - TN ** SCL SANTIAGO.CL                 12MAY24  19MAY24
+1   LA 472  247   EZE A SCL 2  0510    0637    0  07APR24  31MAY24  320  2:27
+2   KL 701  D     EZE A SCL 2  0710    0820    0  07APR24  07SEP24  789  2:10
+3   LA 420  D     AEP   SCL 2  1235    1356    0  07APR24  31MAY24  320  2:21
+4   LA 452  X45   EZE A SCL 2  1320    1447    0  07APR24  30MAY24  320  2:27
+5   LA 450  D     EZE A SCL 2  1450    1617    0  07APR24  31MAY24  320  2:27
+6   LA 476  D     EZE A SCL 2  1827    1954    0  07APR24  31MAY24  320  2:27
+7   LA 424  4     AEP   SCL 2  1955    2117    0  11APR24  30MAY24  320  2:22
+8   LA 424  2     AEP   SCL 2  2000    2122    0  09APR24  28MAY24  320  2:22
+9   LA 424  7     AEP   SCL 2  2015    2137    0  07APR24  26MAY24  320  2:22
+10   LA 656  1356  EZE A SCL 2  2028    2155    0  08APR24  31MAY24  320  2:27
+11   LX 093  3     EZE A GRU 2  1330    1610    0  CONNECT  GRU      77W
+LA 753  3     GRU 2 SCL 2  1720    2045    0  10APR24  15MAY24  320  8:15</p>
+<p>Lo que se muestra con el comando TN es una tabla de frecuencias de vuelo, sirve
+para saber que días y a que hora opera determinado vuelo a determinado destino.</p>
+<p>LA 472 compañía y número de vuelo.</p>
+<p>Días de la semana que opera:
+247  martes, jueves y domingo.</p>
+<p>diario.</p>
+<p>D
+X45  diario excepto jueves y viernes.</p>
+<p>EZE A SCL 2 terminal de origen y destino, 0510  0637 hora de salida y llegada
+(siempre en hora local), 0 este número indica la cantidad de escalas.</p>
+<p>07APR24  31MAY24 periodo en el que el vuelo estará operativo.
+320 modelo de avión/equipo usado y 2:27 la duración del vuelo.</p>
+<p>21</p>
+</body>
+</html>

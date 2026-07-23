@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>4.1. AN – Disponibilidad Neutral</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+  </style>
+</head>
+<body>
+<h1>4.1. AN – Disponibilidad Neutral</h1>
+<p>Se  le  dice  disponibilidad  neutral  al  comando  AN  por  su  traducción  del  inglés,</p>
+<p>Availability  Neutral,  esta  es  una  buena  forma  de  relacionar  los  comandos  para
+facilitar su aprendizaje. (Por ejemplo, DNA podría interpretarse como Display Name
+Airline, porque muestra, ‘Display’, el nombre, ‘Name’, de la aerolínea, ‘Airline’.)</p>
+<p>Comando</p>
+<p>ANBUEMAD</p>
+<p>AN20JULNYCMAD</p>
+<p>AN08MAYEZEMAD/AUX</p>
+<p>AN12DECEZENYC/XMIA</p>
+<p>Lo que muestra</p>
+<p>Disponibilidad entre 2 ciudades, si no pongo fecha es</p>
+<p>para hoy.</p>
+<p>Disponibilidad  entre  2  ciudades  para  una</p>
+<p>fecha</p>
+<p>determinada</p>
+<p>Disponibilidad entre 2 ciudades con una aerolínea</p>
+<p>Disponibilidad entre 2 ciudades pasando por Miami</p>
+<p>AN12DECEZENYC/-XMIA</p>
+<p>Disponibilidad entre 2 ciudades sin pasar por Miami</p>
+<p>AN12DECEZENYC/CL</p>
+<p>AN12DECEZENYC/KY</p>
+<p>AN15AUGBUEMIA*30SEP</p>
+<p>Elijo la clase (L en este caso)</p>
+<p>Elijo la cabina (Y economy o turista en este caso)</p>
+<p>Disponibilidad para ir y volver. Si solo pongo fecha de</p>
+<p>regreso se entiende que es desde la misma ciudad</p>
+<p>AN10MAYBUEBRC*</p>
+<p>Ida y vuelta para el mismo día (10 de mayo)</p>
+<p>AN13MAYBUEMIA*02APRCUNBUE</p>
+<p>Vuelos multidestino</p>
+<p>16</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe
+U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<p>El  comando  AN  permite  consultar  la  disponibilidad  de  vuelos  y  lugares  en  clases
+disponibles  para  una  fecha  particular,  especificando  un  lugar  de  partida  y  otro  de</p>
+<p>destino.</p>
+<p>Ejemplo:
+Supongamos  que  necesitamos  unos  tickets  de  ida  y  vuelta,  desde  el  Cairo  hasta</p>
+<p>Dubái, saliendo el 3 de Junio y regresando el 7 de Junio.</p>
+<p>Antes  de  colocar  el  comando  para  el  primer  segmento  (trayecto,  vuelo  o  como
+quieran decirle) para El Cairo – Dubái el 3 de Junio debemos saber los códigos de</p>
+<p>aeropuerto de estos dos lugares, ya que los debemos colocar en el comando.</p>
+<p>En caso de no saberlos podemos usar el comando DAN:</p>
+<blockquote>
+<p>DAN CAIRO</p>
+</blockquote>
+<p>DAN CAIRO
+A:APT B:BUS C:CITY G:GRD H:HELI O:OFF-PT R:RAIL S:ASSOC TOWN
+CAI*C  CAIRO                                            /EG
+A  CAI - CAIRO INTL              -  0K              /EG
+A  CCE - CAPITAL INTERNATIONAL   - 17K              /EG
+CIR C  CAIRO                                            /USIL
+A  CIR - CAIRO                   -  0K              /USIL</p>
+<p>Entonces el comando DAN CAIRO muestra los aeropuertos disponibles en la ciudad</p>
+<p>de El Cairo. Resaltado puede verse el aeropuerto internacional de El Cairo CAI.</p>
+<p>Hacemos lo mismo con Dubái:</p>
+<blockquote>
+<p>DAN DUBAI</p>
+</blockquote>
+<p>DANDUBAI
+A:APT B:BUS C:CITY G:GRD H:HELI O:OFF-PT R:RAIL S:ASSOC TOWN
+DXB*C  DUBAI                                            /AE
+A  DWC - AL MAKTOUM INTL         - 40K              /AE
+A  DCG - DUBAI CREEK SPB         -  1K              /AE
+A  DXB - DUBAI INTL              -  0K              /AE
+A  ZJF - JEBEL ALI FREE ZONE     - 33K              /AE
+A  DJH - JEBEL ALI SPB           - 41K              /AE
+A  NHD - MINHAD AB               - 45K              /AE
+B  XEU - HYATT RGNCY EY BUS STN  - 22K              /AE
+B  ZXZ - JUMEIRAH BEACH BUS ST   - 22K              /AE
+Q3D G  DUBAI INDUSTRIAL CITY                            /AE
+Resulta que esta vez la lista es tan larga que uno no sabría cual elegir. Hay varias
+maneras de resolverlo:</p>
+<p>17</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe
+U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<ol>
+<li>Solo las líneas que comienzan por  A corresponden a aeropuertos. Las que
+comienzan  con  B  son  estaciones  de  Bus  y  las  que  comienzan  con  G  no</li>
+</ol>
+<p>corresponden a ningún aeropuerto.</p>
+<ol start="2">
+<li>Cómo  lo  que  estamos  buscando  es  un  vuelo  internacional  seguramente  la</li>
+</ol>
+<p>llegada será a un aeropuerto internacional (DUBAI INTL).</p>
+<ol start="3">
+<li>Otra referencia que puede usarse es la cercanía con la ciudad (Nótese que el</li>
+</ol>
+<p>aeropuerto DUBAI INTL está a 0K de la ciudad), aunque una ciudad grande
+puede tener varios aeropuertos internacionales.</p>
+<ol start="4">
+<li>Y la última, que es un secreto que nadie quiere admitir, es buscar en Google.
+Sí, pueden entrar a Google Flights en https://www.google.com/flights/ podrán</li>
+</ol>
+<p>consultar el mismo vuelo que están intentando encontrar, copiar el código de
+los aeropuertos, ver más o menos que aerolíneas vuelan y hasta los precios.</p>
+<p>Luego pueden buscar con confianza en Amadeus.</p>
+<p>Teniendo claro que los códigos del Cairo y Dubái respectivamente son CAI y DXB,
+procedamos a utilizar el comando AN para encontrar la disponibilidad de este vuelo</p>
+<p>el 3 de Junio.</p>
+<blockquote>
+<p>AN03JUNCAIDXB
+AN03JUNCAIDXB
+** AMADEUS AVAILABILITY - AN ** DXB DUBAI.AE               30 MO 03JUN 0000
+1   EK 926 F2 A2 J4 C4 I4 O7 Y7  CAI 2 DXB 3  0125  0710  E0/77W       3:45
+E7 R7 W7 M7 B7 U7 K7 H7 Q7 L7 T7 V7 X7
+2MS:SQ6043 Z4 C4 J4 D4 Y4 B4 M4 /CAI 3 DXB 1  0525  1055  E0/738  TR   3:30
+3MS:SQ6034 Z4 C4 J4 D4 Y4 B4 M4 /CAI 3 DXB 1  0930  1500  E0/333  TR   3:30
+H4 W4 Q4 N4 V4 L4
+4   EK 928 F2 A2 J4 C4 I4 O7 Y7  CAI 2 DXB 3  1205  1735  E0/77W       3:30
+E7 R7 W7 M7 B7 U7 K7 H7 Q7 L7 T7 V7 X7
+5   EK 924 F2 A2 J4 C4 I4 O7 Y7  CAI 2 DXB 3  1840  0025+1E0/77W       3:45
+E7 R7 W7 M7 B7 U7 K7 H7 Q7 L7 T7 V7 X7
+6MS:SQ6032 Z4 C4 J4 D4 Y4 B4 M4 /CAI 3 DXB 1  2230  0400+1E0/333  TR   3:30
+H4 W4 Q4 N4 V4 L4
+7   GF 070 J7 C7 D4 I1 Y7 H7 M7 /CAI 2 BAH    1310  1715  E0/321
+L7 B7 K7 X7 Q7 V7 E7 O7 N7 S7 W7
+GF 510 J7 C7 D7 I5 Y7 H7 M7 /BAH   DXB 1  1805  2015  E0/320       5:05
+L7 B7 K7 X7 Q7 V7 E7 O7 N7 S7 W7</p>
+</blockquote>
+<p>Lo que ven arriba es un despliegue de disponibilidad, puede parecer algo confuso y
+caótico, pero vamos a ver cada parte en detalle para que puedan entender mejor:</p>
+<p>30 MO 03JUN 0000 Indica el número de días que faltan para el vuelo, el día de la
+semana y la fecha en que sale.</p>
+<p>18</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe
+U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<p>La línea en negrita es la primera línea de disponibilidad. Es decir, uno de los vuelos
+que hay disponibles para ese día.</p>
+<p>EK 926 corresponde al código de la aerolínea y el número del vuelo, en este caso
+el vuelo EK 926 de Emirates.</p>
+<p>Luego continúan las clases F2 A2 J4 ... T7 V7 X7. Cada par de letra y número
+determinan la clase y el número de asientos disponibles para dicha clase. Esto es</p>
+<p>importante porque es uno de los factores que definen el precio final del vuelo y van,
+de izquierda a derecha, desde las más caras (clase ejecutiva) hasta las más baratas.
+En este caso la más cara es la F2 (2 asientos disponibles) y la más económica es la
+X7 (7 asientos disponibles).</p>
+<p>CAI 2 DXB 3 indica los códigos de aeropuertos de origen y destino. Los números
+son las terminales de cada aeropuerto.</p>
+<p>0125 0710 indica las horas de salida y llegada. Todo son horas locales.</p>
+<p>3:45 indica el tiempo de vuelo (desde que despega hasta que aterriza).</p>
+<p>E0/77W indica respectivamente el número de escalas del vuelo, cero en este caso,
+y el tipo de avión que vuela (Boeing 777-300ER).</p>
+<p>Finalmente, si se fijan en la línea  5, verán un 0025+1  en la hora de llegada. Eso
+señala  que  el  vuelo  llega  a  la  12:25  de  la  media  noche,  pero  un  día  después.</p>
+<p>También nótese que todas las fechas son en formato de 24 horas.</p>
+<p>Adicionalmente, existen una serie de argumentos opcionales que uno puede agregar</p>
+<p>para la búsqueda de disponibilidad. Un ejemplo de esto es filtrar los resultados para
+que muestre solo una aerolínea específica agregando  /A EK al final (mostrar solo</p>
+<p>Emirates), como se muestra a continuación:</p>
+<blockquote>
+<p>AN03JUNCAIDXB/AEK</p>
+</blockquote>
+<p>AN03JUNCAIDXB/AEK
+** AMADEUS AVAILABILITY - AN ** DXB DUBAI.AE                  30 MO 03JUN 0000
+1   EK 926  F2 A2 J4 C4 I4 O7 Y7  CAI 2 DXB 3  0125    0710  E0/77W      3:45
+E7 R7 W7 M7 B7 U7 K7 H7 Q7 L7 T7 V7 X7
+2   EK 928  F2 A2 J4 C4 I4 O7 Y7  CAI 2 DXB 3  1205    1735  E0/77W      3:30
+E7 R7 W7 M7 B7 U7 K7 H7 Q7 L7 T7 V7 X7
+3   EK 924  F2 A2 J4 C4 I4 O7 Y7  CAI 2 DXB 3  1840    0025+1E0/77W      3:45
+E7 R7 W7 M7 B7 U7 K7 H7 Q7 L7 T7 V7 X7</p>
+<p>19</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe
+U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+</body>
+</html>

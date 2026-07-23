@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>3. Manejo de itinerarios</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+    figure { margin: 1.25rem 0; }
+    figure img, p img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    figcaption { color: #555; font-size: .92rem; text-align: center; margin-top: .35rem; }
+  </style>
+</head>
+<body>
+<h1>3. Manejo de itinerarios</h1>
+<p style="line-height: 1.55; text-align: justify;">
+  Los itinerarios se pueden imprimir o desplegar en pantalla y enviar a cada pax.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Existen 2 tipos:
+</p>
+
+<ul style="line-height: 1.55; margin-top: 8px;">
+  <li>
+    <strong>Itinerario básico:</strong> nombre del pax, vuelos, horarios y ciudades.
+  </li>
+  <li>
+    <strong>Itinerario extendido:</strong> nombre del pax, vuelos, horarios, ciudades,
+    tiempo de vuelo, asientos, comidas, número de viajero frecuente, etc.
+  </li>
+</ul>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 18px;">
+  Comando IE / IB
+</p>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 8px;">
+  <thead>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Comando
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Descripción
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">IED</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">Despliega en pantalla itinerario extendido para c/pax</td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">IBD</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">Despliega en pantalla itinerario básico para c/pax</td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">IEP</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">Imprime itinerario extendido para c/pax</td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">IEP/P1</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">Imprime itinerario extendido para pax 1</td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">IEPJ</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">Imprime un itinerario extendido para todos los pax del PNR</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="line-height: 1.55; text-align: justify; margin-top: 28px;">
+  Si no lo quiero imprimir también lo puedo enviar por email.
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 8px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.45; color: #000080;"><strong>IEP-EML</strong> + emaildelpax@email.com
+
+<strong>IEP-EMLA</strong>: se envia al mail cargado en el PNR
+
+<strong>IEPJ-EMLA</strong>: se envia a todos los emails cargados en el PNR</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Agregar un filtro de idioma:
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 8px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.45; color: #000080;"><strong>IEP/LP</strong> + 2 primeras letras del idioma
+
+<strong>IEP/LPEN</strong></pre>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold;">
+  Ejemplo:
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">&gt;<strong>IED</strong>
+
+UNIVERSIDAD TECNOLOGICA NACIONAL              CODIGO DE RES. 2Y4SNY
+951 MEDRANO                                   FECHA:   29 MAYO 2026
+BUENOS AIRES
+ARGENTINA                                     MARTINEZ/JULIA MRS
+TELEFONO:   5491154788621
+FAX:        5491154788621
+E-MAIL: AMADEUS@FRBA.UTN.EDU.AR
+
+VUELO        UX 122 - AIR EUROPA              LUN 18 NOVIEMBRE 2026
+-----------------------------------------------------------------------
+SALIDA:      CORDOBA, AR &#40;IA AMBROSIO TARAVELLA&#41;, TERMINAL   18 NOV 13:05
+LLEGADA:     MADRID, ES &#40;BARAJAS&#41;, TERMINAL 3                 19 NOV 05:05
+             LOCALIZADOR AEROLINEA: UX/KTWNUC
+             RESERVA CONFIRMADA, BUSINESS &#40;J&#41;                 DURACION: 12:00
+-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+             COMIDA:        CENA/DESAYUNO
+         COMIDA PARA BEBE PEDIDO
+
+SIN PARADAS CORDOBA,AR A MADRID,ES
+             EQUIPO:        BOEING 787-900</pre>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080; margin-top: 18px;">&gt;<strong>IEP-EMLA</strong>
+
+
+ITINERARIO CORREO ELECT. ENVIADO - NUMERO ENVIADO 1</pre>
+
+<p style="line-height: 1.55; font-weight: bold; font-size: 22px; margin-top: 32px;">
+  4.Extension de seguridad
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Esta función del sistema sirve a las agencias minoristas para <strong>ceder</strong>
+  el PNR a otra agencia, generalmente al operador mayorista, para que emita el boleto.
+</p>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 18px;">
+  Comando ES
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 8px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.45; color: #000080;"><strong>ES-</strong> + ID de oficina al que cedo el PNR + -B
+
+<strong>ES-UTN5168476-B</strong></pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Para confirmar esta acción firmo y cierro con <strong style="color: #000080;">RF,ET</strong>
+</p>
+</body>
+</html>

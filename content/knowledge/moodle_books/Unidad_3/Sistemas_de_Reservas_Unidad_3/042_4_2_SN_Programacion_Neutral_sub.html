@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>4.2. SN - Programación Neutral</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+    figure { margin: 1.25rem 0; }
+    figure img, p img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    figcaption { color: #555; font-size: .92rem; text-align: center; margin-top: .35rem; }
+  </style>
+</head>
+<body>
+<h1>4.2. SN - Programación Neutral</h1>
+<p style="line-height: 1.55; text-align: justify;">
+  Se le dice programación neutral al comando <strong>SN</strong> por su descripción en inglés,
+  <strong>Schedule Neutral</strong>, a diferencia del comando <strong>AN</strong>, esta
+  muestra todas las clases por mas que no haya lugar y/o estén cerradas o canceladas.
+</p>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 8px;">
+  <thead>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Comando
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Lo que muestra
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">SNBUEMAD</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Despliega vuelos entre 2 ciudades, si no pongo fecha es para hoy.
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">SN20JULNYCMAD</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Despliega vuelos entre 2 ciudades para una fecha determinada
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">SN08MAYEZEMAD/AUX</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Despliega vuelos entre 2 ciudades con una aerolínea
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">SN12DECEZENYC/XMIA</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Despliega vuelos entre 2 ciudades pasando por Miami
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">SN12DECEZENYC-XMIA</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Despliega vuelos entre 2 ciudades sin pasar por Miami
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">SN12DECEZENYC/CL</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Despliega vuelos por la clase &#40;L en este caso&#41;
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">SN12DECEZENYC/KY</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Despliega vuelos por cabina &#40;Y economy o turista en este caso&#41;
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">SN15AUGBUEMIA*30SEP</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Despliega vuelos para ir y volver. Si solo pongo fecha de regreso se entiende
+        que es desde la misma ciudad
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">SN10MAYBUEBRC*</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Ida y vuelta para el mismo día &#40;10 de mayo&#41;
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">SN13MAYBUEMIA*02APRCUNBUE</td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Vuelos multidestino
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080; margin-top: 28px;">
+&gt; <strong>SN</strong>15AUGCAIDXB/AEK
+
+SN15AUGCAIDXB/AEK
+** AMADEUS SCHEDULES - SN ** DXB DUBAI.AE                      101 TH 15AUG 0000
+1  EK 926  <span style="color: #ff0000; font-weight: bold;">FL</span> A2 <span style="color: #ff0000; font-weight: bold;">J0</span> C2 I4 O7 Y7  CAI 2 DXB 3   0125    0710   E0/77W        3:45
+           E7 R7 W7 M7 B2 U2 K2 H1 <span style="color: #ff0000; font-weight: bold;">QC LC TC VC XC</span>
+
+2  EK 928  <span style="color: #ff0000; font-weight: bold;">FL</span> AP J2 C2 I2 O7 Y7  CAI 2 DXB 3   1205    1735   E0/77W        3:30
+           E7 R7 W7 M7 B7 U7 <span style="color: #ff0000; font-weight: bold;">KC HC QC LC TC VC XC</span>
+
+3  EK 924  <span style="color: #ff0000; font-weight: bold;">FL AL</span> J2 C4 <span style="color: #ff0000; font-weight: bold;">IC OC</span> Y7  CAI 2 DXB 3   1840    0025+1E0/77W         3:45
+           <span style="color: #ff0000; font-weight: bold;">EC RC</span> W2 M5 B7 U7 K7 <span style="color: #ff0000; font-weight: bold;">HC QC LC TC VC XC</span>
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Los status <strong>L</strong> indican que hay lista de espera para esa clase, y los
+  status <strong>C</strong> ó <strong>S</strong> que aparecen al lado de las clases indican
+  que las mismas están cerradas y que no se permite la lista de espera.
+</p>
+</body>
+</html>

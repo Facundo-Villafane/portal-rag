@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<title>3.1. Control del inventario</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+    figure { margin: 1.25rem 0; }
+    figure img, p img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    figcaption { color: #555; font-size: .92rem; text-align: center; margin-top: .35rem; }
+  </style>
+</head>
+<body>
+<h1>3.1. Control del inventario</h1>
+<p>El  control  del  inventario  es  el  proceso  de  administrar  la  venta  de  diferentes  clases
+tarifarias  para  cada  vuelo.  La  correcta  asignación  puede  guiar  a  una  mejora  en  el
+ingreso de cada vuelo u operación.</p>
+<p>Ejemplo:  suponga  un  avión  con  capacidad  para  100  pasajeros  donde  hay  120
+personas  interesadas  en  hacer  una  reservación,  también  suponga  que  hay
+consumidores  sensibles  al  precio.  Sin  control  de  inventario,  las  reservaciones  se
+harían de la manera en que los consumidores vayan llegando tal como se aprecia en
+la Tabla 3, a pesar de que hay consumidores dispuestos a pagar tarifas más altas, no
+se concreta la demanda en esas tarifas por la mala asignación, es así que se pierde
+ingreso potencial. Cuando se asigna inventario de acuerdo a la demanda esperada para cada precio como se muestra en la Tabla 4, se incrementa el ingreso de manera
+considerable  despreciando  a  clientes  dispuestos  a  pagar  tarifas  bajas,  esperando
+clientes dispuestos a pagar tarifas altas.</p>
+<p></p>
+<figure>
+<figcaption>Tabla 3. Ventas de asientos sin control de inventario.</figcaption>
+<table>
+<thead>
+<tr>
+<th>Clase</th>
+<th>Precio</th>
+<th>Demanda</th>
+<th>Asignación de inventario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F</td>
+<td>$90.000</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>B</td>
+<td>$50.000</td>
+<td>15</td>
+<td>0</td>
+</tr>
+<tr>
+<td>W</td>
+<td>$40.000</td>
+<td>20</td>
+<td>20</td>
+</tr>
+<tr>
+<td>J</td>
+<td>$20.000</td>
+<td>30</td>
+<td>30</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>$10.000</td>
+<td>50</td>
+<td>50</td>
+</tr>
+<tr>
+<th colspan="2">Total</th>
+<td>120</td>
+<td>100</td>
+</tr>
+</tbody>
+</table>
+<p><small>Fuente: Elaboración propia.</small></p>
+</figure>
+<figure>
+<figcaption>Tabla 4. Ventas de asientos con control del inventario.</figcaption>
+<table>
+<thead>
+<tr>
+<th>Clase</th>
+<th>Precio</th>
+<th>Demanda</th>
+<th>Asignación de inventario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F</td>
+<td>$90.000</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr>
+<td>B</td>
+<td>$50.000</td>
+<td>15</td>
+<td>15</td>
+</tr>
+<tr>
+<td>W</td>
+<td>$40.000</td>
+<td>20</td>
+<td>20</td>
+</tr>
+<tr>
+<td>J</td>
+<td>$20.000</td>
+<td>30</td>
+<td>30</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>$10.000</td>
+<td>50</td>
+<td>50</td>
+</tr>
+<tr>
+<th colspan="2">Total</th>
+<td>120</td>
+<td>120</td>
+</tr>
+</tbody>
+</table>
+<p><small>Fuente: Elaboración propia.</small></p>
+</figure>
+<h3>3.1.1. Estrategias en el control del inventario</h3>
+<p>Las  aerolíneas  pueden  buscar  tres  estrategias  con  el  control  del  inventario.  (The
+Basics of Revenue Management, 2004)</p>
+<h4>3.1.1.1. Incrementar el factor de ocupación</h4>
+<p>El  costo  por  pasajero  decrece  a  medida  que  crecen  las  reservaciones,  el  costo  de
+servir a un pasajero extra es bajo, entonces los ingresos generados por la demanda
+incremental tienden a incrementar los ingresos. El inventario de asientos asignados a
+tarifas descontadas debe ser controlado para poder tener espacio disponible para los
+pasajeros dispuestos a pagar tarifas altas los cuales tienden a reservar en un tiempo
+muy cercano al momento de salida. Se define el término spill el cual existe cuando las aerolíneas tienen que rechazar la solicitud de un pasajero de tarifa alta por no tener
+disponibilidad ya que ha vendido demasiadas tarifas descontadas</p>
+<h4>3.1.1.2. Incrementar el ingreso de las tarifas altas</h4>
+<p>En este caso se intenta incrementar el ingreso vendiendo más tarifas a los pasajeros
+que compran de último minuto, es decir con la salida del vuelo muy cercana a la fecha
+de  compra.  Con  este  control  se  limita  el  número  de  asientos  disponibles  para  las
+tarifas  más  bajas;  este  control  usualmente  baja  el  factor  de  ocupación,  pero
+incrementa la tarifa promedio y el ingreso promedio por pasajero. Se define el término
+stifle cuando no se venden tarifas bajas por asumir que los asientos tendrán demanda
+de pasajeros de tarifas altas, pero estos últimos no se materializan, de este modo el
+avión sale con asientos vacíos.</p>
+<h4>3.1.1.3. Maximizar el ingreso total</h4>
+<p>Con esta estrategia se busca maximizar el ingreso para cada vuelo. Para hacer esto
+las aerolíneas protegen asientos para tarifas altas para los pasajeros que llegan de
+último  minuto  y  buscan  llenar  el  excedente  de  asientos  con  pasajeros  que  pagan
+tarifas descontadas. Aunque el factor de ocupación y el número de asientos vendidos
+de tarifas altas sea menor que en los otros dos, el ingreso total será mayor.</p>
+<h3>3.1.2. Administración de Inventario</h3>
+<p>Para  administrar  el  inventario  de  los  asientos  disponibles  las  aerolíneas  definen
+diferentes  tarifas  asignadas  a  diferentes  productos,  estás  tarifas  se  conocen  como
+clases tarifarias y se definen con letras.</p>
+<p>Una  estructura  de  inventario  está  creada  con  clases  tarifarias,  las  cuales  pueden
+organizarse de tres maneras.</p>
+<h4>3.1.2.1. Anidación lineal</h4>
+<p>Es una de las estrategias de inventario más comunes en donde cada clase representa
+un rango de tarifas, hay una relación jerárquica entre las tarifas más altas y las más
+bajas. Los asientos disponibles en la clase más alta incluyen los asientos disponibles
+en la más baja. La solicitud para una tarifa más alta nunca se podrá rechazar si hay
+disponibilidad  en  una  clase  más  baja.  Las  clases  bajas  se  cierran,  es  decir  ya  no
+puede haber reservaciones antes de que cierren las clases altas.</p>
+<p>La disponibilidad de una clase, es el número de asientos autorizados a la venta. La
+protección de una clase es el número de asientos asignados específicamente para
+cada clase. Las clases más altas tienen acceso al nivel de protección de las clases más bajas, más la protección que tenían por definición. La asignación que se cargará
+en los sistemas de optimización corresponderá a la disponibilidad.</p>
+<figure>
+<figcaption>Tabla 5. Protección y disponibilidad anidada por clase.</figcaption>
+<table>
+<thead>
+<tr>
+<th>Clase</th>
+<th>Precio</th>
+<th>Protección</th>
+<th>Disponibilidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F</td>
+<td>$90.000</td>
+<td>10</td>
+<td>100</td>
+</tr>
+<tr>
+<td>B</td>
+<td>$50.000</td>
+<td>20</td>
+<td>90</td>
+</tr>
+<tr>
+<td>E</td>
+<td>$40.000</td>
+<td>30</td>
+<td>70</td>
+</tr>
+<tr>
+<td>D</td>
+<td>$10.000</td>
+<td>40</td>
+<td>40</td>
+</tr>
+</tbody>
+</table>
+<p><small>Fuente: Elaboración propia.</small></p>
+</figure>
+<p>En la tabla 5 se aprecia que, si en un vuelo las primeras reservaciones sucedieran en
+la clase E ocupando los 30 lugares disponibles, en realidad esos lugares se restarían
+de la disponibilidad en D dejando 10 lugares disponibles para esta clase, y respetando
+aún 30 asientos más para la clase E.</p>
+<h4>3.1.2.2. Anidación particionada</h4>
+<p>También se le conoce como control independiente, donde no existe relación entre a
+las clases, es decir se puede tener clases con disponibilidad independiente una de la
+otra, donde el nivel de protección es el mismo que la disponibilidad.</p>
+<h4>3.1.2.3. Anidación híbrida</h4>
+<p>Combina  los  dos  anteriores,  una  clase  puede  tener  la  jerarquía  más  alta,  o  la
+capacidad  se  puede  dividir  de  acuerdo  a  las  necesidades  y  estrategias  de  la
+aerolínea.</p>
+<h3>3.1.3. Asignación de capacidad</h3>
+<p>Se asume que la empresa vende su capacidad en n clases distintas que requieren el
+mismo recurso o inventario, estas clases representan diferentes niveles con diferentes
+condiciones  de  venta  y  restricciones.  El  problema  es  asignar  óptimamente  la
+capacidad  del  recurso  para  las  varias  clases.  Esta  asignación  debe  ser  hecha
+dinámicamente, así como la demanda llega y con cierta incertidumbre acerca de la
+cantidad futura de demanda.</p>
+<p>A continuación, se describen dos de los modelos para el control del inventario más
+citados  dentro  de  los  artículos  de  Revenue  Management,  la  definición  del  primero
+creado  por  Ken  Littlewood  (1972)  llevó  a  la  creación  del  modelo  más  reconocido,
+definido por Peter Belobaba (1987 a, 1989 b). Estos dos modelos son las bases de
+otros usados en los sistemas de Revenue Management.</p>
+<p>Los modelos definen los siguientes supuestos (Talluri &amp; Van, 2004)</p>
+<p>Supuesto 1. La demanda llega en un estricto orden de la clase más baja a la clase
+más alta. En la realidad la demanda para las diferentes clases se puede superponer
+en el tiempo.</p>
+<p>Supuesto  2.  La  demanda  para  las  diferentes  clases  son  variables  aleatorias
+independientes.</p>
+<p>Supuesto 3. La demanda dada para una clase no depende de la disponibilidad en
+otras clases.</p>
+<h4>3.1.3.1. Modelo de dos clases de Littlewood</h4>
+<p>El primer modelo conocido para controlar el inventario de las aerolíneas se le atribuye
+a Ken Littlewood (1972), citado por (Talluri &amp; Van, 2004) El modelo asume dos clases
+con precios asociados</p>
+<p>Se define</p>
+<p>𝑝1 &gt; 𝑝2 = Precio de la clase 1 es mayor al de la clase 2</p>
+<p></p>
+<p>𝐶 = Capacidad, no hay cancelaciones ni sobreventa</p>
+<p></p>
+<p>𝐷𝑗 = Demanda para la clase 𝑗</p>
+<p>La  demanda  para  la  clase  2  llega  primero.  El  problema  es  decidir  la  cantidad  de
+demanda aceptada para la clase 2 antes de que se concrete la demanda de la clase
+1.</p>
+<p>Suponga que hay x unidades de capacidad remanente y se recibe una solicitud para la clase 2, si se acepta la propuesta se obtendrá el ingreso 𝑝2, si no se acepta, se venderá la unidad 𝑥 a 𝑝1 sólo si la demanda de la clase 1 es 𝑥 o mayor, esto es sí y sólo si:</p>
+<p>𝐷1 ≥ 𝑥</p>
+<p>Entonces el ingreso esperado de reservar la x-ésima unidad para la clase 1 es:</p>
+<p>𝑝1𝑃(𝐷1 ≥ 𝑥)</p>
+<p>De este modo, hace sentido aceptar la solicitud de la clase 2 mientras que su precio
+exceda su valor marginal, o equivalentemente sí y sólo si:</p>
+<p>𝑝2   ≥   𝑝1𝑃(𝐷1 ≥ 𝑥)</p>
+<p>Así existirá un nivel óptimo de protección denotado 𝑦1, el cual acepta la clase 2 si la capacidad  remanente  excede y  se  rechaza  si  la  capacidad  remanente  es 𝑦1 o menos. De esta manera:</p>
+<p>𝑝1   &lt;   𝑝1𝑃(𝐷1 ≥   𝑦1)  y   𝑝2   ≥  𝑝1𝑃(𝐷1 ≥   𝑦1 + 1)</p>
+<p>Si una función de distribución 𝐹1(𝑥) es usada para modelar la demanda, el nivel óptimo de protección será dado por las simples expresiones:</p>
+<p>𝑝 2 =   𝑝1𝑃(𝐷1 ≥   𝑦1)</p>
+<p>Equivalentemente</p>
+<p>𝑦1 =   𝐹1(1 −   𝑝2 / 𝑝1)</p>
+<p>La cual es conocida como regla de Littlewood.</p>
+<h4>3.1.3.2. Heurísticos</h4>
+<p>A continuación, se describen dos de los más populares Heurísticos EMSR-a y EMSR-
+b, ambos atribuidos a Belobaba (1987 a, 1989 b). EMSR-a, (expected marginal seat
+revenue versión A) es uno de los heurísticos más publicados para el problema de un
+solo recurso. A pesar de este hecho es menos popular en la práctica que EMSR-b, ya
+que este último provee un mejor desempeño para el ingreso. (Talluri &amp; Van, 2004)</p>
+<h5>3.1.3.2.1. EMSR-a</h5>
+<p>Esta fue la primera versión de Belobaba, el objetivo de este modelo es agregar niveles
+de  protección  que  se  calculan  mediante  la  regla  de  Littlewood  a  clases  sucesivas.</p>
+<p>Considérese  el  escenario 𝑗 + 1 en  donde  la  demanda  para  la  clase 𝑗 + 1 llega  con  el precio 𝑝𝑗+1. 
+  De este modo, se desea saber cuánta capacidad reservar para las clases 𝑗,
+𝑗𝑗 − 1, … ,1, es decir el nivel de protección y𝑗 para cada clase. Para hacer esto se considera 
+de una sola clase k entre las clases restantes clases 𝑗, 𝑗 − 1, … ,1, y comparar 𝑘 y 𝑗 + 1
+de manera  independiente.  
+Considerando  sólo  estas  dos  clases  se  ocupará  
+la  regla  de Littlewood (1) y reservar la capacidad 𝑦𝑘 𝑗+1
+para la clase 𝑘 donde:
+<p>𝑃(𝐷1 ≥ 𝑦𝑘 𝑗𝑗+1) = 𝑝𝑗+1 / 𝑝𝑘</p>
+
+Si  se  repite  este  ejercicio  para  la  clase 𝑘 =  𝑗, 𝑗 − 1, … ,1, 
+se  puede  calcular  cuánta capacidad reservar para cada clase 𝑘
+de manera independiente, es decir definir el nivel de protección
+𝑦𝑗 como:</p>
+<p>𝑦𝑗 = ∑ 𝑘=1 𝑦𝑘 𝑗+1</p>
+<p>Este método presenta un problema ya que no toma el efecto del promedio ponderado en
+cuenta,  si  se  toma  como  ejemplo  que  hay  clases  que  tengan  tarifas  muy  cercanas
+entonces la protección se agregará, es decir reservará muchos asientos para las clases
+más altas y de este modo rechazará muchas reservaciones para las clases bajas, es por
+eso que se desarrolló EMSR-b</p>
+<h5>3.1.3.2.2. EMSR-b</h5>
+<p>Esta  segunda  versión  de  Belobaba  tiene  la  diferencia  de  que  agrega  demanda  en
+lugar de agregar niveles de protección. La demanda para las clases se agrega y se
+trata como una clase con un ingreso igual al ingreso ponderado promedio.</p>
+<p>Considérese el escenario 𝑗 + 1 en donde se desea saber los niveles de protección.</p>
+<p>Se define la demanda agregada para las clases 𝑗, 𝑗 − 1, … ,1, con:</p>
+<p>
+<em>S</em><sub>j</sub> =
+  <span style="display:inline-block; text-align:center; vertical-align:middle;">
+<sup style="display:block;">j</sup>
+<span style="font-size:1.4em;">∑</span>
+<sub style="display:block;">k=1</sub>
+</span>
+<em>D</em><sub>k</sub>
+<p>
+    Y el ingreso promedio ponderado para las clases
+    <span style="font-style: italic;">1, ..., j</span>, como
+    <span style="font-style: italic;">p̄<sub>j</sub></span>
+</p>
+<div style="text-align: center; margin: 18px 0; font-size: 18px;">
+<span style="font-style: italic;">p̄</span><sub>j</sub> =
+    <span style="display: inline-block; text-align: center; vertical-align: middle; margin: 0 4px;">
+<span style="display: block; border-bottom: 1px solid #000; padding: 0 6px 2px 6px;">
+<span style="display: inline-block; text-align: center; vertical-align: middle; line-height: 1; margin: 0 4px;">
+<span style="display: block; font-size: 0.72em;">j</span>
+<span style="display: block; font-size: 1.55em; line-height: 0.9;">∑</span>
+<span style="display: block; font-size: 0.72em;">k = 1</span>
+</span>
+<span style="font-style: italic;">p</span><sub>k</sub>
+        E[<span style="font-style: italic;">D</span><sub>k</sub>]
+      </span>
+<span style="display: block; padding: 2px 6px 0 6px;">
+<span style="display: inline-block; text-align: center; vertical-align: middle; line-height: 1; margin: 0 4px;">
+<span style="display: block; font-size: 0.72em;">j</span>
+<span style="display: block; font-size: 1.55em; line-height: 0.9;">∑</span>
+<span style="display: block; font-size: 0.72em;">k = 1</span>
+</span>
+        E[<span style="font-style: italic;">D</span><sub>k</sub>]
+      </span>
+</span>
+</div>
+<p>
+    Entonces el nivel de protección para la clase
+    <span style="font-style: italic;">j</span> y mayores,
+    <span style="font-style: italic;">y<sub>j</sub></span>, es seleccionado por la regla
+    de Littlewood (Ecuación 1)
+  </p>
+<div style="text-align: center; margin: 18px 0; font-size: 18px;">
+    P(<span style="font-style: italic;">S</span><sub>j</sub> &gt;
+    <span style="font-style: italic;">y</span><sub>j</sub>) =
+    
+    <span style="display: inline-block; text-align: center; vertical-align: middle; margin: 0 4px;">
+<span style="display: block; border-bottom: 1px solid #000; padding: 0 6px 2px 6px;">
+<span style="font-style: italic;">p</span><sub>j + 1</sub>
+</span>
+<span style="display: block; padding: 2px 6px 0 6px;">
+<span style="font-style: italic;">p̄</span><sub>j</sub>
+</span>
+</span>
+</div>
+<p>
+    Se asume la demanda para cada clase
+    <span style="font-style: italic;">j</span> independiente y distribuida de manera normal
+    con media <span style="font-style: italic;">μ<sub>j</sub></span> y varianza
+    <span style="font-style: italic;">σ<sub>j</sub><sup>2</sup></span>; en ese caso
+    la media y la varianza de la demanda agregada de
+    <span style="font-style: italic;">j + 1</span>
+</p>
+<div style="text-align: center; margin: 18px 0; font-size: 18px;">
+<span style="font-style: italic;">μ</span> =
+    <span style="display: inline-block; text-align: center; vertical-align: middle; line-height: 1; margin: 0 4px;">
+<span style="display: block; font-size: 0.72em;">j</span>
+<span style="display: block; font-size: 1.55em; line-height: 0.9;">∑</span>
+<span style="display: block; font-size: 0.72em;">k = 1</span>
+</span>
+<span style="font-style: italic;">μ</span><sub>k</sub>
+</div>
+<div style="text-align: center; margin: 18px 0; font-size: 18px;">
+<span style="font-style: italic;">σ</span><sup>2</sup> =
+    <span style="display: inline-block; text-align: center; vertical-align: middle; line-height: 1; margin: 0 4px;">
+<span style="display: block; font-size: 0.72em;">j</span>
+<span style="display: block; font-size: 1.55em; line-height: 0.9;">∑</span>
+<span style="display: block; font-size: 0.72em;">k = 1</span>
+</span>
+<span style="font-style: italic;">σ</span><sub>k</sub><sup>2</sup>
+</div>
+<p>Y a la inversa de la normal</p>
+<p style="text-align: center; margin: 18px 0; font-size: 16px;">
+<span style="font-style: italic;">Z</span><sub>α</sub> =
+  <span style="font-style: italic;">φ</span><sup>−1</sup>
+  (1 −
+  <span style="display: inline-block; text-align: center; vertical-align: middle; margin: 0 4px;">
+<span style="display: block; border-bottom: 1px solid #000; padding: 0 6px 2px 6px;">
+<span style="font-style: italic;">p</span><sub>j + 1</sub>
+</span>
+<span style="display: block; padding: 2px 6px 0 6px;">
+<span style="font-style: italic;">p̄</span><sub>j</sub>
+</span>
+</span>
+  )
+</p>
+<p style="line-height: 1.55;">
+  Así
+</p>
+<p style="text-align: center; margin: 18px 0; font-size: 16px;">
+<span style="font-style: italic;">y</span><sub>1</sub> =
+  <span style="font-style: italic;">μ</span> −
+  <span style="font-style: italic;">Z</span><sub>α</sub>
+<span style="font-style: italic;">σ</span>
+</p>
+<p style="line-height: 1.55;">
+  El ingreso esperado marginal por asiento se obtiene cuando una clase tarifaria
+  <span style="font-style: italic;">j</span>,
+  <span style="font-style: italic;">p<sub>j</sub></span>, es multiplicado por la
+  probabilidad de vender
+  <span style="font-style: italic;">D<sub>j</sub></span> asientos.
+</p>
+<p style="text-align: center; margin: 18px 0; font-size: 16px;">
+<span style="font-style: italic;">EMSR</span><sub>j</sub>(<span style="font-style: italic;">D</span><sub>k</sub>)
+  =
+  <span style="font-style: italic;">p</span><sub>j</sub>
+<span style="font-style: italic;">P</span>
+  (<span style="font-style: italic;">S</span><sub>j</sub>)
+     Ecuación 4
+</p>
+<p style="line-height: 1.55;">
+  De este modo se puede concluir que el nivel de protección en cada clase
+  <span style="font-style: italic;">j</span> es
+</p>
+<p style="text-align: center; margin: 18px 0; font-size: 16px;">
+<span style="font-style: italic;">y</span><sub>j</sub> =
+  <span style="font-style: italic;">C</span> −
+  <span style="display: inline-block; text-align: center; vertical-align: middle; line-height: 1; margin: 0 4px;">
+<span style="display: block; font-size: 1.45em; line-height: 0.9;">∑</span>
+<span style="display: block; font-size: 0.72em;">k &lt; j</span>
+</span>
+<span style="font-style: italic;">S</span><sub>j</sub><sup>k</sup>
+     Ecuación 5
+</p>
+<p style="line-height: 1.55;">
+<span style="font-style: italic;">Ejemplo:</span>
+  Considérese un avión que tiene capacidad para 70 asientos, los cuales se
+  distribuyen entre las clases F, P, G, cada una con tarifas respectivas
+  $1,000, $850, $750. Suponga que cuenta con datos históricos de reservaciones
+  para las siguientes clases descritos en la Tabla 6 y con estos datos se obtiene
+  la media y la desviación estándar especificados en la Tabla 7.
+</p>
+<p style="line-height: 1.55; margin-bottom: 8px;">
+  Tabla 6. Reservaciones históricas por clase tarifaria
+</p>
+<table style="border-collapse: collapse; font-size: 14px; margin-top: 6px;">
+<thead>
+<tr>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: left;">Observación</th>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;">F</th>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;">P</th>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;">G</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">1</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">22</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">29</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">35</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">2</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">22</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">20</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">41</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">3</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">23</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">42</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">38</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">4</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">24</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">35</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">27</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">5</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">22</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">42</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">19</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">6</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">24</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">30</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">39</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">7</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">18</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">25</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">28</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">8</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">22</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">36</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">41</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">9</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">23</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">16</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">41</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">10</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">20</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">44</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">32</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">11</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">24</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">32</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">34</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">12</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">20</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">42</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">25</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">13</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">17</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">30</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">28</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">14</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">17</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">40</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">23</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">15</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">17</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">18</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">34</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">16</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">18</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">38</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">19</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">17</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">17</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">24</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">32</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">18</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">21</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">16</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">41</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">19</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">20</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">35</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">22</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">20</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">20</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">34</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">40</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">21</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">19</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">28</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">21</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">22</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">23</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">25</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">43</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">23</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">21</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">16</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">41</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">24</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">22</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">47</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">40</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">25</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">21</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">34</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">44</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">26</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">21</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">46</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">29</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">27</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">17</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">18</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">40</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">28</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">24</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">18</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">31</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">29</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">23</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">20</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">22</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">30</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">17</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">34</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">41</td>
+</tr>
+</tbody>
+</table>
+<p style="font-size: 11px; margin-top: 2px;">
+  Fuente: Elaboración Propia
+</p>
+<p style="line-height: 1.55; margin-bottom: 8px;">
+  Tabla 7. Media y Desviación Estándar por clase
+</p>
+<table style="border-collapse: collapse; font-size: 14px; margin-top: 6px;">
+<thead>
+<tr>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: left;">Parámetros</th>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;">F</th>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;">P</th>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;">G</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">Media</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">20.63</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">30.47</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">33.03</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">Desviación Estándar</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">2.46</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">9.79</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">8.03</td>
+</tr>
+</tbody>
+</table>
+<p style="font-size: 11px; margin-top: 2px;">
+  Fuente: Elaboración Propia
+</p>
+<p style="line-height: 1.55;">
+  Se asume demanda con distribución normal, la probabilidad de obtener al menos
+  <span style="font-style: italic;">D</span><sub>j</sub> reservaciones, es la suma del área
+  bajo la curva en ese nivel.
+</p>
+<p style="line-height: 1.55; margin-bottom: 8px;">
+  Tabla 8. Probabilidades e Ingreso marginal esperado por clase
+</p>
+<table style="border-collapse: collapse; font-size: 14px; margin-top: 6px;">
+<thead>
+<tr>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;"></th>
+<th colspan="2" style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;">F</th>
+<th colspan="2" style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;">P</th>
+<th colspan="2" style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;">G</th>
+</tr>
+<tr>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: left;">Asientos</th>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;">Probabilidad</th>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;">EMSR</th>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;">Probabilidad</th>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;">EMSR</th>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;">Probabilidad</th>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;">EMSR</th>
+</tr>
+</thead>
+<tbody>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">1</td><td style="border: 1px solid #007399; padding: 2px 7px;">1</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">1000</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9987</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">849</td><td style="border: 1px solid #007399; padding: 2px 7px;">1</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">750</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">2</td><td style="border: 1px solid #007399; padding: 2px 7px;">1</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">1000</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9982</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">848</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9999</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">750</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">3</td><td style="border: 1px solid #007399; padding: 2px 7px;">1</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">1000</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9975</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">848</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9999</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">750</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">4</td><td style="border: 1px solid #007399; padding: 2px 7px;">1</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">1000</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9966</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">847</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9999</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">750</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">5</td><td style="border: 1px solid #007399; padding: 2px 7px;">1</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">1000</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9954</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">846</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9998</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">750</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">6</td><td style="border: 1px solid #007399; padding: 2px 7px;">1</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">1000</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9938</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">845</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9996</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">750</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">7</td><td style="border: 1px solid #007399; padding: 2px 7px;">1</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">1000</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9917</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">843</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9994</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">750</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">8</td><td style="border: 1px solid #007399; padding: 2px 7px;">1</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">1000</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9891</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">841</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9991</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">749</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">9</td><td style="border: 1px solid #007399; padding: 2px 7px;">1</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">1000</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9858</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">838</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9986</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">749</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">10</td><td style="border: 1px solid #007399; padding: 2px 7px;">1</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">1000</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9817</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">834</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9979</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">748</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">11</td><td style="border: 1px solid #007399; padding: 2px 7px;">1</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">1000</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9766</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">830</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.997</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">748</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">12</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9998</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">1000</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9704</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">825</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9956</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">747</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">13</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9991</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">999</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9628</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">818</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9937</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">745</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">14</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9965</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">997</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9537</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">811</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9911</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">743</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">15</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9897</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">989</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9429</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">801</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9877</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">741</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">16</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9704</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">970</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9303</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">791</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9831</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">737</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">17</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9305</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">930</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9155</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">778</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9771</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">733</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">18</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.8582</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">858</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.8986</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">764</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9694</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">727</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">19</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.747</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">747</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.8793</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">747</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9598</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">720</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">20</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.6017</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">602</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.8575</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">729</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9478</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">711</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">21</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.4407</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">441</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.8332</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">708</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9331</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">700</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">22</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.289</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">289</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.8064</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">685</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.9153</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">687</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">23</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.1676</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">168</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.7772</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">661</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.8943</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">671</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">24</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.0852</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">85</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.7455</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">634</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.8698</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">652</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">25</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.0377</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">38</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.7117</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">605</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.8415</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">631</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">26</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.0144</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">14</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.6759</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">575</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.8095</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right; background-color: #74a4b2;">607</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">27</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.0048</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">5</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.6384</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">543</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.7738</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">580</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">28</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.0014</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">1</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.5995</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">510</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.7347</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">551</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">29</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.0003</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">0</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.5595</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">476</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.6923</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">519</td></tr>
+<tr><td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">30</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.0001</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">0</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.519</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">441</td><td style="border: 1px solid #007399; padding: 2px 7px;">0.6472</td><td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">485</td></tr>
+</tbody>
+</table>
+<p style="font-size: 11px; margin-top: 2px;">
+  Fuente: Elaboración Propia
+</p>
+<p style="line-height: 1.55;">
+  El ESMR de cada asiento adicional decrece, así como la probabilidad de vender cada
+  asiento adicional. Los sistemas de administración del inventario tomarán las
+  iteraciones más altas de manera que el ingreso total sea maximizado. Se encuentra
+  sombreada la cantidad de asientos protegida para cada clase.
+</p>
+<p style="line-height: 1.55; margin-bottom: 8px;">
+  Tabla 9. Niveles de protección y asignación por clase
+</p>
+<table style="border-collapse: collapse; font-size: 14px; margin-top: 6px;">
+<thead>
+<tr>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: left;">Clase</th>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;">Tarifa</th>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;">Protección</th>
+<th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 3px 7px; text-align: center;">Asignación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">F</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">$1.000</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">19</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">70</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">P</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">$ 850</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">25</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">51</td>
+</tr>
+<tr>
+<td style="border: 1px solid #007399; padding: 2px 7px; font-weight: bold;">G</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">$ 750</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">26</td>
+<td style="border: 1px solid #007399; padding: 2px 7px; text-align: right;">26</td>
+</tr>
+</tbody>
+</table>
+<p style="font-size: 11px; margin-top: 2px;">
+  Fuente: Elaboración Propia
+</p>
+<p>Para la asignación por tratarse de clases anidadas, es necesario hacer la suma de
+los niveles de protección de modo ascendente.</p>
+</p>
+</body>
+</html>

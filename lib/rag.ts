@@ -1,42 +1,21 @@
-import { generateEmbedding } from './embeddings'
 import { resolveDefaultPrompt, type PromptContext } from './default-prompt'
-import type { SupabaseClient } from '@supabase/supabase-js'
+import { retrieveLocalContext } from './local-knowledge'
 
 export interface ContextItem {
     entry_id: string
     content: string
-    metadata: any
+    metadata: Record<string, unknown>
     similarity: number
 }
 
 export async function retrieveContext(
     query: string,
-    materia_id: string,
-    org_id: string,
+    _materia_id: string,
+    _org_id: string,
     top_k: number = 5,
     threshold: number = 0.5,
-    supabase?: SupabaseClient
 ): Promise<ContextItem[]> {
-    if (!supabase) {
-        const { createClient } = await import('./supabase/server')
-        supabase = await createClient()
-    }
-    const embedding = await generateEmbedding(query)
-
-    const { data, error } = await supabase.rpc('match_documents', {
-        query_embedding: embedding,
-        match_threshold: threshold,
-        match_count: top_k,
-        filter_org_id: org_id,
-        filter_materia_id: materia_id
-    })
-
-    if (error) {
-        console.error('Error retrieving context:', error)
-        return []
-    }
-
-    return data as ContextItem[]
+    return retrieveLocalContext(query, top_k, threshold)
 }
 
 /**

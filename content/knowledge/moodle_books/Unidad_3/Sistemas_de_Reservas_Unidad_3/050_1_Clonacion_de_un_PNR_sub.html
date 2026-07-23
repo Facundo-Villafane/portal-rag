@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>1. Clonación de un PNR</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+    figure { margin: 1.25rem 0; }
+    figure img, p img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    figcaption { color: #555; font-size: .92rem; text-align: center; margin-top: .35rem; }
+  </style>
+</head>
+<body>
+<h1>1. Clonación de un PNR</h1>
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 18px;">
+  Situaciones en las que clonaríamos un PNR
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Un grupo que había reservado todo junto decide separarse porque tienen distintas
+  fechas de regreso, diferentes necesidades.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Para gestionar reservas de grupos &#40;en un PNR entran hasta 9 pax&#41;
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Diferentes condiciones tarifarias dentro del PNR.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Se quieren agregar pax a una reserva &#8594; Copio el itinerario.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Un mismo pax quiere hacer un nuevo vuelo &#8594; Copio datos del pax.
+</p>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 18px;">
+  Comando RRN
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  <strong>RRN:</strong> Copia itinerario
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  <strong>RRN</strong> + / + numero de lugares a solicitar
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">---RLR---
+RP/UTN5168476/FACUNDOV              FF/WE  22MAY/2100Z 2VM6B6
+  1.MUNOZ/DIEGO MR
+  2  UX 122 J 18NOV 1 CORMAD HK1 1305 0505 19NOV E   UX/JMMWK
+  3  UX 121 J 24NOV 7 MADCOR HK1 2345 0840 25NOV E   UX/JMMWK
+  4 AP COR 3514589982-B/P1
+  5 APE DMUNOZ@WAGNER.COM/P1
+  6 TK TL24MAY/1600/UTN5168476
+  7 OSI UX PAX VIP WAGNER/P1
+  8 RM VERIFICAR DOCUMENTACIÓN
+*TNR*
+
+<span style="background-color: #ffff00; color: #000080; font-weight: bold;">&gt;RRN/3</span>
+
+---RLR---
+<span style="font-weight: bold;">-IGNORED 2VM6B6-</span>
+RP/UTN5168476/
+  1  UX 122 J 18NOV 1 CORMAD <span style="font-weight: bold;">DK3</span> 1305 0505 19NOV E   787
+  2  UX 121 J 24NOV 7 MADCOR <span style="font-weight: bold;">DK3</span> 2345 0840 25NOV E   787
+*TNR*</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Al introducir el comando se ignora el RL del original y se crea una copia del PNR con
+  los datos del itinerario, este nuevo PNR debemos cargar los datos obligatorios,
+  firmarlo y cerrarlo con <strong>ET</strong> así generar un nuevo RL en el que nos dirá
+  de cual viene duplicado.
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;"><span style="background-color: #ffff00; color: #000080; font-weight: bold;">---RLR  SFP---</span>
+<span style="background-color: #ffff00; color: #000080; font-weight: bold;">-REPLICATED PNR-</span>
+RP/UTN5168476/FACUNDOV              FF/WE  29MAY/2100Z <span style="background-color: #ffff00; color: #000080; font-weight: bold;">2XUUXM</span>
+  1.MARTINEZ/JULIA MRS&#40;INFMUNOZ/JOAQUIN/5APR23&#41;
+  2.MUNOZ/DANIEL MR 3.TORRES/CARMEN MRS
+  4  UX 122 J 18NOV 1 CORMAD HK3 1305 0505 19NOV E   <span style="background-color: #ffff00; color: #000080; font-weight: bold;">UX/KTWNUC</span>
+  5  UX 121 J 24NOV 7 MADCOR HK3 2345 0840 25NOV E   <span style="background-color: #ffff00; color: #000080; font-weight: bold;">UX/KTWNUC</span>
+  6 AP COR 3515489621-M/P1
+  7 AP COR 3512185349-M/P2
+  8 AP COR 3513584562-M/P3
+  9 APE JULIA.M@GMAIL.COM/P1
+ 10 APE MUNOZDANIEL62@GMAIL.COM/P2
+ 11 APE CARMEN65@GMAIL.COM/P3
+ 12 TK TL30MAY/1200/UTN5168476
+ 13 SSR INFT UX HK1 MUNOZ/JOAQUIN/S4/P1
+ 14 SSR INFT UX HK1 MUNOZ/JOAQUIN/S5/P1
+ 15 SSR BBML UX HN1 COMIDA ESPECIAL/S4/P1
+ 16 SSR BBML UX HN1 COMIDA ESPECIAL/S5/P1
+ 17 SSR WCHR UX NN1 /S4/P3
+ 18 SSR WCHR UX NN1 /S5/P3
+ 19 OSI UX PAX CAMINA CON DIFICULTAD SI ESCALERAS/P3
+ 20 SSR FOID UX HK1 PPAAB354875/P1
+ 21 SSR FOID UX HK1 PPAAC254789/P2
+ 22 SSR FOID UX HK1 PPAAC652347/P3
+ 23 SSR RQST UX HK3 CORMAD/5A,P1/5C,P2/5D,P3/S4
+ 24 SSR RQST UX HK3 MADCOR/3G,P1/3H,P2/3K,P3/S5
+ 25 SSR CTCE UX HK1 JULIA.M//GMAIL.COM/P1
+ 26 SSR CTCE UX HK1 MUNOZDANIEL62//GMAIL.COM/P2
+ 27 SSR CTCE UX HK1 CARMEN65//GMAIL.COM/P3
+ 28 RM VERIFICAR DOCUMENTACIÓN DE INFOA
+ <span style="background-color: #ffff00; color: #000080; font-weight: bold;">29 29MAY/FFWE/UTN5168476-2VM6B6</span>
+*TNR*
+&gt;</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Puedo clonar un PNR, este asociado al PNR original, pero tengo otro RL, ya que es
+  como crear un archivo de reserva nuevo, pero me evito algunos pasos.
+</p></body>
+</html>

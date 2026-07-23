@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>3.4. Cálculo y conversión</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+  </style>
+</head>
+<body>
+<h1>3.4. Cálculo y conversión</h1>
+<p>Amadeus también tiene una calculadora que permite hacer varias cosas.</p>
+<p>Desde  cálculos  matemáticos  simples  (suma,  resta,  división,  multiplicación  y</p>
+<p>porcentajes) hasta el cálculo de días entre dos fechas, horas entre países, tiempos
+mínimos de conexión en aeropuertos y conversión de unidades.</p>
+<h3>3.4.1. Tiempos y fechas</h3>
+<p>Comando</p>
+<p>DD</p>
+<p>DDMIA</p>
+<p>Lo que muestra</p>
+<p>Fecha hora actual</p>
+<p>Muestra la fecha y hora actual en Miami</p>
+<p>DDBUE1545/MIA</p>
+<p>Hora de Miami cuando en Bs As son 15:45hs</p>
+<p>DD28DEC/15</p>
+<p>DD03FEB/-5</p>
+<p>DDTYO/MEL</p>
+<p>Calcular 15 días después del 28 de diciembre</p>
+<p>Calcular 5 días antes del 03 de febrero</p>
+<p>Diferencia horaria entre 2 ciudades</p>
+<p>DD20MAY/06JUN</p>
+<p>Número de días entre 2 fechas específicas</p>
+<p>DD25AUG</p>
+<p>DDZZZ2134/PAR</p>
+<p>Día de la semana de una fecha</p>
+<p>La hora UTC convertida a hora local para una ciudad
+específica</p>
+<p>Ejemplo</p>
+<blockquote>
+<p>DDMIA</p>
+</blockquote>
+<p>DDMIA</p>
+<p>MIA TIME IS 1301/0101P ON MON06MAY24</p>
+<p>MIA IS 02HRS 00MIN EARLIER</p>
+<p><em>TNR</em></p>
+<blockquote>
+<p>DDSYD</p>
+</blockquote>
+<p>DDSYD</p>
+<p>SYD TIME IS 0502/0502P ON TUE07MAY24</p>
+<p>SYD IS 14HRS 00MIN LATER</p>
+<p><em>TNR</em></p>
+<p>14</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe
+U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<blockquote>
+<p>DD18MAY/18</p>
+</blockquote>
+<p>DD18MAY/18</p>
+<p>WED05JUN24</p>
+<p><em>TNR</em></p>
+<h3>3.4.2. Tiempos mínimos de conexión en aeropuertos</h3>
+<p>Lo que muestra</p>
+<p>Tiempo mínimo de conexión en un aeropuerto</p>
+<p>Comando</p>
+<p>DMMAD</p>
+<p>Ejemplo</p>
+<blockquote>
+<p>DM MAD</p>
+</blockquote>
+<p>DMMAD / 06MAY24
+MAD STANDARD MINIMUN CONNECTING TIMES
+MAD-MAD     FROM          -             TO             D/D  D/I  I/D  I/I
+CC FLTN-FLR ORGN EQP TM CS-CC FLTN-FLTR DEST EQP TM CS  HHMM HHMM HHMM HHMM
+-                       1     0030 0100 0130 0130
+1   -                       1     0045 0045 0045 0045
+2   -                       1     0100 0100 0100 0100
+3   -                       1     0100 0100 0100 0100
+4   -                       1     0230 0230 0230 0230
+4S   -                       1     0245 0245 0245 0245
+1   -                       2     0100 0100 0100 0100
+2   -                       2     0045 0045 0045 0045
+3   -                       2     0045 0045 0045 0045
+4   -                       2     0230 0230 0230 0230
+4S   -                       2     0245 0245 0245 0245
+1   -                       3     0100 0100 0100 0100
+2   -                       3     0045 0045 0045 0045
+3   -                       3     0045 0045 0045 0045
+4   -                       3     0230 0230 0230 0230
+4S   -                       3     0245 0245 0245 0245
+1   -                       4     0230 0230 0230 0230
+2   -                       4     0230 0230 0230 0230
+<em>TNR</em></p>
+<blockquote>
+<p>DM EZE</p>
+</blockquote>
+<p>DMEZE / 06MAY24
+EZE STANDARD MINIMUN CONNECTING TIMES
+EZE-EZE     FROM          -             TO              D/D  D/I  I/D  I/I
+CC FLTN-FLR ORGN EQP TM CS-CC FLTN-FLTR DEST EQP TM CS  HHMM HHMM HHMM HHMM
+-                             0100 0100 0100 0100
+CK SPECIFIC CARRIER FOR EXCEPTIONS TO STANDARD CONNECTING TIMES
+PRECLEARANCE MAY APPLY</p>
+<p>El  resto  de  comandos  de  calculo  y  conversión  pueden  encontrarlos  en  la  Guía
+Rápida  de  Amadeus,  aquí  solo  se  muestran  los  comandos  mas  usados  en  la</p>
+<p>práctica.</p>
+<p>15</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe
+U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+</body>
+</html>

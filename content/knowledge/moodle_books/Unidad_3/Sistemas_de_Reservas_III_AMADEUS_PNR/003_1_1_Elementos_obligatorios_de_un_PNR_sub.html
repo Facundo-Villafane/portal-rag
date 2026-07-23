@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>1.1. Elementos obligatorios de un PNR</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+  </style>
+</head>
+<body>
+<h1>1.1. Elementos obligatorios de un PNR</h1>
+<ol>
+<li>Itinerario</li>
+<li>Nombres</li>
+<li>Contacto del pax</li>
+<li>Tiempo límite de la reserva</li>
+<li>Referencia</li>
+<li>Cierre del PNR</li>
+</ol>
+<p>Ahora vamos a desglosar uno por uno los elementos obligatorios de un PNR y como
+cargarlos en el sistema Amadeus.</p>
+<h3>1.1.1. Itinerario</h3>
+<p>Desde  el  primer  contacto  con  el  pax  ya  sea  en  una  agencia  de  viajes  o  desde  la
+oficina  de  ventas  de  una  aerolínea,  el  pasajero  viene  con  la  necesidad  de
+transportarse de un lugar a otro en una fecha específica, nosotros como agentes de
+viajes  o  responsables  de  la  venta  debemos  buscar  la  disponibilidad  de  ese  vuelo
+para  esa  fecha  y  ofrecerle  al  pasajero  las  diferentes  opciones.  Por  ello  vamos  a
+suponer una situación en la que el pasajero nos brinda el lugar al que quiere viajar y
+la fecha en la que desea hacerlo.</p>
+<p>3</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe</p>
+<p>U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<p>Ejemplo Practico 1:</p>
+<p>PASSPORT</p>
+<p>Country code
+ARG</p>
+<p>Passport N°
+AAB532592</p>
+<p>Place of birth
+CORDOBA</p>
+<p>Personal number
+32212001
+Autority
+00000</p>
+<p>Holder’s signature</p>
+<p>Type
+P
+Surname
+MUÑOZ
+Given names
+DIEGO
+Nationality
+ARGENTINA
+Date of birth
+03-09-85
+Sex
+M
+Date of issue
+10-02-22
+Date of expiry
+10-02-32</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<p>Origen:
+Córdoba, Argentina
+Destino:
+Madrid, España</p>
+<p>Fecha de viaje
+Debe estar en su destino el día 19 de noviembre al medio día
+por una reunión de trabajo.</p>
+<p>Duración
+Una semana (7 días)</p>
+<p>Preferencia de clase
+Business o superior</p>
+<p>Contacto
+Móvil: +5493514589982  email: dmunoz@wagner.com</p>
+<p>Tenemos al Sr. Muñoz Diego que desea volar desde Córdoba a Madrid, debe estar
+en su destino el dia 19/11/24 y regresar 7 días después (25/11/24) y prefiere viajar
+en Clase Business o superior.</p>
+<p>Lo primero que debemos hacer es buscar en sistema si hay un vuelo para esa fecha
+hacia  ese  destino,  para  este  tipo  de  vuelos  se  recomienda  buscarlos  para  un  dia
+antes ya que el tiempo de vuelo suele ser de unas 12hrs. Para ello vamos a usar el
+comando de búsqueda de disponibilidad neutral AN. Recuerden que si no sabemos
+los  códigos  de  las  ciudades  podemos  codificarlos  con  el  comando  DAN
+(DANCORDOBA y DANMADRID)</p>
+<blockquote>
+<p>AN18NOVCORMAD
+AN18NOVCORMAD
+** AMADEUS AVAILABILITY - AN ** MAD MADRID.ES              183 MO 18NOV 0000
+1   UX 122 J5 C3 W4 O4 I4 U7 E7  COR   MAD 3  1305  0505+1E0/787      12:00
+R7 Y7 B7 K7 H7 Q7 L7 T7 V7 X7
+2   LA 491 W7 O7 Y7 B7 K7 H7 Q7  COR   SCL 1  1052  1224  E0/321
+L7 T7 V7 X7
+IB6832 J2 C2 W4 O4 I3 U7 E7  SCL 1 MAD 3  1310  0540+1E0/350      14:48
+R7 Y9 B7 K7 H7 Q7 L7 T7 V7 X7
+3   AR1545 J2 Y7 B7 K7 H7 Q7 R7  COR   EZE C  1950  2110  E0/E90
+L7 T7 V7
+AR1132 J2 C2 Y4 B4 K4 H7 Q7  EZE A MAD 3  2350  1605+1E0/332      16:15
+L7 T7 V7 X7 Z7</p>
+</blockquote>
+<p>4</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe</p>
+<p>U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<p>Viendo  el  despliegue  de  disponibilidad,  el  vuelo  que  mejor  se  adapta  a  los
+requerimientos del cliente es del segmento 1, UX122, ya que debe estar el día 19
+al medio día, y este vuelo llega a destino a las 5:05hs y dispone de clase Business.</p>
+<p>Lo siguiente que vamos a hacer es seleccionar un lugar en clase J del segmento 1.</p>
+<p>Selección de lugares</p>
+<p>También se le llama Transacción de Venta Corta:</p>
+<p>Comando SS</p>
+<p>SS + cantidad de asientos a seleccionar + Clase + N de segmento</p>
+<p>AN18NOVCORMAD
+** AMADEUS AVAILABILITY - AN ** MAD MADRID.ES              183 MO 18NOV 0000
+1   UX 122 J5 C3 W4 O4 I4 U7 E7  COR   MAD 3  1305  0505+1E0/787      12:00
+R7 Y7 B7 K7 H7 Q7 L7 T7 V7 X7
+2   LA 491 W7 O7 Y7 B7 K7 H7 Q7  COR   SCL 1  1052  1224  E0/321
+L7 T7 V7 X7
+IB6832 J2 C2 W4 O4 I3 U7 E7  SCL 1 MAD 3  1310  0540+1E0/350      14:48
+R7 Y9 B7 K7 H7 Q7 L7 T7 V7 X7
+3   AR1545 J2 Y7 B7 K7 H7 Q7 R7  COR   EZE C  1950  2110  E0/E90
+L7 T7 V7
+AR1132 J2 C2 Y4 B4 K4 H7 Q7  EZE A MAD 3  2350  1605+1E0/332      16:15
+L7 T7 V7 X7 Z7</p>
+<blockquote>
+<p>SS1J1</p>
+</blockquote>
+<p>Comando</p>
+<p>SS</p>
+<p>1</p>
+<p>J</p>
+<p>1</p>
+<p>Descripción
+Transacción (Select Seats)</p>
+<p>1 lugar</p>
+<p>Clase J</p>
+<p>Segmento 1</p>
+<p>Una vez seleccionados los lugares que queremos ocupar en el vuelo se nos va a
+crear un archivo de reserva, que va a contener en primer momento solo los datos
+del itinerario elegido:</p>
+<blockquote>
+<p>SS1J1
+RP/UTN5168476/
+1  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E    787
+<em>TRN</em></p>
+</blockquote>
+<p>Veamos que significa cada uno de estos elementos:</p>
+<p>5</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe</p>
+<p>U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<p>Elemento</p>
+<p>UX 122</p>
+<p>Lo que significa
+Numero de vuelo</p>
+<p>J</p>
+<p>Clase</p>
+<p>18NOV</p>
+<p>Fecha de salida del vuelo</p>
+<p>1</p>
+<p>Dia de la semana</p>
+<p>CORMAD</p>
+<p>Origen/Destino</p>
+<p>DK1</p>
+<p>Código de status</p>
+<p>1305 0505</p>
+<p>Hora de salida/ Hora de llegada</p>
+<p>19NOV</p>
+<p>Fecha de llegada del vuelo a destino</p>
+<p>E</p>
+<p>787</p>
+<p>E-Ticket</p>
+<p>Modelo del avión/equipo</p>
+<p>Ahora debemos buscar el vuelo de regreso, nuevamente hacemos todo el proceso
+desde la búsqueda de disponibilidad con el comando AN y la selección de lugares
+con el comando SS.</p>
+<p>Nuestro archivo quedaría así:</p>
+<p>Segmento 1: UX122 salida 18NOV</p>
+<p>Segmento 2: UX121 arribo 25NOV</p>
+<p>RP/UTN5168476/
+1  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E    787
+2  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E    787
+<em>TRN</em></p>
+<blockquote></blockquote>
+<h3>1.1.2. Nominación de lugares</h3>
+<p>Ya teniendo el archivo de reserva creado con su itinerario debemos agregar uno de
+los elementos mas importantes, el nombre y apellido de la persona que va a hacer
+uso  de  ese  vuelo,  es  importante  aclarar  que  este  elemento  no  puede  ser
+modificado ni borrado, si cometemos un error al colocar el nombre del pasajero
+tendremos que crear un archivo de reserva nuevo.</p>
+<p>Comando NM</p>
+<p>Para agregar el nombre del pasajero a la reserva vamos a usar el comando NM, que
+por sus siglas en ingles se puede asociar a NaMe (Nombre).</p>
+<p>6</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe</p>
+<p>U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<p>Este comando tiene varias opciones dependiendo si el pasajero es un ADT (adulto),
+un CHD (child, niño) o un INF (infant, bebé), pero todas inician de la misma forma:</p>
+<p>NM + número de lugares a asignar + Apellido/s + / + Nombre/s + tratamiento</p>
+<p>Ejemplos:
+NM1GARCIA/JUAN MR Nomino un lugar
+NM2PETROS/SARA MRS/FERNANDA MRS Nomino 2 lugares con el mismo apellido
+NM1IBARRA/MARCOS(CHD/24JUL17) Nominación de CHILD
+NM1PETROS/SARA MRS (INF/LUCIA/21JAN22) Nomino 1 adulto e infante con</p>
+<p>mismo apellido
+NM1CAMPOS/MARIA  MRS  (INFGARCIA/IVAN/08APR22)  Nomino  1  adulto  e</p>
+<p>infante con diferente apellido</p>
+<p>Entonces  entendido  el  comando  NM,  vamos  a  agregar  el  nombre  de  nuestro
+pasajero de ejemplo a la reserva.</p>
+<p>RP/UTN5168476/
+1  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E    787
+2  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E    787
+<em>TRN</em></p>
+<blockquote>
+<p>NM1MUNOZ/DIEGO MANUEL MR</p>
+</blockquote>
+<p>Una vez ingresado el comando nuestro archivo se verá así:</p>
+<blockquote>
+<p>NM1MUNOZ/DIEGO MANUEL MR
+RP/UTN5168476/
+1.MUNOZ/DIEGO MR
+2  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E    787
+3  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E    787
+<em>TRN</em></p>
+</blockquote>
+<p>El nombre de los pasajeros siempre va a tener prioridad por lo que el orden de los
+elementos cambia, ahora esta en el segmento 1. En caso de que haya mas de un
+pasajero  los  nombres  de  ordenaran  por  apellido  alfabéticamente  de  manera
+automática.</p>
+<p>Algunas consideraciones finales con respecto a la nominación de lugares:</p>
+<p>7</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe</p>
+<p>U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<ul>
+<li>Todas las nominaciones llevan MR / MRS / MSS / INF / CHD</li>
+<li></li>
+</ul>
+<p>INF o INFOA: bebés hasta 2 años no cumplidos. El infante se carga junto al</p>
+<p>adulto que lo lleva ya que no paga asiento</p>
+<ul>
+<li>CHD niños de 2 a 12 años no cumplidos</li>
+<li>Los nombres se cargan completos</li>
+<li>Los nombres NO son modificables</li>
+<li>La letra Ñ es reemplazada por N</li>
+<li>La fecha de nacimiento es obligatoria tanto para INF como CHD</li>
+</ul>
+<p>Mas adelante en este documento vamos a ver mas ejemplos en donde aplicar todas
+las opciones de este comando.</p>
+<h3>1.1.3. Contacto</h3>
+<p>Es  el  medio  mediante  el  cual  nos  pondremos  en  contacto  con  el  pasajero  ya  sea
+para enviarles una copia del itinerario, para facturación, informarle sobre cambios en
+su reserva, etc.</p>
+<p>Tenemos dos elementos obligatorios al asignar el contacto al pasajero, un número
+de teléfono y una dirección de email.</p>
+<p>Para ingresar el número de teléfono usaremos el comando AP.</p>
+<p>Comando AP</p>
+<p>AP + código de ciudad + número de teléfono + - + tipo de teléfono + /P + n°pax</p>
+<p>Ejemplo:</p>
+<p>AP BUE 1134477511-M/P1</p>
+<p>Elemento</p>
+<p>Lo que significa</p>
+<p>BUE</p>
+<p>Código de ciudad</p>
+<p>-M (móvil)
+-H (home)
+-B (business)
+-O (office)</p>
+<p>Tipo de teléfono</p>
+<p>/P1</p>
+<p>Indico a que pax corresponde ese AP</p>
+<p>Para ingresar una dirección de correo electrónico usaremos el comando APE-</p>
+<p>Comando APE-</p>
+<p>8</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe</p>
+<p>U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<p>APE- + correo electrónico + /P + n°pax</p>
+<p>Ejemplo:</p>
+<p>APE-BRIOS@GMAIL.COM/P1</p>
+<p>Ahora vamos a introducir los datos de contacto en nuestro archivo de reserva.</p>
+<p>RP/UTN5168476/
+1.MUNOZ/DIEGO MR
+2  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E    787
+3  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E    787
+<em>TRN</em></p>
+<blockquote>
+<p>AP COR 3514589982-B/P1</p>
+</blockquote>
+<p>En  este  caso  de  ejemplo  como  tenemos  un  solo  pasajero  en  la  reserva  no  es
+necesario  agregar  el  identificador  /P1,  porque  se  entiende  que  el  teléfono
+corresponde a ese único pax.</p>
+<p>Luego de agregar el teléfono de contacto agregaremos el email</p>
+<p>RP/UTN5168476/
+1.MUNOZ/DIEGO MR
+2  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E    787
+3  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E    787
+4 AP COR 3514589982-B/P1
+<em>TRN</em></p>
+<blockquote>
+<p>APE-DMUNOZ@WAGNER.COM/P1</p>
+</blockquote>
+<p>Entonces nuestro archivo de reserva con los datos de contacto agregados quedaría
+así:</p>
+<p>RP/UTN5168476/
+1.MUNOZ/DIEGO MR
+2  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E    787
+3  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E    787
+4 AP COR 3514589982-B/P1
+5 APE DMUNOZ@WAGNER.COM/P1
+<em>TRN</em></p>
+<h3>1.1.4. Tiempo límite de reserva</h3>
+<p>9</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe</p>
+<p>U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<p>Este elemento indica el tiempo límite de emisión de la reserva. Este elemento crea
+un recordatorio para la oficina que debe emitir el ticket o cancelarlo en determinada
+fecha, ya que estamos utilizando un lugar en el inventario de vuelo de la aerolínea,
+si un ticket no se emite o se cancela en determinado tiempo corremos el riesgo de
+que la aerolínea nos multe.</p>
+<p>Comando TK</p>
+<p>Comando
+TKOK
+TKTL15NOV/1600
+TL es por Time Limit</p>
+<p>TKXL16NOV/1600.</p>
+<p>Descripción
+Reservo y emito en el acto. Lo usan mayoristas.</p>
+<p>Fecha y hora de vencimiento de la reserva. Este
+formato  genera  un  mensaje  que  cuando  la
+reserva  esté  por  vencer  o  se  produzca  un
+cambio (hora, cancelación, etc), Amadeus emite
+un  mensaje  que  cae  por  COLAS  o  QUEUES.
+Genera una notificación.</p>
+<p>Fecha  y  hora  de  cancelación  de  la  reserva.
+Pasado  ese  tiempo,  la  reserva  se  cancela
+automáticamente sin avisar.</p>
+<p>Vamos a agregar un tiempo limite a nuestra reserva:</p>
+<p>RP/UTN5168476/
+1.MUNOZ/DIEGO MR
+2  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E    787
+3  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E    787
+4 AP COR 3514589982-B/P1
+5 APE DMUNOZ@WAGNER.COM/P1
+<em>TRN</em></p>
+<blockquote>
+<p>TKTL24MAY/1600</p>
+</blockquote>
+<p>Suponiendo que a la reserva la realizamos el día 22MAY le agregamos como tiempo
+limite de emisión el día 24MAY a las 16:00hs.</p>
+<p>¿Cómo sabemos que fecha límite colocar?</p>
+<p>Las aerolíneas emiten manuales de buenas y malas prácticas para agencias de viajes en donde específican
+que se debe y que no se debe hacer, entre ellas están los tiempos límites de emisión.</p>
+<p>Les dejo una página en donde pueden consultar todas las condiciones en la que una aerolínea puede generar
+un ADM (Agent Debit Memo) que es básicamente una multa por incumplimiento de políticas.</p>
+<p>https://somosaero.ar/news/malaspracticas/</p>
+<p>10</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe</p>
+<p>U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<p>Colocado el TK nuestra reserva queda así:</p>
+<p>RP/UTN5168476/
+1.MUNOZ/DIEGO MR
+2  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E    787
+3  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E    787
+4 AP COR 3514589982-B/P1
+5 APE DMUNOZ@WAGNER.COM/P1
+6 TK TL24MAY/1600/UTN5168476
+<em>TRN</em></p>
+<h3>1.1.5. Referencia / Recibido</h3>
+<p>Una vez cargados los datos debemos firmar el archivo, es decir, colocar el nombre
+del  agente  que  esta  trabajando  con  esta  reserva.  Este  dato  es  obligatorio  ya  sea
+para cobros de comisiones por ventas y también es una medida de seguridad, ya
+que si varias personas trabajan en la misma oficina se puede identificar quien realizó
+los cambios en determinadas reservas. Si bien desde opciones del sistema se puede
+identificar por nombre de usuario quien realiza estos cambios, pero estas firmas de
+referencia quedan guardadas en el historial del PNR.</p>
+<p>Para firmar el archivo se usa:</p>
+<p>Comando RF</p>
+<p>RF + nombre del agente que toma la reserva</p>
+<blockquote>
+<p>RFFACUNDOV</p>
+</blockquote>
+<p>RP/UTN5168476/
+RF/FACUNDOV
+1.MUNOZ/DIEGO MR
+2  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E    787
+3  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E    787
+4 AP COR 3514589982-B/P1
+5 APE DMUNOZ@WAGNER.COM/P1
+6 TK TL24MAY/1600/UTN5168476
+<em>TRN</em></p>
+<p>Cada  cambio  o  modificación  que  se  haga  en  la  reserva  debe  estar  firmado,  si  el
+pasajero quiere modificar su número de teléfono o dirección de email, lo hacemos y
+para que los cambios se guarden debemos firmar con comando RF.</p>
+<p>11</p>
+<p>TUGA - Billetaje y Reservas – 2024
+Profesor: Facundo A. Villafañe</p>
+<p>U4. Tecnologías y Sistemas en Billetaje y Reservas.
+AMADEUS</p>
+<h3>1.1.6. Cierre del PNR</h3>
+<p>Una vez firmados los cambios tenemos que hacer un ultimo paso, generar el Record
+Locator.</p>
+<p>Comando ET / ER</p>
+<p>ET: cierra el PNR y genera el RL (record locator), localizador único por reserva de 6
+dígitos alfanuméricos</p>
+<p>ER: cierra el PNR y lo reabre.</p>
+<p>RP/UTN5168476/
+RF/FACUNDOV
+1.MUNOZ/DIEGO MR
+2  UX 122 J 18NOV 1 CORMAD DK1 1305 0505 19NOV E    787
+3  UX 121 J 24NOV 7 MADCOR DK1 2345 0840 25NOV E    787
+4 AP COR 3514589982-B/P1
+5 APE DMUNOZ@WAGNER.COM/P1
+6 TK TL24MAY/1600/UTN5168476
+<em>TRN</em></p>
+<blockquote>
+<p>ET
+FIN DE TRANSACCION COMPLETADO – 2VM6B6
+<em>TRN</em></p>
+</blockquote>
+<p>Acá  solo  use  el  comando  ET  para  mostrarles  como  se  genera  el  RL,  pero
+normalmente se usa el comando de esta forma ET,ER  que lo que va a hacer es</p>
+<p>cerrar  el  PNR,  generar  el  RL  y  me  va  a  volver  a  abrir  la  reservas  con  los  datos
+actualizados. De la forma en la que lo use, solo me cierra el PNR y para volver a
+abrirlo debo usar otro comando:</p>
+</body>
+</html>

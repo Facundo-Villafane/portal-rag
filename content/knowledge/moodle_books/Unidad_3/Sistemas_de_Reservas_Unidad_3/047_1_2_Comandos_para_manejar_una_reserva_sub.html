@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>1.2. Comandos para manejar una reserva</title>
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.55; max-width: 920px; margin: 2rem auto; padding: 0 1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .35rem .5rem; vertical-align: top; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; }
+    code { font-family: Consolas, monospace; }
+    figure { margin: 1.25rem 0; }
+    figure img, p img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    figcaption { color: #555; font-size: .92rem; text-align: center; margin-top: .35rem; }
+  </style>
+</head>
+<body>
+<h1>1.2. Comandos para manejar una reserva</h1>
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 18px;">
+  Comando RT
+</p>
+
+<p style="background-color: #eef0ff; color: #000080; padding: 4px 8px; margin: 8px 0 12px 0;">
+  <strong>RT</strong> + record locator
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">
+&gt;RT2VM6B6
+--- RLR ---
+
+RP/UTN5168476/FACUNDOV              FF/WE  22MAY/2100Z 2VM6B6
+  1.MUNOZ/DIEGO MR
+  2  UX 122 J 18NOV 1 CORMAD HK1 1305 0505 19NOV E  UX/JMMWK
+  3  UX 121 J 24NOV 7 MADCOR HK1 2345 0840 25NOV E  UX/JMMWK
+  4 AP COR 3514589982-B/P1
+  5 APE DMUNOZ@WAGNER.COM/P1
+  6 TK TL24MAY/1600/UTN5168476
+*TNR*
+</pre>
+<p style="line-height: 1.55; text-align: justify;">
+  En este nuevo despliegue tendremos algunos elementos nuevos, como la fecha y hora
+  en la que se generó el RL, el record locator, y al final de los segmentos de
+  itinerario tendremos el Código de Reserva de propio de la aerolínea.
+  <u>Que no es el mismo que el RL que genera Amadeus para identificar el archivo de reserva.</u>
+  Observen también que el código de status de la reserva cambió, paso de un
+  <strong>DK1</strong> a un <strong>HK1</strong>.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  El comando <strong>RT</strong> tiene mas opciones y usos que solo buscar record locators.
+</p>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 8px;">
+  <thead>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Comando
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Descripción
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        RT/M
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Busca todos los apellidos que inician con M
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        RT/MUNOZ
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Busca las reservas que coincidan con este apellido
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        RT/MUNOZ/DIEGO
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Busca las reservas que coincidan con el apellido y nombre
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        RT2VM6B6
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Busca la reserva por Record Locator
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold; margin-top: 28px;">
+  Comando IG
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Con este comando podremos ignorar los cambios realizados, si estamos trabajando
+  con una reserva y no la finalizamos ni generamos un RL, si colocamos IG la reserva
+  se borrará. También la podemos usar cuando reabrimos un PNR, lo vemos y no
+  modificamos.
+</p>
+
+<p style="line-height: 1.55; font-weight: bold; margin-top: 24px;">
+  Modificar un elemento
+</p>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold;">
+  N°elemento/cambio
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Si por ejemplo al momento de vender lugares por error vendimos menos lugares de
+  los pasajeros que van a viajar:
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">RP/UTN5168476/
+  1.FLORES/ABEL MR  2.FLORES/INGRID MRS  3.FLORES/JOAQUIN(CHD/08JUN16)
+  4  AR1498 Y 28MAY 2 AEPMDZ <span style="background-color: #ffff00; color: #000080; font-weight: bold;">DK1</span> 1500 1655 28MAY E  E90
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Para modificar la cantidad de lugares ingresamos:
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;"><span style="background-color: #ffff00; color: #000080; font-weight: bold;">&gt;4/3</span>
+
+RP/UTN5168476/
+  1.FLORES/ABEL MR  2.FLORES/INGRID MRS  3.FLORES/JOAQUIN(CHD/08JUN16)
+  4  AR1498 Y 28MAY 2 AEPMDZ <span style="background-color: #ffff00; color: #000080; font-weight: bold;">DK3</span> 1500 1655 28MAY E  E90
+</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  Donde <strong>4</strong> es el numero del segmento a modificar y <strong>3</strong> es
+  el numero de espacios a reservar.
+</p>
+
+<p style="line-height: 1.55; text-align: justify;">
+  También podemos modificar números de contacto o correos:
+</p>
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;">RP/UTN5168476/
+  1.FLORES/ABEL MR   2.FLORES/INGRID MRS   3.FLORES/JOAQUIN(CHD/08JUN16)
+  4  AR1498 Y 28MAY 2 AEPMDZ DK3 1500 1655 28MAY E  E90
+  <span style="background-color: #ffff00; color: #000080;">5</span> AP BUE <span style="color: #ff00ff;">1199999999</span>-M/P1
+  6 AP BUE 1154896325-M/P2
+
+<span style="background-color: #ffff00; color: #000080; font-weight: bold;">&gt;5/BUE 1135877344-O/P1</span>
+
+RP/UTN5168476/
+  1.FLORES/ABEL MR   2.FLORES/INGRID MRS   3.FLORES/JOAQUIN(CHD/08JUN16)
+  4  AR1498 Y 28MAY 2 AEPMDZ DK3 1500 1655 28MAY E  E90
+  <span style="background-color: #ffff00; color: #000080;">5</span> AP BUE <span style="color: #008000; font-weight: bold;">1135877344</span>-O/P1
+  6 AP BUE 1154896325-M/P2</pre>
+
+<p style="line-height: 1.55; text-align: justify;">
+  También podemos agregar un <strong>INF</strong> a un pax:
+</p>
+
+<pre style="background-color: #eef0ff; border: 1px solid #cfd4f2; padding: 12px; overflow-x: auto; white-space: pre; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.25; color: #000080;"><span style="background-color: #ffff00; color: #000080; font-weight: bold;">&gt;2/&#40;INF/DIEGO/20JAN22&#41;</span>
+
+
+RP/UTN5168476/
+  1.FLORES/ABEL MR   <span style="background-color: #ffff00; color: #000080;">2</span>.FLORES/INGRID MRS<span style="font-weight: bold;">&#40;INF/DIEGO/20JAN22&#41;</span>
+  3.FLORES/JOAQUIN&#40;CHD/08JUN16&#41;
+  4  AR1498 Y 28MAY 2 AEPMDZ DK3 1500 1655 28MAY E  E90
+  5 AP BUE 1135877344-O/P1
+  6 AP BUE 1154896325-M/P2</pre>
+
+<p style="line-height: 1.55; text-align: justify; font-weight: bold; margin-top: 28px;">
+  Cambio de clases y fechas:
+</p>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold;">
+  Comando SB
+</p>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 8px;">
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 5px 8px; font-weight: bold;">
+        SBG4
+      </td>
+      <td style="border: 1px solid #007399; padding: 5px 8px;">
+        Cambio a clase <strong>G</strong> el segmento 4
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 5px 8px; font-weight: bold;">
+        SBG
+      </td>
+      <td style="border: 1px solid #007399; padding: 5px 8px;">
+        Cambio a clase <strong>G</strong> todo el itinerario
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 5px 8px; font-weight: bold;">
+        SB14AUG3
+      </td>
+      <td style="border: 1px solid #007399; padding: 5px 8px;">
+        Cambia la fecha del segmento 3 al 14/08
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="line-height: 1.55; text-align: justify; font-weight: bold; margin-top: 28px;">
+  Cancelación de elementos
+</p>
+
+<p style="line-height: 1.55; color: #005f78; font-weight: bold;">
+  Comando XE
+</p>
+
+<table style="border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 8px;">
+  <thead>
+    <tr>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Comando
+      </th>
+      <th style="background-color: #005f78; color: #fff; border: 1px solid #005f78; padding: 5px 8px; text-align: left;">
+        Descripción
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        XE3
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Cancelo el elemento 3
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        XE3,6
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Cancelo los elementos 3 y 6
+      </td>
+    </tr>
+
+    <tr>
+      <td style="border: 1px solid #007399; padding: 4px 8px; font-weight: bold;">
+        XE3-6
+      </td>
+      <td style="border: 1px solid #007399; padding: 4px 8px;">
+        Cancelo los elementos del 3 al 6
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p>También podemos cancelar un PNR completo cuando ya tenemos el RL. Para eso
+usamos el comando: XI firmamos con comando RF y guardamos la transacción.</p>
+</body>
+</html>
