@@ -77,7 +77,7 @@ async function buildKnowledgeChunks(): Promise<KnowledgeChunk[]> {
                     title,
                     chunk: index + 1,
                 },
-                tokens: new Set(tokenize(`${title}\n${content}`)),
+                tokens: new Set(tokenize(`${relativePath}\n${title}\n${content}`)),
             })
         })
     }
@@ -228,8 +228,42 @@ function scoreChunk(query: string, queryTokens: string[], chunk: KnowledgeChunk)
     const phraseBoost = normalizedQuery.length > 5 && normalizedContent.includes(normalizedQuery) ? 0.35 : 0
     const titleBoost = uniqueQueryTokens.some((token) => normalizedTitle.includes(token)) ? 0.15 : 0
     const courseInfoBoost = shouldBoostCourseInfo(normalizedQuery, chunk.metadata.source) ? 0.45 : 0
+    const unitBoost = scoreRequestedUnit(normalizedQuery, chunk.metadata.source)
 
-    return matches / Math.max(uniqueQueryTokens.length, 1) + phraseBoost + titleBoost + courseInfoBoost
+    return matches / Math.max(uniqueQueryTokens.length, 1) + phraseBoost + titleBoost + courseInfoBoost + unitBoost
+}
+
+function scoreRequestedUnit(normalizedQuery: string, source: string): number {
+    const requestedUnit = detectRequestedUnit(normalizedQuery)
+    if (!requestedUnit) return 0
+
+    const normalizedSource = normalize(source)
+    const unitPatterns = [
+        `unidad_${requestedUnit}`,
+        `unidad ${requestedUnit}`,
+        `u${requestedUnit}`,
+    ]
+
+    return unitPatterns.some((pattern) => normalizedSource.includes(pattern)) ? 1.25 : -0.15
+}
+
+function detectRequestedUnit(normalizedQuery: string): string | null {
+    const directMatch = normalizedQuery.match(/\b(?:unidad|unit|u)\s*_?\s*([1-9])\b/)
+    if (directMatch) return directMatch[1]
+
+    const wordToNumber: Record<string, string> = {
+        uno: '1',
+        una: '1',
+        dos: '2',
+        tres: '3',
+        cuatro: '4',
+    }
+
+    for (const [word, number] of Object.entries(wordToNumber)) {
+        if (normalizedQuery.includes(`unidad ${word}`)) return number
+    }
+
+    return null
 }
 
 function shouldBoostCourseInfo(normalizedQuery: string, source: string): boolean {
@@ -254,7 +288,7 @@ function shouldBoostCourseInfo(normalizedQuery: string, source: string): boolean
 function tokenize(text: string): string[] {
     return normalize(text)
         .split(/[^a-z0-9]+/g)
-        .filter((token) => token.length > 2 && !STOPWORDS.has(token))
+        .filter((token) => (token.length > 2 || /^\d+$/.test(token)) && !STOPWORDS.has(token))
 }
 
 function normalize(text: string): string {
