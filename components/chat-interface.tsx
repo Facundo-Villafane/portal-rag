@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { Send, Bot, User, Loader2, Sparkles, Copy, Check, Download, Trash2, CornerDownLeft } from 'lucide-react'
+import { Send, Bot, Loader2, Sparkles, Copy, Check, Download, Trash2, CornerDownLeft, Paperclip } from 'lucide-react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import ReactMarkdown from 'react-markdown'
@@ -15,7 +15,6 @@ interface ChatInterfaceProps {
     botNombre?: string
     welcomeMessage?: string
     hideHeader?: boolean
-    // Branding
     orgNombre?: string
     orgLogoUrl?: string
     carreraNombre?: string
@@ -47,6 +46,7 @@ export function ChatInterface({
 }: ChatInterfaceProps) {
     const t = getTheme(themeId)
     const displayName = botNombre || `Asistente de ${materiaNombre || 'la materia'}`
+    const quickPrompts = ['Resumir Unidad 2', 'Practica de examen', 'Bibliografia sugerida']
 
     const [messages, setMessages] = useState<Message[]>([])
     const [input, setInput] = useState('')
@@ -71,7 +71,7 @@ export function ChatInterface({
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-    }, [messages])
+    }, [messages, isLoading, isRevealing])
 
     const handleCopy = useCallback(async (text: string, index: number) => {
         await navigator.clipboard.writeText(text)
@@ -81,13 +81,13 @@ export function ChatInterface({
 
     const handleExport = useCallback(() => {
         const lines: string[] = [
-            `Conversación con ${displayName}`,
+            `Conversacion con ${displayName}`,
             `Fecha: ${new Date().toLocaleString('es-AR')}`,
-            '─'.repeat(60),
+            '-'.repeat(60),
             '',
         ]
         messages.forEach(m => {
-            lines.push(m.role === 'user' ? 'Tú:' : `${displayName}:`)
+            lines.push(m.role === 'user' ? 'Tu:' : `${displayName}:`)
             lines.push(m.content)
             lines.push('')
         })
@@ -141,14 +141,12 @@ export function ChatInterface({
                     msgs[msgs.length - 1] = { role: 'assistant', content: visibleText, timestamp: replyTime }
                     return msgs
                 })
-                if (i < assistantMessage.length) {
-                    await wait(TYPEWRITER_DELAY_MS)
-                }
+                if (i < assistantMessage.length) await wait(TYPEWRITER_DELAY_MS)
             }
         } catch {
             setMessages(prev => [...prev, {
                 role: 'assistant',
-                content: 'Lo siento, ocurrió un error al procesar tu pregunta.',
+                content: 'Lo siento, ocurrio un error al procesar tu pregunta.',
                 timestamp: new Date().toISOString(),
             }])
         } finally {
@@ -162,14 +160,12 @@ export function ChatInterface({
         sendMessage(input)
     }
 
-    // Auto-grow textarea
     const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setInput(e.target.value)
         e.target.style.height = 'auto'
         e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px'
     }
 
-    // Submit on Enter (Shift+Enter = new line)
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault()
@@ -186,113 +182,87 @@ export function ChatInterface({
         a: ({ href, children }: { href?: string; children?: React.ReactNode }) => (
             <a href={href} target="_blank" rel="noopener noreferrer" className={`underline font-medium ${t.linkColor}`}>{children}</a>
         ),
-        strong: ({ children }: { children?: React.ReactNode }) => (
-            <strong className="font-semibold text-slate-900">{children}</strong>
-        ),
-        ul: ({ children }: { children?: React.ReactNode }) => (
-            <ul className="list-disc list-outside pl-4 space-y-0.5 my-2">{children}</ul>
-        ),
-        ol: ({ children }: { children?: React.ReactNode }) => (
-            <ol className="list-decimal list-outside pl-4 space-y-0.5 my-2">{children}</ol>
-        ),
-        li: ({ children }: { children?: React.ReactNode }) => (
-            <li className="text-sm leading-relaxed">{children}</li>
-        ),
-        p: ({ children }: { children?: React.ReactNode }) => (
-            <p className="text-sm leading-relaxed mb-2 last:mb-0">{children}</p>
-        ),
+        strong: ({ children }: { children?: React.ReactNode }) => <strong className="font-semibold text-slate-950">{children}</strong>,
+        ul: ({ children }: { children?: React.ReactNode }) => <ul className="my-3 grid gap-1.5 pl-4 sm:grid-cols-2">{children}</ul>,
+        ol: ({ children }: { children?: React.ReactNode }) => <ol className="my-3 list-decimal space-y-1 pl-5">{children}</ol>,
+        li: ({ children }: { children?: React.ReactNode }) => <li className="text-sm leading-relaxed text-slate-800">{children}</li>,
+        p: ({ children }: { children?: React.ReactNode }) => <p className="mb-2 text-sm leading-relaxed text-slate-900 last:mb-0">{children}</p>,
         code: ({ children, className }: { children?: React.ReactNode; className?: string }) => {
             const isBlock = className?.includes('language-')
             return isBlock
-                ? <code className="block bg-slate-100 rounded-lg px-3 py-2 text-xs font-mono my-2 overflow-x-auto">{children}</code>
-                : <code className="bg-slate-100 rounded px-1.5 py-0.5 text-xs font-mono">{children}</code>
+                ? <code className="my-2 block overflow-x-auto rounded-lg bg-slate-100 px-3 py-2 font-mono text-xs">{children}</code>
+                : <code className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">{children}</code>
         },
-        h1: ({ children }: { children?: React.ReactNode }) => <h1 className="text-base font-bold mt-3 mb-1">{children}</h1>,
-        h2: ({ children }: { children?: React.ReactNode }) => <h2 className="text-sm font-bold mt-3 mb-1">{children}</h2>,
-        h3: ({ children }: { children?: React.ReactNode }) => <h3 className="text-sm font-semibold mt-2 mb-1">{children}</h3>,
+        h1: ({ children }: { children?: React.ReactNode }) => <h1 className="mb-1 mt-3 text-base font-bold">{children}</h1>,
+        h2: ({ children }: { children?: React.ReactNode }) => <h2 className="mb-1 mt-3 text-sm font-bold">{children}</h2>,
+        h3: ({ children }: { children?: React.ReactNode }) => <h3 className="mb-1 mt-2 text-sm font-semibold">{children}</h3>,
         blockquote: ({ children }: { children?: React.ReactNode }) => (
-            <blockquote className={`border-l-3 border-l-4 pl-3 italic text-slate-600 my-2 ${t.linkColor.split(' ')[0].replace('text-', 'border-')}`}>{children}</blockquote>
+            <blockquote className="my-3 rounded-lg border-l-4 border-blue-300 bg-blue-50/60 px-4 py-3 text-sm italic text-slate-700">{children}</blockquote>
         ),
-        hr: () => <hr className="border-slate-200 my-3" />,
+        hr: () => <hr className="my-3 border-slate-200" />,
     }
 
     return (
-        <div className="flex flex-col h-full bg-white">
-
-            {/* ── Header ── */}
+        <div className="flex h-full flex-col bg-[#fbf9ff]">
             {!hideHeader && (
-                <div className={`flex-shrink-0 border-b border-slate-200 bg-white`}>
-                    <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                        {/* Breadcrumb */}
+                <header className="flex-shrink-0 bg-[#fbf9ff]">
+                    <div className="mx-auto max-w-5xl px-5 sm:px-7">
                         {(orgNombre || carreraNombre || materiaNombre) && (
-                            <div className="flex items-center gap-2 py-2 border-b border-slate-100">
+                            <div className="flex items-center gap-2 pt-2 text-[11px] font-semibold text-slate-400">
                                 {orgLogoUrl ? (
-                                    <Image src={orgLogoUrl} alt={orgNombre || 'Logo'} width={18} height={18} className="rounded object-contain flex-shrink-0 opacity-70" />
+                                    <Image src={orgLogoUrl} alt={orgNombre || 'Logo'} width={18} height={18} className="shrink-0 rounded object-contain opacity-70" />
                                 ) : (
-                                    <Sparkles className="w-3 h-3 text-slate-400 flex-shrink-0" />
+                                    <Sparkles className="h-3 w-3 shrink-0 text-blue-500" />
                                 )}
-                                <nav className="flex items-center gap-1 text-xs text-slate-400 min-w-0">
+                                <nav className="flex min-w-0 items-center gap-1">
                                     {orgNombre && <span className="truncate">{orgNombre}</span>}
-                                    {carreraNombre && <><span className="text-slate-200">/</span><span className="truncate">{carreraNombre}</span></>}
-                                    {materiaNombre && <><span className="text-slate-200">/</span><span className="truncate font-medium text-slate-600">{materiaNombre}</span></>}
+                                    {carreraNombre && <><span className="text-slate-300">›</span><span className="truncate">{carreraNombre}</span></>}
+                                    {materiaNombre && <><span className="text-slate-300">›</span><span className="truncate font-bold text-blue-700">{materiaNombre}</span></>}
                                 </nav>
                             </div>
                         )}
-                        {/* Bot name + actions */}
-                        <div className="flex items-center justify-between py-3">
+                        <div className="flex items-center justify-between pb-5 pt-1">
                             <div className="flex items-center gap-3">
-                                <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${t.avatarBg} flex items-center justify-center shadow-sm flex-shrink-0`}>
-                                    <Bot className="w-4.5 h-4.5 text-white" style={{ width: 18, height: 18 }} />
+                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-700 shadow-sm shadow-blue-700/20">
+                                    <Bot className="h-4 w-4 text-white" />
                                 </div>
                                 <div>
-                                    <h1 className="text-sm font-semibold text-slate-900 leading-tight">{displayName}</h1>
-                                    <p className="text-xs text-slate-400">Asistente académico · Basado en el material del curso</p>
+                                    <h1 className="text-xl font-extrabold leading-tight tracking-tight text-slate-950">{displayName}</h1>
+                                    <p className="text-xs font-medium text-slate-400 lg:hidden">Asistente academico</p>
                                 </div>
                             </div>
                             {messages.length > 0 && (
                                 <div className="flex items-center gap-1">
-                                    <button onClick={handleExport} title="Exportar" className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors">
-                                        <Download className="w-3.5 h-3.5" />
+                                    <button onClick={handleExport} title="Exportar" className="rounded-lg p-2 text-slate-600 transition-colors hover:bg-white hover:text-blue-700">
+                                        <Download className="h-4 w-4" />
                                     </button>
-                                    <button onClick={handleClearChat} title="Borrar conversación" className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors">
-                                        <Trash2 className="w-3.5 h-3.5" />
+                                    <button onClick={handleClearChat} title="Borrar conversacion" className="rounded-lg p-2 text-slate-600 transition-colors hover:bg-white hover:text-red-500">
+                                        <Trash2 className="h-4 w-4" />
                                     </button>
                                 </div>
                             )}
                         </div>
                     </div>
-                </div>
+                </header>
             )}
 
-            {/* ── Messages ── */}
-            <div className="flex-1 min-h-0 overflow-y-auto">
-                <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 space-y-6">
-
-                    {/* Empty state */}
+            <div className="min-h-0 flex-1 overflow-y-auto">
+                <div className="mx-auto max-w-5xl space-y-7 px-5 py-6 sm:px-7">
                     {messages.length === 0 && (
-                        <div className="flex flex-col items-center pt-6 pb-4 text-center">
-                            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${t.avatarBg} flex items-center justify-center shadow-md mb-4`}>
-                                <Bot className="w-7 h-7 text-white" />
+                        <div className="flex flex-col items-center pb-4 pt-8 text-center">
+                            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-700 shadow-md shadow-blue-700/20">
+                                <Bot className="h-7 w-7 text-white" />
                             </div>
-                            <p className="text-sm font-medium text-slate-700 mb-1">{displayName}</p>
-                            <p className="text-sm text-slate-500 max-w-xs leading-relaxed">
-                                {welcomeMessage || `Hola, puedo ayudarte con el material de ${materiaNombre || 'la materia'}. ¿Qué querés consultar?`}
+                            <p className="mb-1 text-sm font-semibold text-slate-800">{displayName}</p>
+                            <p className="max-w-xs text-sm leading-relaxed text-slate-500">
+                                {welcomeMessage || `Hola, puedo ayudarte con el material de ${materiaNombre || 'la materia'}. Que queres consultar?`}
                             </p>
-
-                            {/* Suggestion chips */}
                             <div className="mt-5 flex flex-wrap justify-center gap-2">
-                                {[
-                                    '¿Cuáles son los temas principales?',
-                                    '¿Podés explicar un concepto clave?',
-                                    '¿Cómo se evalúa este curso?',
-                                ].map((s, i) => (
+                                {['Cuales son los temas principales?', 'Cuando es el primer parcial?', 'Como se evalua este curso?'].map((s) => (
                                     <button
-                                        key={i}
+                                        key={s}
                                         onClick={() => sendMessage(s)}
-                                        className={cn(
-                                            'px-3 py-1.5 rounded-full text-xs border transition-colors',
-                                            'border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50',
-                                        )}
+                                        className="rounded-full border border-[#d8ddf0] bg-white/70 px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-200 hover:bg-white"
                                     >
                                         {s}
                                     </button>
@@ -301,76 +271,68 @@ export function ChatInterface({
                         </div>
                     )}
 
-                    {/* Message list */}
                     {messages.map((msg, i) => (
                         <div key={i} className={cn('flex gap-3', msg.role === 'user' ? 'justify-end' : 'justify-start')}>
-                            {msg.role === 'assistant' && (
-                                <div className={`flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-br ${t.avatarBg} flex items-center justify-center self-start mt-0.5 shadow-sm`}>
-                                    <Bot className="w-3.5 h-3.5 text-white" />
-                                </div>
-                            )}
-
                             {msg.role === 'user' ? (
-                                <div className="max-w-[78%] flex flex-col items-end gap-1">
-                                    <div className={`rounded-2xl rounded-br-sm px-4 py-2.5 bg-gradient-to-br ${t.userBubbleBg} ${t.userBubbleText} shadow-sm`}>
-                                        <p className="text-sm whitespace-pre-wrap leading-relaxed">{msg.content}</p>
-                                    </div>
+                                <div className="flex max-w-[78%] flex-col items-end gap-1">
                                     {msg.timestamp && (
-                                        <span className="text-[10px] text-slate-400 px-1">{formatTime(msg.timestamp)}</span>
+                                        <span className="px-1 text-[10px] font-medium text-slate-400">Alex · {formatTime(msg.timestamp)}</span>
                                     )}
+                                    <div className="rounded-2xl rounded-br-md bg-blue-600 px-5 py-3 text-white shadow-lg shadow-blue-600/20">
+                                        <p className="whitespace-pre-wrap text-sm leading-relaxed">{msg.content}</p>
+                                    </div>
                                 </div>
                             ) : (
-                                <div className="flex-1 min-w-0 group">
-                                    <div className="text-slate-800 prose-sm">
-                                        <ReactMarkdown
-                                            remarkPlugins={[remarkGfm]}
-                                            rehypePlugins={[rehypeSanitize]}
-                                            components={markdownComponents}
-                                        >
-                                            {msg.content}
-                                        </ReactMarkdown>
+                                <div className="group flex min-w-0 max-w-[760px] flex-1 gap-2">
+                                    <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-700">
+                                        <Bot className="h-3.5 w-3.5" />
                                     </div>
-                                    {msg.content && (
-                                        <div className="mt-1.5 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            {msg.timestamp && <span className="text-[10px] text-slate-400">{formatTime(msg.timestamp)}</span>}
-                                            <button
-                                                onClick={() => handleCopy(msg.content, i)}
-                                                className={cn(
-                                                    'flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] transition-colors',
-                                                    copiedIndex === i
-                                                        ? 'text-emerald-600 bg-emerald-50'
-                                                        : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100',
-                                                )}
+                                    <div className="min-w-0 flex-1">
+                                        <div className="mb-1.5 text-[11px] font-extrabold text-blue-700">Study Buddy</div>
+                                        <div className="rounded-2xl border border-[#dfe3f4] bg-white/90 px-5 py-4 text-slate-900 shadow-sm shadow-slate-200/60">
+                                            <ReactMarkdown
+                                                remarkPlugins={[remarkGfm]}
+                                                rehypePlugins={[rehypeSanitize]}
+                                                components={markdownComponents}
                                             >
-                                                {copiedIndex === i
-                                                    ? <><Check className="w-3 h-3" /> Copiado</>
-                                                    : <><Copy className="w-3 h-3" /> Copiar</>
-                                                }
-                                            </button>
+                                                {msg.content}
+                                            </ReactMarkdown>
                                         </div>
-                                    )}
-                                </div>
-                            )}
-
-                            {msg.role === 'user' && (
-                                <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center self-start mt-0.5">
-                                    <User className="w-3.5 h-3.5 text-slate-500" />
+                                        {msg.content && (
+                                            <div className="mt-1.5 flex items-center gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+                                                {msg.timestamp && <span className="text-[10px] text-slate-400">{formatTime(msg.timestamp)}</span>}
+                                                <button
+                                                    onClick={() => handleCopy(msg.content, i)}
+                                                    className={cn(
+                                                        'flex items-center gap-1 rounded-md px-2 py-0.5 text-[10px] transition-colors',
+                                                        copiedIndex === i
+                                                            ? 'bg-emerald-50 text-emerald-600'
+                                                            : 'text-slate-400 hover:bg-white hover:text-slate-600',
+                                                    )}
+                                                >
+                                                    {copiedIndex === i
+                                                        ? <><Check className="h-3 w-3" /> Copiado</>
+                                                        : <><Copy className="h-3 w-3" /> Copiar</>
+                                                    }
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             )}
                         </div>
                     ))}
 
-                    {/* Typing indicator */}
                     {isLoading && !isRevealing && (
                         <div className="flex gap-3">
-                            <div className={`flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-br ${t.avatarBg} flex items-center justify-center self-start mt-0.5 shadow-sm`}>
-                                <Bot className="w-3.5 h-3.5 text-white" />
+                            <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-700">
+                                <Bot className="h-3.5 w-3.5" />
                             </div>
-                            <div className="flex items-center gap-1 py-2">
+                            <div className="flex items-center gap-1 rounded-2xl border border-[#dfe3f4] bg-white px-4 py-3 shadow-sm">
                                 {[0, 150, 300].map((delay, i) => (
                                     <div
                                         key={i}
-                                        className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce"
+                                        className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-300"
                                         style={{ animationDelay: `${delay}ms` }}
                                     />
                                 ))}
@@ -382,45 +344,59 @@ export function ChatInterface({
                 </div>
             </div>
 
-            {/* ── Input ── */}
-            <div className="flex-shrink-0 border-t border-slate-100 bg-white px-4 py-3 sm:px-6">
-                <div className="max-w-3xl mx-auto">
-                    <form onSubmit={handleSubmit} className="relative flex items-end gap-2 bg-slate-50 border border-slate-200 rounded-2xl px-4 py-2.5 focus-within:border-slate-300 focus-within:bg-white transition-colors shadow-sm">
+            <div className="flex-shrink-0 bg-[#fbf9ff] px-5 pb-6 pt-2 sm:px-7">
+                <div className="mx-auto max-w-5xl">
+                    {messages.length > 0 && (
+                        <div className="mb-2 flex flex-wrap gap-2">
+                            {quickPrompts.map((prompt) => (
+                                <button
+                                    key={prompt}
+                                    onClick={() => sendMessage(prompt)}
+                                    disabled={isLoading || isRevealing}
+                                    className="rounded-full border border-[#cfd6eb] bg-white/70 px-4 py-1 text-xs font-semibold text-slate-700 transition hover:border-blue-300 hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
+                                >
+                                    {prompt}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                    <form onSubmit={handleSubmit} className="relative flex items-end gap-3 rounded-full border border-[#e3e6f3] bg-white px-5 py-3 shadow-xl shadow-slate-200/80 transition-colors focus-within:border-blue-200">
+                        <Paperclip className="mb-1 h-4 w-4 shrink-0 text-slate-400" />
                         <textarea
                             ref={inputRef}
                             rows={1}
                             value={input}
                             onChange={handleInputChange}
                             onKeyDown={handleKeyDown}
-                            placeholder="Escribí tu pregunta..."
+                            placeholder="Escribi tu pregunta..."
                             disabled={isLoading || isRevealing}
-                            className="flex-1 bg-transparent text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none resize-none leading-relaxed max-h-[120px] disabled:opacity-50"
+                            className="max-h-[120px] flex-1 resize-none bg-transparent text-sm leading-relaxed text-slate-800 placeholder:text-slate-400 focus:outline-none disabled:opacity-50"
                             style={{ height: '24px' }}
                         />
                         <button
                             type="submit"
                             disabled={isLoading || isRevealing || !input.trim()}
                             className={cn(
-                                'flex-shrink-0 w-8 h-8 rounded-xl flex items-center justify-center transition-all',
-                                input.trim() && !isLoading
-                                    ? `bg-gradient-to-br ${t.userBubbleBg} text-white shadow-sm hover:shadow-md`
-                                    : 'bg-slate-200 text-slate-400 cursor-not-allowed',
+                                'flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-all',
+                                input.trim() && !isLoading && !isRevealing
+                                    ? 'bg-blue-700 text-white shadow-md shadow-blue-700/20 hover:bg-blue-600'
+                                    : 'cursor-not-allowed bg-slate-200 text-slate-400',
                             )}
                         >
                             {isLoading
-                                ? <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                                : <Send className="w-3.5 h-3.5" />
+                                ? <Loader2 className="h-4 w-4 animate-spin" />
+                                : <Send className="h-4 w-4" />
                             }
                         </button>
                     </form>
-                    <div className="mt-2 flex items-center justify-between text-[10px] text-slate-400 px-1">
-                        <span>Basado en el material del curso. Verificá información importante.</span>
-                        <span className="flex items-center gap-1 text-slate-300">
-                            <CornerDownLeft className="w-2.5 h-2.5" /> Enter para enviar
+                    <div className="mt-2 flex items-center justify-center gap-3 text-[10px] text-slate-300">
+                        <span>Basado en el material del curso. Verifica informacion importante.</span>
+                        <span className="flex items-center gap-1">
+                            <CornerDownLeft className="h-2.5 w-2.5" /> Enter para enviar
                         </span>
                     </div>
                     {activeModel && (
-                        <p className="mt-0.5 text-center text-[10px] text-slate-300 font-mono">{activeModel}</p>
+                        <p className="mt-0.5 text-center font-mono text-[10px] text-slate-300">{activeModel}</p>
                     )}
                 </div>
             </div>
