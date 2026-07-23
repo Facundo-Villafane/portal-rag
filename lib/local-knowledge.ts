@@ -46,7 +46,7 @@ export async function retrieveLocalContext(
         .slice(0, topK)
         .map(({ chunk, similarity }) => ({
             entry_id: chunk.entry_id,
-            content: `Fuente: ${chunk.metadata.title}\n\n${chunk.content}`,
+            content: `Titulo interno: ${chunk.metadata.title}\n\n${chunk.content}`,
             metadata: chunk.metadata,
             similarity,
         }))
@@ -227,8 +227,28 @@ function scoreChunk(query: string, queryTokens: string[], chunk: KnowledgeChunk)
     const normalizedQuery = normalize(query)
     const phraseBoost = normalizedQuery.length > 5 && normalizedContent.includes(normalizedQuery) ? 0.35 : 0
     const titleBoost = uniqueQueryTokens.some((token) => normalizedTitle.includes(token)) ? 0.15 : 0
+    const courseInfoBoost = shouldBoostCourseInfo(normalizedQuery, chunk.metadata.source) ? 0.45 : 0
 
-    return matches / Math.max(uniqueQueryTokens.length, 1) + phraseBoost + titleBoost
+    return matches / Math.max(uniqueQueryTokens.length, 1) + phraseBoost + titleBoost + courseInfoBoost
+}
+
+function shouldBoostCourseInfo(normalizedQuery: string, source: string): boolean {
+    const normalizedSource = normalize(source)
+    const asksCourseInfo = [
+        'temas principales',
+        'contenidos principales',
+        'de que trata',
+        'que vemos',
+        'programa',
+        'unidades',
+        'cronograma',
+        'parcial',
+        'examen',
+        'evaluacion',
+        'cursada',
+    ].some((phrase) => normalizedQuery.includes(phrase))
+
+    return asksCourseInfo && normalizedSource.includes('000_info_cursada')
 }
 
 function tokenize(text: string): string[] {
