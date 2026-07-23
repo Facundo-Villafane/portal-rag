@@ -14,7 +14,7 @@ interface KnowledgeChunk {
     tokens: Set<string>
 }
 
-const DEFAULT_KNOWLEDGE_DIR = path.join(process.cwd(), 'content', 'knowledge', 'moodle_books')
+const DEFAULT_KNOWLEDGE_DIR = path.join(process.cwd(), 'content', 'knowledge')
 const MIN_CHUNK_LENGTH = 400
 const MAX_CHUNK_LENGTH = 1800
 
