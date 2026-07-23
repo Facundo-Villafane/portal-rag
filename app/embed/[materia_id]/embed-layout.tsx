@@ -16,6 +16,10 @@ interface Message {
 }
 
 const SESSION_KEY = (id: string) => `embed_chat_${id}`
+const TYPEWRITER_CHARS_PER_TICK = 4
+const TYPEWRITER_DELAY_MS = 14
+
+const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 interface EmbedLayoutProps {
     materiaId: string
@@ -44,6 +48,7 @@ export function EmbedLayout({
     const [messages, setMessages] = useState<Message[]>([])
     const [input, setInput] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [isRevealing, setIsRevealing] = useState(false)
     const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
     const [activeModel, setActiveModel] = useState<string | null>(null)
     const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -65,7 +70,7 @@ export function EmbedLayout({
     }, [messages, isLoading])
 
     const sendMessage = useCallback(async (text: string) => {
-        if (!text.trim() || isLoading) return
+        if (!text.trim() || isLoading || isRevealing) return
         const now = new Date().toISOString()
         setMessages(prev => [...prev, { role: 'user', content: text, timestamp: now }])
         setInput('')
@@ -88,22 +93,21 @@ export function EmbedLayout({
             const modelUsed = response.headers.get('X-Model-Used')
             if (modelUsed) setActiveModel(modelUsed)
 
-            const reader = response.body?.getReader()
-            const decoder = new TextDecoder()
-            let assistantMsg = ''
+            const assistantMsg = await response.text()
             const replyTime = new Date().toISOString()
             setMessages(prev => [...prev, { role: 'assistant', content: '', timestamp: replyTime }])
 
-            if (reader) {
-                while (true) {
-                    const { done, value } = await reader.read()
-                    if (done) break
-                    assistantMsg += decoder.decode(value)
-                    setMessages(prev => {
-                        const msgs = [...prev]
-                        msgs[msgs.length - 1] = { role: 'assistant', content: assistantMsg, timestamp: replyTime }
-                        return msgs
-                    })
+            setIsLoading(false)
+            setIsRevealing(true)
+            for (let i = TYPEWRITER_CHARS_PER_TICK; i <= assistantMsg.length + TYPEWRITER_CHARS_PER_TICK; i += TYPEWRITER_CHARS_PER_TICK) {
+                const visibleText = assistantMsg.slice(0, i)
+                setMessages(prev => {
+                    const msgs = [...prev]
+                    msgs[msgs.length - 1] = { role: 'assistant', content: visibleText, timestamp: replyTime }
+                    return msgs
+                })
+                if (i < assistantMsg.length) {
+                    await wait(TYPEWRITER_DELAY_MS)
                 }
             }
         } catch {
@@ -114,8 +118,9 @@ export function EmbedLayout({
             }])
         } finally {
             setIsLoading(false)
+            setIsRevealing(false)
         }
-    }, [isLoading, materiaId])
+    }, [isLoading, isRevealing, materiaId])
 
     const handleCopy = useCallback(async (text: string, index: number) => {
         await navigator.clipboard.writeText(text)
@@ -309,7 +314,7 @@ export function EmbedLayout({
                     ))}
 
                     {/* Typing indicator */}
-                    {isLoading && (
+                    {isLoading && !isRevealing && (
                         <div className="flex gap-2">
                             <div className={`flex-shrink-0 w-6 h-6 rounded-md bg-gradient-to-br ${t.avatarBg} flex items-center justify-center self-start shadow-sm`}>
                                 <Bot className="w-3 h-3 text-white" />
@@ -338,13 +343,13 @@ export function EmbedLayout({
                         onChange={handleInputChange}
                         onKeyDown={handleKeyDown}
                         placeholder="Escribí tu pregunta..."
-                        disabled={isLoading}
+                        disabled={isLoading || isRevealing}
                         className="flex-1 bg-transparent text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none resize-none leading-relaxed max-h-[100px] disabled:opacity-50"
                         style={{ height: '22px' }}
                     />
                     <button
                         type="submit"
-                        disabled={isLoading || !input.trim()}
+                        disabled={isLoading || isRevealing || !input.trim()}
                         className={cn(
                             'flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center transition-all',
                             input.trim() && !isLoading

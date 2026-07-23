@@ -29,6 +29,10 @@ interface Message {
 }
 
 const SESSION_KEY = (materiaId: string) => `chat_messages_${materiaId}`
+const TYPEWRITER_CHARS_PER_TICK = 4
+const TYPEWRITER_DELAY_MS = 14
+
+const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 export function ChatInterface({
     materiaId,
@@ -47,6 +51,7 @@ export function ChatInterface({
     const [messages, setMessages] = useState<Message[]>([])
     const [input, setInput] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [isRevealing, setIsRevealing] = useState(false)
     const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
     const [activeModel, setActiveModel] = useState<string | null>(null)
     const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -101,7 +106,7 @@ export function ChatInterface({
     }, [materiaId])
 
     const sendMessage = useCallback(async (text: string) => {
-        if (!text.trim() || isLoading) return
+        if (!text.trim() || isLoading || isRevealing) return
         const now = new Date().toISOString()
         setMessages(prev => [...prev, { role: 'user', content: text, timestamp: now }])
         setInput('')
@@ -123,22 +128,21 @@ export function ChatInterface({
             const modelUsed = response.headers.get('X-Model-Used')
             if (modelUsed) setActiveModel(modelUsed)
 
-            const reader = response.body?.getReader()
-            const decoder = new TextDecoder()
-            let assistantMessage = ''
+            const assistantMessage = await response.text()
             const replyTime = new Date().toISOString()
             setMessages(prev => [...prev, { role: 'assistant', content: '', timestamp: replyTime }])
 
-            if (reader) {
-                while (true) {
-                    const { done, value } = await reader.read()
-                    if (done) break
-                    assistantMessage += decoder.decode(value)
-                    setMessages(prev => {
-                        const msgs = [...prev]
-                        msgs[msgs.length - 1] = { role: 'assistant', content: assistantMessage, timestamp: replyTime }
-                        return msgs
-                    })
+            setIsLoading(false)
+            setIsRevealing(true)
+            for (let i = TYPEWRITER_CHARS_PER_TICK; i <= assistantMessage.length + TYPEWRITER_CHARS_PER_TICK; i += TYPEWRITER_CHARS_PER_TICK) {
+                const visibleText = assistantMessage.slice(0, i)
+                setMessages(prev => {
+                    const msgs = [...prev]
+                    msgs[msgs.length - 1] = { role: 'assistant', content: visibleText, timestamp: replyTime }
+                    return msgs
+                })
+                if (i < assistantMessage.length) {
+                    await wait(TYPEWRITER_DELAY_MS)
                 }
             }
         } catch {
@@ -149,8 +153,9 @@ export function ChatInterface({
             }])
         } finally {
             setIsLoading(false)
+            setIsRevealing(false)
         }
-    }, [isLoading, materiaId])
+    }, [isLoading, isRevealing, materiaId])
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -356,7 +361,7 @@ export function ChatInterface({
                     ))}
 
                     {/* Typing indicator */}
-                    {isLoading && (
+                    {isLoading && !isRevealing && (
                         <div className="flex gap-3">
                             <div className={`flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-br ${t.avatarBg} flex items-center justify-center self-start mt-0.5 shadow-sm`}>
                                 <Bot className="w-3.5 h-3.5 text-white" />
@@ -388,13 +393,13 @@ export function ChatInterface({
                             onChange={handleInputChange}
                             onKeyDown={handleKeyDown}
                             placeholder="Escribí tu pregunta..."
-                            disabled={isLoading}
+                            disabled={isLoading || isRevealing}
                             className="flex-1 bg-transparent text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none resize-none leading-relaxed max-h-[120px] disabled:opacity-50"
                             style={{ height: '24px' }}
                         />
                         <button
                             type="submit"
-                            disabled={isLoading || !input.trim()}
+                            disabled={isLoading || isRevealing || !input.trim()}
                             className={cn(
                                 'flex-shrink-0 w-8 h-8 rounded-xl flex items-center justify-center transition-all',
                                 input.trim() && !isLoading
