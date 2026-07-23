@@ -1,8 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { Send, Bot, Loader2, Sparkles, Copy, Check, Download, Trash2, CornerDownLeft, Paperclip } from 'lucide-react'
-import Image from 'next/image'
+import { Send, Bot, Loader2, Copy, Check, Download, Trash2, CornerDownLeft, Paperclip } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -39,13 +38,11 @@ export function ChatInterface({
     botNombre,
     welcomeMessage,
     hideHeader,
-    orgNombre,
-    orgLogoUrl,
-    carreraNombre,
     theme: themeId,
 }: ChatInterfaceProps) {
     const t = getTheme(themeId)
-    const displayName = botNombre || `Asistente de ${materiaNombre || 'la materia'}`
+    const displayName = botNombre || 'Billr'
+    const courseTitle = materiaNombre || 'Billetaje y Reservas'
     const quickPrompts = ['Resumir Unidad 2', 'Practica de examen', 'Bibliografia sugerida']
 
     const [messages, setMessages] = useState<Message[]>([])
@@ -207,29 +204,12 @@ export function ChatInterface({
             {!hideHeader && (
                 <header className="flex-shrink-0 bg-[#fbf9ff]">
                     <div className="mx-auto max-w-5xl px-5 sm:px-7">
-                        {(orgNombre || carreraNombre || materiaNombre) && (
-                            <div className="flex items-center gap-2 pt-2 text-[11px] font-semibold text-slate-400">
-                                {orgLogoUrl ? (
-                                    <Image src={orgLogoUrl} alt={orgNombre || 'Logo'} width={18} height={18} className="shrink-0 rounded object-contain opacity-70" />
-                                ) : (
-                                    <Sparkles className="h-3 w-3 shrink-0 text-blue-500" />
-                                )}
-                                <nav className="flex min-w-0 items-center gap-1">
-                                    {orgNombre && <span className="truncate">{orgNombre}</span>}
-                                    {carreraNombre && <><span className="text-slate-300">›</span><span className="truncate">{carreraNombre}</span></>}
-                                    {materiaNombre && <><span className="text-slate-300">›</span><span className="truncate font-bold text-blue-700">{materiaNombre}</span></>}
-                                </nav>
-                            </div>
-                        )}
-                        <div className="flex items-center justify-between pb-5 pt-1">
+                        <div className="flex items-center justify-between py-5">
                             <div className="flex items-center gap-3">
                                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-700 shadow-sm shadow-blue-700/20">
                                     <Bot className="h-4 w-4 text-white" />
                                 </div>
-                                <div>
-                                    <h1 className="text-xl font-extrabold leading-tight tracking-tight text-slate-950">{displayName}</h1>
-                                    <p className="text-xs font-medium text-slate-400 lg:hidden">Asistente academico</p>
-                                </div>
+                                <h1 className="text-xl font-extrabold leading-tight tracking-tight text-slate-950">{courseTitle}</h1>
                             </div>
                             {messages.length > 0 && (
                                 <div className="flex items-center gap-1">
@@ -255,7 +235,7 @@ export function ChatInterface({
                             </div>
                             <p className="mb-1 text-sm font-semibold text-slate-800">{displayName}</p>
                             <p className="max-w-xs text-sm leading-relaxed text-slate-500">
-                                {welcomeMessage || `Hola, puedo ayudarte con el material de ${materiaNombre || 'la materia'}. Que queres consultar?`}
+                                {welcomeMessage || `Hola, soy ${displayName}. Puedo ayudarte con el material de ${courseTitle}. Que queres consultar?`}
                             </p>
                             <div className="mt-5 flex flex-wrap justify-center gap-2">
                                 {['Cuales son los temas principales?', 'Cuando es el primer parcial?', 'Como se evalua este curso?'].map((s) => (
@@ -276,7 +256,7 @@ export function ChatInterface({
                             {msg.role === 'user' ? (
                                 <div className="flex max-w-[78%] flex-col items-end gap-1">
                                     {msg.timestamp && (
-                                        <span className="px-1 text-[10px] font-medium text-slate-400">Alex · {formatTime(msg.timestamp)}</span>
+                                        <span className="px-1 text-[10px] font-medium text-slate-400">Vos - {formatTime(msg.timestamp)}</span>
                                     )}
                                     <div className="rounded-2xl rounded-br-md bg-blue-600 px-5 py-3 text-white shadow-lg shadow-blue-600/20">
                                         <p className="whitespace-pre-wrap text-sm leading-relaxed">{msg.content}</p>
@@ -288,7 +268,7 @@ export function ChatInterface({
                                         <Bot className="h-3.5 w-3.5" />
                                     </div>
                                     <div className="min-w-0 flex-1">
-                                        <div className="mb-1.5 text-[11px] font-extrabold text-blue-700">Study Buddy</div>
+                                        <div className="mb-1.5 text-[11px] font-extrabold text-blue-700">{displayName}</div>
                                         <div className="rounded-2xl border border-[#dfe3f4] bg-white/90 px-5 py-4 text-slate-900 shadow-sm shadow-slate-200/60">
                                             <ReactMarkdown
                                                 remarkPlugins={[remarkGfm]}

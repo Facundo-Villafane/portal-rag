@@ -1,10 +1,10 @@
 export const COURSE_CONFIG = {
     id: 'billetaje-y-reservas',
     nombreMateria: 'Billetaje y Reservas',
-    nombreCarrera: 'Tecnicatura Universitaria en Gestión Aeronáutica',
+    nombreCarrera: 'Tecnicatura Universitaria en Gestion Aeronautica',
     nombreInstitucion: 'Universidad',
-    nombreBot: 'Asistente de Billetaje y Reservas',
-    welcomeMessage: 'Hola, puedo ayudarte con el material de Billetaje y Reservas. ¿Qué querés consultar?',
+    nombreBot: 'Billr',
+    welcomeMessage: 'Hola, soy Billr. Puedo ayudarte con el material de Billetaje y Reservas. Que queres consultar?',
     theme: 'blue',
     model: process.env.CHAT_MODEL || 'llama-3.3-70b-versatile',
     temperature: Number(process.env.CHAT_TEMPERATURE ?? 0.3),
