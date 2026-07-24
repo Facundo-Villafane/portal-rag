@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { Send, Bot, User, Loader2, Copy, Check, Trash2, Download } from 'lucide-react'
+import { Send, User, Loader2, Copy, Check, Trash2, Download } from 'lucide-react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import ReactMarkdown from 'react-markdown'
@@ -21,6 +21,27 @@ const TYPEWRITER_DELAY_MS = 14
 
 const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
+function BillrAvatar({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
+    const sizeClass = {
+        sm: 'h-6 w-6',
+        md: 'h-10 w-10',
+        lg: 'h-12 w-12',
+    }[size]
+
+    return (
+        <div className={cn('relative flex-shrink-0 overflow-hidden rounded-full bg-white ring-1 ring-blue-100 shadow-sm shadow-blue-700/10', sizeClass)}>
+            <Image
+                src="/billr-avatar.png"
+                alt="Billr"
+                fill
+                sizes={size === 'lg' ? '48px' : size === 'md' ? '40px' : '24px'}
+                className="object-cover"
+                priority={size === 'lg'}
+            />
+        </div>
+    )
+}
+
 interface EmbedLayoutProps {
     materiaId: string
     materiaNombre?: string
@@ -38,7 +59,6 @@ export function EmbedLayout({
     botNombre,
     welcomeMessage,
     orgNombre,
-    orgLogoUrl,
     carreraNombre,
     theme: themeId,
 }: EmbedLayoutProps) {
@@ -202,13 +222,7 @@ export function EmbedLayout({
             {/* Header */}
             <div className="flex-shrink-0 border-b border-[#dfe3f4] bg-[#fbf9ff] px-5 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    {orgLogoUrl ? (
-                        <Image src={orgLogoUrl} alt={orgNombre || 'Logo'} width={36} height={36} className="rounded-lg object-contain flex-shrink-0" />
-                    ) : (
-                        <div className="w-10 h-10 rounded-xl bg-blue-700 flex items-center justify-center flex-shrink-0 shadow-sm shadow-blue-700/20">
-                            <Bot className="w-5 h-5 text-white" />
-                        </div>
-                    )}
+                    <BillrAvatar size="md" />
                     <div className="min-w-0">
                         <p className="text-sm font-semibold text-slate-900 leading-tight truncate">{displayName}</p>
                         {(orgNombre || materiaNombre) && (
@@ -245,8 +259,8 @@ export function EmbedLayout({
                     {/* Empty state */}
                     {messages.length === 0 && !isLoading && (
                         <div className="flex flex-col items-center pt-6 pb-2 text-center">
-                            <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${t.avatarBg} flex items-center justify-center shadow-sm mb-3`}>
-                                <Bot className="w-6 h-6 text-white" />
+                            <div className="mb-3">
+                                <BillrAvatar size="lg" />
                             </div>
                             <p className="text-sm text-slate-600 font-medium mb-1">{displayName}</p>
                             <p className="text-xs text-slate-400 max-w-[220px] leading-relaxed">
@@ -260,9 +274,7 @@ export function EmbedLayout({
                         <div key={i} className={cn('flex gap-2', msg.role === 'user' ? 'justify-end' : 'justify-start')}>
 
                             {msg.role === 'assistant' && (
-                                <div className={`flex-shrink-0 w-6 h-6 rounded-md bg-gradient-to-br ${t.avatarBg} flex items-center justify-center self-start mt-0.5 shadow-sm`}>
-                                    <Bot className="w-3 h-3 text-white" />
-                                </div>
+                                <BillrAvatar size="sm" />
                             )}
 
                             {msg.role === 'user' ? (
@@ -316,9 +328,7 @@ export function EmbedLayout({
                     {/* Typing indicator */}
                     {isLoading && !isRevealing && (
                         <div className="flex gap-2">
-                            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center self-start shadow-sm">
-                                <Bot className="w-3 h-3" />
-                            </div>
+                            <BillrAvatar size="sm" />
                             <div className="flex items-center gap-1 py-2">
                                 {[0, 150, 300].map((delay, i) => (
                                     <div key={i} className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce" style={{ animationDelay: `${delay}ms` }} />

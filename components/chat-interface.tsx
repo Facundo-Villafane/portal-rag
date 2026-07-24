@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { Send, Bot, Loader2, Copy, Check, Download, Trash2, CornerDownLeft, Paperclip } from 'lucide-react'
+import { Send, Loader2, Copy, Check, Download, Trash2, CornerDownLeft, Paperclip } from 'lucide-react'
+import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -31,6 +32,27 @@ const TYPEWRITER_CHARS_PER_TICK = 4
 const TYPEWRITER_DELAY_MS = 14
 
 const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
+function BillrAvatar({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
+    const sizeClass = {
+        sm: 'h-7 w-7',
+        md: 'h-9 w-9',
+        lg: 'h-16 w-16',
+    }[size]
+
+    return (
+        <div className={cn('relative shrink-0 overflow-hidden rounded-full bg-white ring-1 ring-blue-100 shadow-sm shadow-blue-700/10', sizeClass)}>
+            <Image
+                src="/billr-avatar.png"
+                alt="Billr"
+                fill
+                sizes={size === 'lg' ? '64px' : size === 'md' ? '36px' : '28px'}
+                className="object-cover"
+                priority={size === 'lg'}
+            />
+        </div>
+    )
+}
 
 export function ChatInterface({
     materiaId,
@@ -206,9 +228,7 @@ export function ChatInterface({
                     <div className="mx-auto max-w-5xl px-5 sm:px-7">
                         <div className="flex items-center justify-between py-5">
                             <div className="flex items-center gap-3">
-                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-700 shadow-sm shadow-blue-700/20">
-                                    <Bot className="h-4 w-4 text-white" />
-                                </div>
+                                <BillrAvatar size="md" />
                                 <h1 className="text-xl font-extrabold leading-tight tracking-tight text-slate-950">{courseTitle}</h1>
                             </div>
                             {messages.length > 0 && (
@@ -230,8 +250,8 @@ export function ChatInterface({
                 <div className="mx-auto max-w-5xl space-y-7 px-5 py-6 sm:px-7">
                     {messages.length === 0 && (
                         <div className="flex flex-col items-center pb-4 pt-8 text-center">
-                            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-700 shadow-md shadow-blue-700/20">
-                                <Bot className="h-7 w-7 text-white" />
+                            <div className="mb-4">
+                                <BillrAvatar size="lg" />
                             </div>
                             <p className="mb-1 text-sm font-semibold text-slate-800">{displayName}</p>
                             <p className="max-w-xs text-sm leading-relaxed text-slate-500">
@@ -264,9 +284,7 @@ export function ChatInterface({
                                 </div>
                             ) : (
                                 <div className="group flex min-w-0 max-w-[760px] flex-1 gap-2">
-                                    <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-700">
-                                        <Bot className="h-3.5 w-3.5" />
-                                    </div>
+                                    <BillrAvatar size="sm" />
                                     <div className="min-w-0 flex-1">
                                         <div className="mb-1.5 text-[11px] font-extrabold text-blue-700">{displayName}</div>
                                         <div className="rounded-2xl border border-[#dfe3f4] bg-white/90 px-5 py-4 text-slate-900 shadow-sm shadow-slate-200/60">
@@ -305,9 +323,7 @@ export function ChatInterface({
 
                     {isLoading && !isRevealing && (
                         <div className="flex gap-3">
-                            <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-700">
-                                <Bot className="h-3.5 w-3.5" />
-                            </div>
+                            <BillrAvatar size="sm" />
                             <div className="flex items-center gap-1 rounded-2xl border border-[#dfe3f4] bg-white px-4 py-3 shadow-sm">
                                 {[0, 150, 300].map((delay, i) => (
                                     <div
