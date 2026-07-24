@@ -16,13 +16,14 @@ Variables recomendadas:
 ```bash
 GROQ_API_KEY=...
 CHAT_MODEL=llama-3.3-70b-versatile
+CHAT_FALLBACK_MODEL=llama-3.1-8b-instant
 CHAT_TEMPERATURE=0.3
-RAG_TOP_K=8
+RAG_TOP_K=4
 RAG_SCORE_THRESHOLD=0.08
 KNOWLEDGE_DIR=content/knowledge
 CHAT_DAILY_SESSION_LIMIT=25
 CHAT_DAILY_IP_LIMIT=200
-CHAT_MAX_OUTPUT_TOKENS=900
+CHAT_MAX_OUTPUT_TOKENS=450
 ```
 
 Tambien se puede usar OpenAI si `CHAT_MODEL` es un modelo `gpt-*` y se define `OPENAI_API_KEY`.
@@ -42,7 +43,7 @@ Usar este iframe en Moodle o cualquier pagina que acepte HTML:
 ></iframe>
 ```
 
-Los limites diarios se aplican antes de llamar al modelo para cuidar el cupo de Groq. `CHAT_DAILY_SESSION_LIMIT` limita cada navegador/sesion, `CHAT_DAILY_IP_LIMIT` pone un techo general por IP, y `CHAT_MAX_OUTPUT_TOKENS` evita respuestas demasiado largas.
+Los limites diarios se aplican antes de llamar al modelo para cuidar el cupo de Groq. `CHAT_DAILY_SESSION_LIMIT` limita cada navegador/sesion, `CHAT_DAILY_IP_LIMIT` pone un techo general por IP, `CHAT_MAX_OUTPUT_TOKENS` evita respuestas demasiado largas, y `CHAT_FALLBACK_MODEL` permite pasar a un modelo mas liviano si el principal queda sin cupo.
 
 ## Actualizar material
 

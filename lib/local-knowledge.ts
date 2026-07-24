@@ -15,8 +15,8 @@ interface KnowledgeChunk {
 }
 
 const DEFAULT_KNOWLEDGE_DIR = path.join(process.cwd(), 'content', 'knowledge')
-const MIN_CHUNK_LENGTH = 400
-const MAX_CHUNK_LENGTH = 1800
+const MIN_CHUNK_LENGTH = 220
+const MAX_CHUNK_LENGTH = 1000
 
 const STOPWORDS = new Set([
     'ante', 'bajo', 'con', 'contra', 'del', 'desde', 'durante', 'ella', 'entre',

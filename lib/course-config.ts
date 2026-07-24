@@ -7,13 +7,14 @@ export const COURSE_CONFIG = {
     welcomeMessage: 'Hola, soy Billr. Puedo ayudarte con el material de Billetaje y Reservas. Que queres consultar?',
     theme: 'blue',
     model: process.env.CHAT_MODEL || 'llama-3.3-70b-versatile',
+    fallbackModel: process.env.CHAT_FALLBACK_MODEL || 'llama-3.1-8b-instant',
     temperature: Number(process.env.CHAT_TEMPERATURE ?? 0.3),
     retriever: {
-        topK: Number(process.env.RAG_TOP_K ?? 8),
+        topK: Number(process.env.RAG_TOP_K ?? 4),
         scoreThreshold: Number(process.env.RAG_SCORE_THRESHOLD ?? 0.08),
         knowledgeDir: process.env.KNOWLEDGE_DIR,
     },
     limits: {
-        maxOutputTokens: Number(process.env.CHAT_MAX_OUTPUT_TOKENS ?? 900),
+        maxOutputTokens: Number(process.env.CHAT_MAX_OUTPUT_TOKENS ?? 450),
     },
 }

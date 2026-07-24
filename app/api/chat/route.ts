@@ -66,6 +66,62 @@ export async function POST(req: NextRequest) {
     const modelName = COURSE_CONFIG.model
 
     try {
+        const result = await generateWithFallback({
+            modelName,
+            fallbackModelName: COURSE_CONFIG.fallbackModel,
+            systemPrompt,
+            pregunta,
+        })
+
+        return new Response(result.text, {
+            headers: {
+                'Content-Type': 'text/plain; charset=utf-8',
+                'X-Content-Type-Options': 'nosniff',
+                'X-Model-Used': result.modelName,
+                'X-RateLimit-Remaining': String(Math.min(sessionLimit.remaining, ipLimit.remaining)),
+            },
+        })
+    } catch (err) {
+        console.error('[chat] model error:', err)
+
+        if (isProviderRateLimit(err)) {
+            return new Response(
+                'Billr esta con el cupo diario del modelo casi completo. Proba de nuevo mas tarde; asi evitamos gastar llamadas en intentos que Groq va a rechazar.',
+                {
+                    status: 429,
+                    headers: {
+                        'Content-Type': 'text/plain; charset=utf-8',
+                        'X-Content-Type-Options': 'nosniff',
+                    },
+                }
+            )
+        }
+
+        return new Response(
+            'Lo siento, ocurrio un error al generar la respuesta. Proba de nuevo en un momento.',
+            {
+                status: 500,
+                headers: {
+                    'Content-Type': 'text/plain; charset=utf-8',
+                    'X-Content-Type-Options': 'nosniff',
+                },
+            }
+        )
+    }
+}
+
+async function generateWithFallback({
+    modelName,
+    fallbackModelName,
+    systemPrompt,
+    pregunta,
+}: {
+    modelName: string
+    fallbackModelName?: string
+    systemPrompt: string
+    pregunta: string
+}) {
+    try {
         const model = await getModel(modelName)
         const result = await generateText({
             model,
@@ -75,19 +131,28 @@ export async function POST(req: NextRequest) {
             maxOutputTokens: COURSE_CONFIG.limits.maxOutputTokens,
         })
 
-        return new Response(result.text, {
-            headers: {
-                'Content-Type': 'text/plain; charset=utf-8',
-                'X-Content-Type-Options': 'nosniff',
-                'X-Model-Used': modelName,
-                'X-RateLimit-Remaining': String(Math.min(sessionLimit.remaining, ipLimit.remaining)),
-            },
+        return { text: result.text, modelName }
+    } catch (error) {
+        if (!fallbackModelName || fallbackModelName === modelName || !isProviderRateLimit(error)) {
+            throw error
+        }
+
+        console.warn(`[chat] ${modelName} rate-limited, retrying with ${fallbackModelName}`)
+        const fallbackModel = await getModel(fallbackModelName)
+        const fallbackResult = await generateText({
+            model: fallbackModel,
+            system: systemPrompt,
+            messages: [{ role: 'user', content: pregunta }],
+            temperature: COURSE_CONFIG.temperature,
+            maxOutputTokens: COURSE_CONFIG.limits.maxOutputTokens,
         })
-    } catch (err) {
-        console.error('[chat] model error:', err)
-        return NextResponse.json({
-            error: 'Error al generar respuesta',
-            details: err instanceof Error ? err.message : 'Unknown error',
-        }, { status: 500 })
+
+        return { text: fallbackResult.text, modelName: fallbackModelName }
     }
+}
+
+function isProviderRateLimit(error: unknown): boolean {
+    const message = error instanceof Error ? error.message : String(error)
+
+    return /rate limit|tokens per day|TPD|too many requests|429/i.test(message)
 }
