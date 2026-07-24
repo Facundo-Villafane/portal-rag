@@ -33,13 +33,20 @@ export async function retrieveLocalContext(
 ): Promise<ContextItem[]> {
     const chunks = await loadKnowledgeChunks()
     const queryTokens = tokenize(query)
+    const normalizedQuery = normalize(query)
+    const requestedUnit = detectRequestedUnit(normalizedQuery)
 
     if (queryTokens.length === 0) return []
 
-    return chunks
+    const unitChunks = requestedUnit
+        ? chunks.filter((chunk) => chunkMatchesRequestedUnit(requestedUnit, chunk))
+        : []
+    const candidates = unitChunks.length > 0 ? unitChunks : chunks
+
+    return candidates
         .map((chunk) => ({
             chunk,
-            similarity: scoreChunk(query, queryTokens, chunk),
+            similarity: scoreChunk(query, queryTokens, chunk, requestedUnit),
         }))
         .filter(({ similarity }) => similarity >= threshold)
         .sort((a, b) => b.similarity - a.similarity)
@@ -214,7 +221,7 @@ function decodeHtmlEntities(text: string): string {
         .replace(/&Ntilde;/g, 'Ñ')
 }
 
-function scoreChunk(query: string, queryTokens: string[], chunk: KnowledgeChunk): number {
+function scoreChunk(query: string, queryTokens: string[], chunk: KnowledgeChunk, requestedUnit?: string | null): number {
     const uniqueQueryTokens = Array.from(new Set(queryTokens))
     let matches = 0
 
@@ -229,8 +236,33 @@ function scoreChunk(query: string, queryTokens: string[], chunk: KnowledgeChunk)
     const titleBoost = uniqueQueryTokens.some((token) => normalizedTitle.includes(token)) ? 0.15 : 0
     const courseInfoBoost = shouldBoostCourseInfo(normalizedQuery, chunk.metadata.source) ? 0.45 : 0
     const unitBoost = scoreRequestedUnit(normalizedQuery, chunk.metadata.source)
+    const unitSummaryBoost = requestedUnit && isBroadUnitQuery(normalizedQuery) && chunk.metadata.source.includes('001_resumen_unidades') ? 2 : 0
 
-    return matches / Math.max(uniqueQueryTokens.length, 1) + phraseBoost + titleBoost + courseInfoBoost + unitBoost
+    return matches / Math.max(uniqueQueryTokens.length, 1) + phraseBoost + titleBoost + courseInfoBoost + unitBoost + unitSummaryBoost
+}
+
+function chunkMatchesRequestedUnit(requestedUnit: string, chunk: KnowledgeChunk): boolean {
+    const searchable = normalize(`${chunk.metadata.source}\n${chunk.metadata.title}\n${chunk.content}`)
+    const unitPatterns = [
+        `unidad_${requestedUnit}`,
+        `unidad ${requestedUnit}`,
+        `u${requestedUnit}`,
+    ]
+
+    return unitPatterns.some((pattern) => searchable.includes(pattern))
+}
+
+function isBroadUnitQuery(normalizedQuery: string): boolean {
+    return [
+        'resumir',
+        'resumen',
+        'temas',
+        'contenido',
+        'contenidos',
+        'que vamos',
+        'que vemos',
+        'de que trata',
+    ].some((phrase) => normalizedQuery.includes(phrase))
 }
 
 function scoreRequestedUnit(normalizedQuery: string, source: string): number {
