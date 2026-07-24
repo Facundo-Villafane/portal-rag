@@ -20,9 +20,29 @@ CHAT_TEMPERATURE=0.3
 RAG_TOP_K=8
 RAG_SCORE_THRESHOLD=0.08
 KNOWLEDGE_DIR=content/knowledge
+CHAT_DAILY_SESSION_LIMIT=25
+CHAT_DAILY_IP_LIMIT=200
+CHAT_MAX_OUTPUT_TOKENS=900
 ```
 
 Tambien se puede usar OpenAI si `CHAT_MODEL` es un modelo `gpt-*` y se define `OPENAI_API_KEY`.
+
+## Moodle
+
+Usar este iframe en Moodle o cualquier pagina que acepte HTML:
+
+```html
+<iframe
+  src="https://codisea-nexus.vercel.app/embed/billetaje-y-reservas"
+  width="100%"
+  height="650"
+  frameborder="0"
+  allow="clipboard-write"
+  style="border: 1px solid #dfe3f4; border-radius: 12px;"
+></iframe>
+```
+
+Los limites diarios se aplican antes de llamar al modelo para cuidar el cupo de Groq. `CHAT_DAILY_SESSION_LIMIT` limita cada navegador/sesion, `CHAT_DAILY_IP_LIMIT` pone un techo general por IP, y `CHAT_MAX_OUTPUT_TOKENS` evita respuestas demasiado largas.
 
 ## Actualizar material
 

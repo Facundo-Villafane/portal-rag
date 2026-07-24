@@ -13,4 +13,7 @@ export const COURSE_CONFIG = {
         scoreThreshold: Number(process.env.RAG_SCORE_THRESHOLD ?? 0.08),
         knowledgeDir: process.env.KNOWLEDGE_DIR,
     },
+    limits: {
+        maxOutputTokens: Number(process.env.CHAT_MAX_OUTPUT_TOKENS ?? 900),
+    },
 }

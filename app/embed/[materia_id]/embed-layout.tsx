@@ -97,18 +97,25 @@ export function EmbedLayout({
         setIsLoading(true)
 
         try {
+            const storageKey = `embed_session_${materiaId}`
+            let sessionId = localStorage.getItem(storageKey)
+            if (!sessionId) {
+                sessionId = crypto.randomUUID()
+                localStorage.setItem(storageKey, sessionId)
+            }
+
             const response = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     materia_id: materiaId,
                     pregunta: text,
-                    session_id: localStorage.getItem(`embed_session_${materiaId}`) || undefined,
+                    session_id: sessionId,
                 }),
             })
-            if (!response.ok) throw new Error('Error')
-            if (!localStorage.getItem(`embed_session_${materiaId}`)) {
-                localStorage.setItem(`embed_session_${materiaId}`, crypto.randomUUID())
+            if (!response.ok) {
+                const errorText = await response.text()
+                throw new Error(errorText || 'Error')
             }
             const modelUsed = response.headers.get('X-Model-Used')
             if (modelUsed) setActiveModel(modelUsed)
@@ -130,10 +137,10 @@ export function EmbedLayout({
                     await wait(TYPEWRITER_DELAY_MS)
                 }
             }
-        } catch {
+        } catch (error) {
             setMessages(prev => [...prev, {
                 role: 'assistant',
-                content: 'Lo siento, ocurrió un error al procesar tu pregunta.',
+                content: error instanceof Error ? error.message : 'Lo siento, ocurrio un error al procesar tu pregunta.',
                 timestamp: new Date().toISOString(),
             }])
         } finally {

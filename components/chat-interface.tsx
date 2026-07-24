@@ -132,17 +132,25 @@ export function ChatInterface({
         setIsLoading(true)
 
         try {
+            let sessionId = localStorage.getItem('session_id')
+            if (!sessionId) {
+                sessionId = crypto.randomUUID()
+                localStorage.setItem('session_id', sessionId)
+            }
+
             const response = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     materia_id: materiaId,
                     pregunta: text,
-                    session_id: localStorage.getItem('session_id') || undefined,
+                    session_id: sessionId,
                 }),
             })
-            if (!response.ok) throw new Error('Error en la respuesta')
-            if (!localStorage.getItem('session_id')) localStorage.setItem('session_id', crypto.randomUUID())
+            if (!response.ok) {
+                const errorText = await response.text()
+                throw new Error(errorText || 'Error en la respuesta')
+            }
 
             const modelUsed = response.headers.get('X-Model-Used')
             if (modelUsed) setActiveModel(modelUsed)
@@ -162,10 +170,10 @@ export function ChatInterface({
                 })
                 if (i < assistantMessage.length) await wait(TYPEWRITER_DELAY_MS)
             }
-        } catch {
+        } catch (error) {
             setMessages(prev => [...prev, {
                 role: 'assistant',
-                content: 'Lo siento, ocurrio un error al procesar tu pregunta.',
+                content: error instanceof Error ? error.message : 'Lo siento, ocurrio un error al procesar tu pregunta.',
                 timestamp: new Date().toISOString(),
             }])
         } finally {
