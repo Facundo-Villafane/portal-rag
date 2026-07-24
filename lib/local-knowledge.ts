@@ -236,9 +236,11 @@ function scoreChunk(query: string, queryTokens: string[], chunk: KnowledgeChunk,
     const titleBoost = uniqueQueryTokens.some((token) => normalizedTitle.includes(token)) ? 0.15 : 0
     const courseInfoBoost = shouldBoostCourseInfo(normalizedQuery, chunk.metadata.source) ? 0.45 : 0
     const unitBoost = scoreRequestedUnit(normalizedQuery, chunk.metadata.source)
-    const unitSummaryBoost = requestedUnit && isBroadUnitQuery(normalizedQuery) && chunk.metadata.source.includes('001_resumen_unidades') ? 2 : 0
+    const broadUnitQuery = requestedUnit && isBroadUnitQuery(normalizedQuery)
+    const unitSummaryBoost = broadUnitQuery && chunk.metadata.source.includes('001_resumen_unidades') ? 2.5 : 0
+    const courseOverviewBoost = broadUnitQuery && chunk.metadata.source.includes('000_info_cursada') ? 0.75 : 0
 
-    return matches / Math.max(uniqueQueryTokens.length, 1) + phraseBoost + titleBoost + courseInfoBoost + unitBoost + unitSummaryBoost
+    return matches / Math.max(uniqueQueryTokens.length, 1) + phraseBoost + titleBoost + courseInfoBoost + unitBoost + unitSummaryBoost + courseOverviewBoost
 }
 
 function chunkMatchesRequestedUnit(requestedUnit: string, chunk: KnowledgeChunk): boolean {
@@ -253,12 +255,17 @@ function chunkMatchesRequestedUnit(requestedUnit: string, chunk: KnowledgeChunk)
 }
 
 function isBroadUnitQuery(normalizedQuery: string): boolean {
+    if (/^(?:y\s+)?(?:la\s+)?(?:unidad|unit|u)\s*_?\s*[1-9]\??$/.test(normalizedQuery.trim())) {
+        return true
+    }
+
     return [
         'resumir',
         'resumen',
         'temas',
         'contenido',
         'contenidos',
+        'unidad',
         'que vamos',
         'que vemos',
         'de que trata',
